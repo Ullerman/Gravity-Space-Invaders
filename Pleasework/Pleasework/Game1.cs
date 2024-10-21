@@ -376,22 +376,15 @@ namespace Pleasework
                     4
                 );
             }
+            rocketmomentum = GravityCalculation(
+                moonposition,
+                rocketposition,
+                rocketmomentum,
+                gravityOffset,
+                4
+            );
 
-            Vector2 moondirection = moonposition - rocketposition;
-            float moondistance = moondirection.Length();
 
-            if (moondistance > .1f)
-            {
-                moondirection.Normalize();
-                Vector2 gravitystrength =
-                    moondirection
-                    * (
-                        Constants.GRAVITATIONALSTRENGTH
-                        * 4
-                        / ((moondistance + gravityOffset) * (moondistance + gravityOffset))
-                    );
-                rocketmomentum += gravitystrength;
-            }
 
             rocketangle += (float)(angularVelocity * deltatime);
             angularVelocity *= angularFriction;
