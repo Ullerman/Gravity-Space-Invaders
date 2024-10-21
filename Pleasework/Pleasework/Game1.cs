@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -320,23 +321,60 @@ namespace Pleasework
             }
         }
 
-        private void Physics(double deltatime)
+        private Vector2 GravityCalculation(
+            Vector2 gravitysourcepos,
+            Vector2 objectpos,
+            Vector2 objectmomentum,
+            float offset,
+            float multiplier
+        )
         {
-            Vector2 earthdirection = earthposition - rocketposition;
-            float earthdistance = earthdirection.Length();
-            float gravityOffset = 100f;
-
-            if (earthdistance > .1f)
+            Vector2 gravitystrength;
+            Vector2 direction = gravitysourcepos - objectpos;
+            float distance = direction.Length();
+            if (distance > .1f)
             {
-                earthdirection.Normalize();
-                Vector2 gravitystrength =
-                    earthdirection
+                direction.Normalize();
+                gravitystrength =
+                    direction
                     * (
                         Constants.GRAVITATIONALSTRENGTH
-                        * 6
-                        / ((earthdistance + gravityOffset) * (earthdistance + gravityOffset))
+                        * multiplier
+                        / ((distance + offset) * (distance + offset))
                     );
-                rocketmomentum += gravitystrength;
+                objectmomentum += gravitystrength;
+            }
+
+            return objectmomentum;
+        }
+
+        private void Physics(double deltatime)
+        {
+            float gravityOffset = 100f;
+
+            rocketmomentum = GravityCalculation(
+                earthposition,
+                rocketposition,
+                rocketmomentum,
+                gravityOffset,
+                6
+            );
+            foreach (Bullet bullet in Bulletlist)
+            {
+                bullet.momentum = GravityCalculation(
+                    earthposition,
+                    bullet.position,
+                    bullet.momentum,
+                    gravityOffset,
+                    6
+                );
+                bullet.momentum = GravityCalculation(
+                    moonposition,
+                    bullet.position,
+                    bullet.momentum,
+                    gravityOffset,
+                    4
+                );
             }
 
             Vector2 moondirection = moonposition - rocketposition;
