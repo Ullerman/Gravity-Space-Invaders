@@ -1,0 +1,98 @@
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.AssemblyReference.cache
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.AssemblyInfoInputs.cache
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.AssemblyInfo.cs
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.CoreCompileInputs.cache
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Content\bullet.xnb
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Content\coin.xnb
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Content\Earth.xnb
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Content\moon.xnb
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Content\rocket.xnb
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.exe
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.deps.json
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.runtimeconfig.json
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.pdb
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\MonoGame.Framework.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\linux-x64\native\libSDL2-2.0.so.0
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\linux-x64\native\libopenal.so.1
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\osx\native\libSDL2.dylib
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\osx\native\libopenal.1.dylib
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x64\native\SDL2.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x64\native\soft_oal.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x86\native\SDL2.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x86\native\soft_oal.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.Up2Date
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\refint\Pleasework.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.pdb
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.genruntimeconfig.cache
+C:\Users\Leon\source\repos\Pleasework\Pleasework\obj\Debug\net6.0\ref\Pleasework.dll
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Content\Invader1.xnb
+C:\Users\Leon\source\repos\Pleasework\Pleasework\bin\Debug\net6.0\Content\Invader2.xnb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Content\bullet.xnb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Content\coin.xnb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Content\Earth.xnb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Content\Invader1.xnb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Content\Invader2.xnb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Content\moon.xnb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Content\rocket.xnb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.exe
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.deps.json
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.runtimeconfig.json
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.pdb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\MonoGame.Framework.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\linux-x64\native\libSDL2-2.0.so.0
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\linux-x64\native\libopenal.so.1
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\osx\native\libSDL2.dylib
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\osx\native\libopenal.1.dylib
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x64\native\SDL2.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x64\native\soft_oal.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x86\native\SDL2.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x86\native\soft_oal.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.AssemblyReference.cache
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.AssemblyInfoInputs.cache
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.AssemblyInfo.cs
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.CoreCompileInputs.cache
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.Up2Date
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\refint\Pleasework.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.pdb
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.genruntimeconfig.cache
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\obj\Debug\net6.0\ref\Pleasework.dll
+C:\Users\Leon\OneDrive - Rodillian Multi Academy Trust\Documents\Pleasework\Pleasework\bin\Debug\net6.0\Content\File.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Content\bullet.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Content\coin.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Content\Earth.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Content\File.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Content\Invader1.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Content\Invader2.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Content\moon.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Content\rocket.xnb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.exe
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.deps.json
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.runtimeconfig.json
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.dll
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.pdb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\MonoGame.Framework.dll
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\linux-x64\native\libSDL2-2.0.so.0
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\linux-x64\native\libopenal.so.1
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\osx\native\libSDL2.dylib
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\osx\native\libopenal.1.dylib
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x64\native\SDL2.dll
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x64\native\soft_oal.dll
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x86\native\SDL2.dll
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\bin\Debug\net6.0\runtimes\win-x86\native\soft_oal.dll
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.AssemblyReference.cache
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.AssemblyInfoInputs.cache
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.AssemblyInfo.cs
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.CoreCompileInputs.cache
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.csproj.Up2Date
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.dll
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\refint\Pleasework.dll
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.pdb
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.genruntimeconfig.cache
+C:\Users\leonp\Downloads\Pleasework\Pleasework\Pleasework\obj\Debug\net6.0\ref\Pleasework.dll

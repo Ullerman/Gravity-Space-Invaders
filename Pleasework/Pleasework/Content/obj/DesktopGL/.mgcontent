@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Leon/OneDrive - Rodillian Multi Academy Trust/Documents/Pleasework/Pleasework/Content/bullet.png</File>
+    <File>C:/Users/Leon/OneDrive - Rodillian Multi Academy Trust/Documents/Pleasework/Pleasework/Content/coin.png</File>
+    <File>C:/Users/Leon/OneDrive - Rodillian Multi Academy Trust/Documents/Pleasework/Pleasework/Content/Earth.png</File>
+    <File>C:/Users/Leon/OneDrive - Rodillian Multi Academy Trust/Documents/Pleasework/Pleasework/Content/File.spritefont</File>
+    <File>C:/Users/Leon/OneDrive - Rodillian Multi Academy Trust/Documents/Pleasework/Pleasework/Content/Invader1.png</File>
+    <File>C:/Users/Leon/OneDrive - Rodillian Multi Academy Trust/Documents/Pleasework/Pleasework/Content/Invader2.png</File>
+    <File>C:/Users/Leon/OneDrive - Rodillian Multi Academy Trust/Documents/Pleasework/Pleasework/Content/moon.png</File>
+    <File>C:/Users/Leon/OneDrive - Rodillian Multi Academy Trust/Documents/Pleasework/Pleasework/Content/rocket.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
