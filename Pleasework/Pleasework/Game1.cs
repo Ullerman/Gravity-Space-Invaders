@@ -256,6 +256,8 @@ namespace Pleasework
                 List<Invader> removeinvader = new List<Invader>();
                 foreach (Bullet bullet in Bulletlist)
                 {
+                    bullet.position += bullet.momentum;
+                    bullet.angle = (float)(MathF.Atan2(bullet.momentum.X, bullet.momentum.Y)+Math.PI / 2);
                     Rectangle bulletrect = new Rectangle(
                         (int)bullet.position.X,
                         (int)bullet.position.Y,
@@ -510,6 +512,8 @@ namespace Pleasework
             Color mycolour = new Color(r, g, b);
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            Vector2 cameraoffset = (-rocketposition
+                    + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2));
             _spriteBatch.Begin();
             RocketRectangle = new Rectangle(
                 (int)rocketposition.X,
@@ -519,9 +523,8 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 earthTexture,
-                earthposition
-                    - rocketposition
-                    + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
+                earthposition +
+                    cameraoffset,
                 null,
                 Color.White,
                 0,
@@ -532,9 +535,8 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 moontexture,
-                moonposition
-                    - rocketposition
-                    + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
+                moonposition +
+                    cameraoffset,
                 null,
                 Color.White,
                 0,
@@ -546,9 +548,8 @@ namespace Pleasework
 
             _spriteBatch.Draw(
                 thingtexture,
-                thingposition
-                    - rocketposition
-                    + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
+                thingposition +
+                    cameraoffset,
                 null,
                 Color.White,
                 0,
@@ -559,9 +560,8 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 rockettexure,
-                rocketposition
-                    - rocketposition
-                    + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
+                rocketposition +
+                    cameraoffset,
                 null,
                 Color.White,
                 rocketangle,
@@ -576,7 +576,7 @@ namespace Pleasework
                 foreach (Bullet bullet in Bulletlist)
                 {
                     ;
-                    bullet.position += bullet.momentum;
+                    
                     _spriteBatch.Draw(
                         bullettexure,
                         bullet.position
@@ -584,7 +584,7 @@ namespace Pleasework
                             + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
                         null,
                         Color.White,
-                        bullet.angle - 3.14f / 2,
+                        bullet.angle,
                         new Vector2(bullettexure.Width / 2, bullettexure.Height / 2),
                         bulletscale,
                         SpriteEffects.None,
