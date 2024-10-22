@@ -221,7 +221,7 @@ namespace Pleasework
 
             if (kstate.IsKeyDown(Keys.Space) || gamepadState.Buttons.A == ButtonState.Pressed)
             {
-                FireBullet();
+                FireBullet(rocketposition,rocketangle,rocketmomentum);
             }
 
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
@@ -232,20 +232,20 @@ namespace Pleasework
             }
         }
 
-        private void FireBullet(Vector2 positon, float angle)
+        private void FireBullet(Vector2 position, float fireangle, Vector2 velocity)
         {
             if (bulletdelay.IsFinished() || !bulletdelay.IsRunning())
             {
                 Bullet bullet = new Bullet();
 
-                float angle = rocketangle + rnd.Next(-60, 60) / 100;
+                float angle = fireangle + rnd.Next(-60, 60) / 100;
                 float triangleAngle = (float)(angle - Math.PI / 2);
 
-                bullet.position = rocketposition;
+                bullet.position = position;
                 bullet.angle = angle;
                 bullet.momentum = new Vector2(
-                    (float)(Math.Cos(triangleAngle) * bulletdefaultspeed + rocketmomentum.X),
-                    (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + rocketmomentum.Y)
+                    (float)(Math.Cos(triangleAngle) * bulletdefaultspeed + velocity.X),
+                    (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + velocity.Y)
                 );
                 Bulletlist.Add(bullet);
 
