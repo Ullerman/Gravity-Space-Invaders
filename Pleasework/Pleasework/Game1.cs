@@ -222,7 +222,7 @@ namespace Pleasework
 
             if (kstate.IsKeyDown(Keys.Space) || gamepadState.Buttons.A == ButtonState.Pressed)
             {
-                FireBullet(rocketposition, rocketangle, rocketmomentum);
+                FireBullet(rocketposition, rocketangle, rocketmomentum, RocketRectangle, i);
             }
 
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
@@ -237,8 +237,8 @@ namespace Pleasework
             Vector2 position,
             float fireangle,
             Vector2 velocity,
-            Rectangle selfrect,
-            Rectangle enemeyrect
+            ref Rectangle selfrect,
+            ref Rectangle enemyrect
         )
         {
             if (bulletdelay.IsFinished() || !bulletdelay.IsRunning())
@@ -255,7 +255,7 @@ namespace Pleasework
                     (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + velocity.Y)
                 );
                 bullet.selfrect = selfrect;
-                bullet.enemyrect = enemeyrect;
+                bullet.enemyrect = enemyrect;
                 Bulletlist.Add(bullet);
 
                 bulletdelay.Start();
