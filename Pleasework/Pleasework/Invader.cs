@@ -27,6 +27,9 @@ public class Bullet
     public float angle;
     public Vector2 momentum;
     
+    public Rectangle selfrect;
+
+    public Rectangle enemyrect;
     public Bullet()
     {
 

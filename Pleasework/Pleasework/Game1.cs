@@ -138,9 +138,10 @@ namespace Pleasework
             earthscale = new Vector2(.25f, .25f);
 
             invaderlist = new List<Invader>();
-            foreach (Invader invader in invaderlist)
+            for (int i = 0; i <= 10; i++)
             {
                 invaderlist.Add(new Invader());
+                Invader invader = invaderlist[i];
                 invader.Texture = Invader1Texture;
                 invader.Position = new Vector2(
                     rnd.Next(0, Constants.SCREENWIDTH),
@@ -221,7 +222,7 @@ namespace Pleasework
 
             if (kstate.IsKeyDown(Keys.Space) || gamepadState.Buttons.A == ButtonState.Pressed)
             {
-                FireBullet(rocketposition,rocketangle,rocketmomentum);
+                FireBullet(rocketposition, rocketangle, rocketmomentum);
             }
 
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
@@ -232,7 +233,13 @@ namespace Pleasework
             }
         }
 
-        private void FireBullet(Vector2 position, float fireangle, Vector2 velocity)
+        private void FireBullet(
+            Vector2 position,
+            float fireangle,
+            Vector2 velocity,
+            Rectangle selfrect,
+            Rectangle enemeyrect
+        )
         {
             if (bulletdelay.IsFinished() || !bulletdelay.IsRunning())
             {
@@ -247,6 +254,8 @@ namespace Pleasework
                     (float)(Math.Cos(triangleAngle) * bulletdefaultspeed + velocity.X),
                     (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + velocity.Y)
                 );
+                bullet.selfrect = selfrect;
+                bullet.enemyrect = enemeyrect;
                 Bulletlist.Add(bullet);
 
                 bulletdelay.Start();
@@ -497,10 +506,10 @@ namespace Pleasework
                         invader.SightRadius,
                         RocketRectangle
                     )
-                ) { 
-                    
-
-
+                )
+                {
+                    float angle = CalculateAngleBetweenPoints(invader.Position, rocketposition);
+                    FireBullet(invader.Position, angle, Vector2.Zero);
                 }
             }
         }
