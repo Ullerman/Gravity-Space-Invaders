@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Earth.png</SourceFile>
+  <SourceFile>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Earth.png</SourceFile>
   <SourceTime>2024-10-21T16:19:00+01:00</SourceTime>
-  <DestFile>C:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/bin/DesktopGL/Content/Earth.xnb</DestFile>
-  <DestTime>2024-10-21T19:37:29.6754304+01:00</DestTime>
+  <DestFile>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/bin/DesktopGL/Content/Earth.xnb</DestFile>
+  <DestTime>2024-10-22T11:19:30.6618314+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T12:44:56+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

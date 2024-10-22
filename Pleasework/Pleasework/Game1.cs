@@ -16,8 +16,13 @@ public class Constants
     public const float GRAVITATIONALSTRENGTH = 7000f;
 }
 
+// public bool isEven(int num) {
+    
+// }
+
 namespace Pleasework
 {
+
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -83,8 +88,8 @@ namespace Pleasework
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _graphics.IsFullScreen = false;
-            //IsFixedTimeStep = false;
-            //_graphics.SynchronizeWithVerticalRetrace = false;
+            // IsFixedTimeStep = false;
+            // _graphics.SynchronizeWithVerticalRetrace = false;
 
             _graphics.PreferredBackBufferWidth = Constants.SCREENWIDTH;
             _graphics.PreferredBackBufferHeight = Constants.SCREENHEIGHT;
@@ -261,8 +266,8 @@ namespace Pleasework
                     Rectangle bulletrect = new Rectangle(
                         (int)bullet.position.X,
                         (int)bullet.position.Y,
-                        bullettexure.Width,
-                        bullettexure.Height
+                        (int)(bullettexure.Width*bulletscale),
+                        (int)(bullettexure.Height*bulletscale)
                     );
 
                     if (
@@ -277,7 +282,7 @@ namespace Pleasework
                     {
                         if (
                             invader.rectangle.Intersects(bulletrect)
-                            & RocketRectangle.Intersects(bulletrect)
+                            & !RocketRectangle.Intersects(bulletrect)
                         )
                         {
                             removebullets.Add(bullet);
@@ -408,7 +413,7 @@ namespace Pleasework
             {
                 Vector2 collisionNormal = rocketposition - earthcentre;
                 collisionNormal.Normalize();
-
+                rocketmomentum *= friction;
                 float penetration = earthradius - (rocketposition - earthcentre).Length();
                 if (penetration > 0)
                 {
