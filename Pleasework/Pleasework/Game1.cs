@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.Intrinsics.X86;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,12 +18,11 @@ public class Constants
 }
 
 // public bool isEven(int num) {
-    
+
 // }
 
 namespace Pleasework
 {
-
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -138,19 +138,20 @@ namespace Pleasework
             earthscale = new Vector2(.25f, .25f);
 
             invaderlist = new List<Invader>();
-            for (int i = 0; i < 10; i++)
+            foreach (Invader invader in invaderlist)
             {
                 invaderlist.Add(new Invader());
-                invaderlist[i].Texture = Invader1Texture;
-                invaderlist[i].Position = new Vector2(
+                invader.Texture = Invader1Texture;
+                invader.Position = new Vector2(
                     rnd.Next(0, Constants.SCREENWIDTH),
                     rnd.Next(0, Constants.SCREENHEIGHT)
                 );
-                invaderlist[i].Scale = new Vector2(1, 1);
-                invaderlist[i].angle = rnd.Next(0, 200);
-                invaderlist[i].anglularvelocity = 0.01f;
-                invaderlist[i].Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
-                invaderlist[i].OrbitRadius = rnd.Next(200, 800);
+                invader.Scale = new Vector2(1, 1);
+                invader.angle = rnd.Next(0, 200);
+                invader.anglularvelocity = 0.01f;
+                invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
+                invader.OrbitRadius = rnd.Next(200, 800);
+                invader.SightRadius = rnd.Next(100, 300);
             }
             _graphics.ApplyChanges();
 
@@ -231,7 +232,7 @@ namespace Pleasework
             }
         }
 
-        private void FireBullet()
+        private void FireBullet(Vector2 positon, float angle)
         {
             if (bulletdelay.IsFinished() || !bulletdelay.IsRunning())
             {
@@ -262,16 +263,18 @@ namespace Pleasework
                 foreach (Bullet bullet in Bulletlist)
                 {
                     bullet.position += bullet.momentum;
-                    bullet.angle = (float)(MathF.Atan2(bullet.momentum.X, bullet.momentum.Y)+Math.PI / 2);
+                    bullet.angle = (float)(
+                        MathF.Atan2(bullet.momentum.X, bullet.momentum.Y) + Math.PI / 2
+                    );
                     Rectangle bulletrect = new Rectangle(
                         (int)bullet.position.X,
                         (int)bullet.position.Y,
-                        (int)(bullettexure.Width*bulletscale),
-                        (int)(bullettexure.Height*bulletscale)
+                        (int)(bullettexure.Width * bulletscale),
+                        (int)(bullettexure.Height * bulletscale)
                     );
 
                     if (
-                        isrocketcollidingwithearth(earthposition, earthradius, bulletrect)
+                        IsRectCollidingWithCircle(earthposition, earthradius, bulletrect)
                         & !RocketRectangle.Intersects(bulletrect)
                     )
                     {
@@ -391,8 +394,6 @@ namespace Pleasework
                 4
             );
 
-
-
             rocketangle += (float)(angularVelocity * deltatime);
             angularVelocity *= angularFriction;
 
@@ -409,7 +410,7 @@ namespace Pleasework
             Vector2 earthcentre = earthposition;
             float earthradius = (earthTexture.Width * earthscale.X) / 2 - 5;
 
-            if (isrocketcollidingwithearth(earthcentre, earthradius, rocketRect))
+            if (IsRectCollidingWithCircle(earthcentre, earthradius, rocketRect))
             {
                 Vector2 collisionNormal = rocketposition - earthcentre;
                 collisionNormal.Normalize();
@@ -460,7 +461,7 @@ namespace Pleasework
             //b++;
         }
 
-        private bool isrocketcollidingwithearth(
+        private bool IsRectCollidingWithCircle(
             Vector2 circleCenter,
             float circleRadius,
             Rectangle rect
@@ -474,6 +475,34 @@ namespace Pleasework
 
             float distance = (distanceX * distanceX + distanceY * distanceY);
             return distance <= (circleRadius * circleRadius);
+        }
+
+        private float CalculateAngleBetweenPoints(Vector2 point1, Vector2 point2)
+        {
+            float deltaX = point2.X - point1.X;
+            float deltaY = point2.Y - point1.Y;
+
+            float angle = MathF.Atan2(deltaX, deltaY);
+
+            return angle;
+        }
+
+        private void InvaderCompute()
+        {
+            foreach (Invader invader in invaderlist)
+            {
+                if (
+                    IsRectCollidingWithCircle(
+                        invader.Position,
+                        invader.SightRadius,
+                        RocketRectangle
+                    )
+                ) { 
+                    
+
+
+                }
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -497,17 +526,15 @@ namespace Pleasework
             moonangle += moonanglularvelocity;
             moonposition.X = earthposition.X + (float)(moonorbitradius * Math.Cos(moonangle));
             moonposition.Y = earthposition.Y + (float)(moonorbitradius * Math.Sin(moonangle));
-            for (int i = 0; i < invaderlist.Count; i++)
+            foreach (Invader invader in invaderlist)
             {
-                invaderlist[i].angle += invaderlist[i].anglularvelocity;
-                invaderlist[i].Position.X =
-                    earthposition.X
-                    + (float)(invaderlist[i].OrbitRadius * Math.Cos(invaderlist[i].angle));
-                invaderlist[i].Position.Y =
-                    earthposition.Y
-                    + (float)(invaderlist[i].OrbitRadius * Math.Sin(invaderlist[i].angle));
-                invaderlist[i].rectangle.X = (int)invaderlist[i].Position.X;
-                invaderlist[i].rectangle.Y = (int)invaderlist[i].Position.Y;
+                invader.angle += invader.anglularvelocity;
+                invader.Position.X =
+                    earthposition.X + (float)(invader.OrbitRadius * Math.Cos(invader.angle));
+                invader.Position.Y =
+                    earthposition.Y + (float)(invader.OrbitRadius * Math.Sin(invader.angle));
+                invader.rectangle.X = (int)invader.Position.X;
+                invader.rectangle.Y = (int)invader.Position.Y;
             }
             base.Update(gameTime);
         }
@@ -517,8 +544,9 @@ namespace Pleasework
             Color mycolour = new Color(r, g, b);
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            Vector2 cameraoffset = (-rocketposition
-                    + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2));
+            Vector2 cameraoffset = (
+                -rocketposition + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
+            );
             _spriteBatch.Begin();
             RocketRectangle = new Rectangle(
                 (int)rocketposition.X,
@@ -528,8 +556,7 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 earthTexture,
-                earthposition +
-                    cameraoffset,
+                earthposition + cameraoffset,
                 null,
                 Color.White,
                 0,
@@ -540,8 +567,7 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 moontexture,
-                moonposition +
-                    cameraoffset,
+                moonposition + cameraoffset,
                 null,
                 Color.White,
                 0,
@@ -553,8 +579,7 @@ namespace Pleasework
 
             _spriteBatch.Draw(
                 thingtexture,
-                thingposition +
-                    cameraoffset,
+                thingposition + cameraoffset,
                 null,
                 Color.White,
                 0,
@@ -565,8 +590,7 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 rockettexure,
-                rocketposition +
-                    cameraoffset,
+                rocketposition + cameraoffset,
                 null,
                 Color.White,
                 rocketangle,
@@ -581,7 +605,7 @@ namespace Pleasework
                 foreach (Bullet bullet in Bulletlist)
                 {
                     ;
-                    
+
                     _spriteBatch.Draw(
                         bullettexure,
                         bullet.position
@@ -598,25 +622,25 @@ namespace Pleasework
                 }
             }
 
-            for (int i = 0; i < invaderlist.Count(); i++)
+            foreach (Invader invader in invaderlist)
             {
-                invaderlist[i].rectangle = new Rectangle(
-                    (int)invaderlist[i].Position.X,
-                    (int)invaderlist[i].Position.Y,
-                    (int)(Invader1Texture.Width * invaderlist[i].Scale.X),
-                    (int)(Invader1Texture.Height * invaderlist[i].Scale.Y)
+                invader.rectangle = new Rectangle(
+                    (int)invader.Position.X,
+                    (int)invader.Position.Y,
+                    (int)(Invader1Texture.Width * invader.Scale.X),
+                    (int)(Invader1Texture.Height * invader.Scale.Y)
                 );
 
                 _spriteBatch.Draw(
                     Invader1Texture,
-                    invaderlist[i].Position
+                    invader.Position
                         - rocketposition
                         + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
                     null,
-                    invaderlist[i].Color,
+                    invader.Color,
                     0,
                     new Vector2(0, 0),
-                    invaderlist[i].Scale,
+                    invader.Scale,
                     SpriteEffects.None,
                     0
                 );

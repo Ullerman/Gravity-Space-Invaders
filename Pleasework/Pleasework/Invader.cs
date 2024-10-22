@@ -13,6 +13,7 @@ public class Invader
     public byte numberofpointsgiven;
     public float angle;
     public float anglularvelocity;
+    public float SightRadius;
     public Rectangle rectangle;
 
     public Invader()
