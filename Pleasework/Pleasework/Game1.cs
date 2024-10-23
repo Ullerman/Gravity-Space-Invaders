@@ -138,22 +138,7 @@ namespace Pleasework
             earthscale = new Vector2(.25f, .25f);
 
             invaderlist = new List<Invader>();
-            for (int i = 0; i <= 10; i++)
-            {
-                invaderlist.Add(new Invader());
-                Invader invader = invaderlist[i];
-                invader.Texture = Invader1Texture;
-                invader.Position = new Vector2(
-                    rnd.Next(0, Constants.SCREENWIDTH),
-                    rnd.Next(0, Constants.SCREENHEIGHT)
-                );
-                invader.Scale = new Vector2(1, 1);
-                invader.angle = rnd.Next(0, 200);
-                invader.anglularvelocity = 0.01f;
-                invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
-                invader.OrbitRadius = rnd.Next(200, 800);
-                invader.SightRadius = rnd.Next(100, 300);
-            }
+            
             _graphics.ApplyChanges();
 
             base.Initialize();
@@ -222,7 +207,7 @@ namespace Pleasework
 
             if (kstate.IsKeyDown(Keys.Space) || gamepadState.Buttons.A == ButtonState.Pressed)
             {
-                FireBullet(rocketposition, rocketangle, rocketmomentum, RocketRectangle, i);
+                FireBullet(rocketposition, rocketangle, rocketmomentum, ref RocketRectangle, ref invaderlist);
             }
 
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
@@ -238,7 +223,7 @@ namespace Pleasework
             float fireangle,
             Vector2 velocity,
             ref Rectangle selfrect,
-            ref Rectangle enemyrect
+            ref List<Invader> enemyrectlist
         )
         {
             if (bulletdelay.IsFinished() || !bulletdelay.IsRunning())
@@ -255,6 +240,34 @@ namespace Pleasework
                     (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + velocity.Y)
                 );
                 bullet.selfrect = selfrect;
+                bullet.enemyrectlist = enemyrectlist;
+                Bulletlist.Add(bullet);
+
+                bulletdelay.Start();
+            }
+        }
+        private void FireBullet(
+            Vector2 position,
+            float fireangle,
+            Vector2 velocity,
+            ref List<Invader> selfrectlist,
+            ref Rectangle enemyrect
+        )
+        {
+            if (bulletdelay.IsFinished() || !bulletdelay.IsRunning())
+            {
+                Bullet bullet = new Bullet();
+
+                float angle = fireangle + rnd.Next(-60, 60) / 100;
+                float triangleAngle = (float)(angle - Math.PI / 2);
+
+                bullet.position = position;
+                bullet.angle = angle;
+                bullet.momentum = new Vector2(
+                    (float)(Math.Cos(triangleAngle) * bulletdefaultspeed + velocity.X),
+                    (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + velocity.Y)
+                );
+                bullet.selfrectlist = selfrectlist;
                 bullet.enemyrect = enemyrect;
                 Bulletlist.Add(bullet);
 
@@ -289,18 +302,35 @@ namespace Pleasework
                     {
                         removebullets.Add(bullet);
                     }
-
-                    foreach (Invader invader in invaderlist)
+                    if (bullet.enemyrectlist != null)
                     {
-                        if (
-                            invader.rectangle.Intersects(bulletrect)
-                            & !RocketRectangle.Intersects(bulletrect)
-                        )
+                        foreach (Invader enemy in bullet.enemyrectlist)
                         {
-                            removebullets.Add(bullet);
-                            removeinvader.Add(invader);
+                            if (
+                                enemy.rectangle.Intersects(bulletrect)
+                                & !bullet.selfrect.Intersects(bulletrect)
+                            )
+                            {
+                                removebullets.Add(bullet);
+                                removeinvader.Add(enemy);
+                            }
                         }
                     }
+                    else
+                    {
+                        foreach (Invader self in bullet.selfrectlist)
+                        {
+                            if (
+                                bullet.selfrect.Intersects(bulletrect)
+                                & !self.rectangle.Intersects(bulletrect)
+                            )
+                            {
+                                removebullets.Add(bullet);
+                                //removeinvader.Add(enemy);
+                            }
+                        }
+                    }
+
                 }
                 foreach (Bullet bullet in removebullets)
                 {
@@ -366,7 +396,25 @@ namespace Pleasework
 
             return objectmomentum;
         }
-
+        private void SpawnInvaders()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                invaderlist.Add(new Invader());
+                Invader invader = invaderlist[i];
+                invader.Texture = Invader1Texture;
+                invader.Position = new Vector2(
+                    rnd.Next(0, Constants.SCREENWIDTH),
+                    rnd.Next(0, Constants.SCREENHEIGHT)
+                );
+                invader.Scale = new Vector2(1, 1);
+                invader.angle = rnd.Next(0, 200);
+                invader.anglularvelocity = 0.01f;
+                invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
+                invader.OrbitRadius = rnd.Next(200, 800);
+                invader.SightRadius = rnd.Next(100, 300);
+            }
+        }
         private void Physics(double deltatime)
         {
             float gravityOffset = 100f;
@@ -509,7 +557,7 @@ namespace Pleasework
                 )
                 {
                     float angle = CalculateAngleBetweenPoints(invader.Position, rocketposition);
-                    FireBullet(invader.Position, angle, Vector2.Zero);
+                    FireBullet(invader.Position, angle, Vector2.Zero,ref invaderlist,ref RocketRectangle);
                 }
             }
         }
@@ -525,11 +573,15 @@ namespace Pleasework
                 Exit();
 
             Coin();
-
+            if (invaderlist.Count == 0)
+            {
+                SpawnInvaders();
+            }
             bulletdelay.Update(gameTime);
             KeyHandling();
             Physics(deltatime);
             UpdateBullet();
+            InvaderCompute();
             BackroundColour();
 
             moonangle += moonanglularvelocity;

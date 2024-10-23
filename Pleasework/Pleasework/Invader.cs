@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -28,8 +29,10 @@ public class Bullet
     public Vector2 momentum;
     
     public Rectangle selfrect;
+    public List<Invader> selfrectlist;
 
     public Rectangle enemyrect;
+    public List<Invader> enemyrectlist;
     public Bullet()
     {
 
