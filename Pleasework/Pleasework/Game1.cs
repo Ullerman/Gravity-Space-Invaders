@@ -55,13 +55,16 @@ namespace Pleasework
         float angularFriction;
         Vector2 rocketscale;
         Rectangle RocketRectangle;
+        int rockethealth;
+        
+        Texture2D HealthTexture;
 
         Texture2D bullettexure;
         List<Bullet> Bulletlist;
 
         float bulletdefaultspeed;
         float bulletscale;
-        Timer bulletdelay;
+        Timer rocketbulletdelay;
 
         List<Invader> invaderlist;
 
@@ -117,13 +120,15 @@ namespace Pleasework
             angularVelocity = 0f;
             angularAcceleration = 0.09f;
             angularFriction = .99f;
+            rockethealth = 3;
+
 
             bulletscale = 0.125f;
 
             Bulletlist = new List<Bullet>();
 
             bulletdefaultspeed = 10f;
-            bulletdelay = new Timer(0.25f);
+            rocketbulletdelay = new Timer(0.25f);
 
             earthposition = new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2);
 
@@ -138,7 +143,7 @@ namespace Pleasework
             earthscale = new Vector2(.25f, .25f);
 
             invaderlist = new List<Invader>();
-            
+
             _graphics.ApplyChanges();
 
             base.Initialize();
@@ -154,6 +159,7 @@ namespace Pleasework
 
             rockettexure = Content.Load<Texture2D>("rocket");
             bullettexure = Content.Load<Texture2D>("bullet");
+            HealthTexture = Content.Load<Texture2D>("heart");
 
             earthTexture = Content.Load<Texture2D>("earth");
             moontexture = Content.Load<Texture2D>("moon");
@@ -207,7 +213,13 @@ namespace Pleasework
 
             if (kstate.IsKeyDown(Keys.Space) || gamepadState.Buttons.A == ButtonState.Pressed)
             {
-                FireBullet(rocketposition, rocketangle, rocketmomentum, ref RocketRectangle, ref invaderlist);
+                FireBullet(
+                    rocketposition,
+                    rocketangle,
+                    rocketmomentum,
+                    ref RocketRectangle,
+                    ref invaderlist
+                );
             }
 
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
@@ -215,6 +227,7 @@ namespace Pleasework
                 rocketposition = new Vector2(Constants.SCREENWIDTH / 8, Constants.SCREENHEIGHT / 8);
                 rocketmomentum = Vector2.Zero;
                 angularVelocity = 0;
+                rockethealth = 3;
             }
         }
 
@@ -226,7 +239,7 @@ namespace Pleasework
             ref List<Invader> enemyrectlist
         )
         {
-            if (bulletdelay.IsFinished() || !bulletdelay.IsRunning())
+            if (rocketbulletdelay.IsFinished() || !rocketbulletdelay.IsRunning())
             {
                 Bullet bullet = new Bullet();
 
@@ -241,11 +254,13 @@ namespace Pleasework
                 );
                 bullet.selfrect = selfrect;
                 bullet.enemyrectlist = enemyrectlist;
+                bullet.hascollided = false;
                 Bulletlist.Add(bullet);
 
-                bulletdelay.Start();
+                rocketbulletdelay.Start();
             }
         }
+
         private void FireBullet(
             Vector2 position,
             float fireangle,
@@ -254,7 +269,7 @@ namespace Pleasework
             ref Rectangle enemyrect
         )
         {
-            if (bulletdelay.IsFinished() || !bulletdelay.IsRunning())
+            if (rocketbulletdelay.IsFinished() || !rocketbulletdelay.IsRunning())
             {
                 Bullet bullet = new Bullet();
 
@@ -271,7 +286,7 @@ namespace Pleasework
                 bullet.enemyrect = enemyrect;
                 Bulletlist.Add(bullet);
 
-                bulletdelay.Start();
+                rocketbulletdelay.Start();
             }
         }
 
@@ -297,7 +312,7 @@ namespace Pleasework
 
                     if (
                         IsRectCollidingWithCircle(earthposition, earthradius, bulletrect)
-                        & !RocketRectangle.Intersects(bulletrect)
+                        & !RocketRectangle.Intersects(bulletrect )
                     )
                     {
                         removebullets.Add(bullet);
@@ -309,10 +324,12 @@ namespace Pleasework
                             if (
                                 enemy.rectangle.Intersects(bulletrect)
                                 & !bullet.selfrect.Intersects(bulletrect)
+                                & !bullet.hascollided
                             )
                             {
                                 removebullets.Add(bullet);
                                 removeinvader.Add(enemy);
+                                bullet.hascollided = true;
                             }
                         }
                     }
@@ -321,16 +338,18 @@ namespace Pleasework
                         foreach (Invader self in bullet.selfrectlist)
                         {
                             if (
-                                bullet.selfrect.Intersects(bulletrect)
+                                bullet.enemyrect.Intersects(bulletrect)
                                 & !self.rectangle.Intersects(bulletrect)
+                                & !bullet.hascollided
                             )
                             {
                                 removebullets.Add(bullet);
                                 //removeinvader.Add(enemy);
+                                rockethealth -= 1;
+                                bullet.hascollided = true;
                             }
                         }
                     }
-
                 }
                 foreach (Bullet bullet in removebullets)
                 {
@@ -396,6 +415,7 @@ namespace Pleasework
 
             return objectmomentum;
         }
+
         private void SpawnInvaders()
         {
             for (int i = 0; i <= 10; i++)
@@ -411,10 +431,11 @@ namespace Pleasework
                 invader.angle = rnd.Next(0, 200);
                 invader.anglularvelocity = 0.01f;
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
-                invader.OrbitRadius = rnd.Next(200, 800);
+                invader.OrbitRadius = rnd.Next(400, 800);
                 invader.SightRadius = rnd.Next(100, 300);
             }
         }
+
         private void Physics(double deltatime)
         {
             float gravityOffset = 100f;
@@ -557,7 +578,13 @@ namespace Pleasework
                 )
                 {
                     float angle = CalculateAngleBetweenPoints(invader.Position, rocketposition);
-                    FireBullet(invader.Position, angle, Vector2.Zero,ref invaderlist,ref RocketRectangle);
+                    FireBullet(
+                        invader.Position,
+                        angle + MathF.PI,
+                        Vector2.Zero,
+                        ref invaderlist,
+                        ref RocketRectangle
+                    );
                 }
             }
         }
@@ -577,7 +604,7 @@ namespace Pleasework
             {
                 SpawnInvaders();
             }
-            bulletdelay.Update(gameTime);
+            rocketbulletdelay.Update(gameTime);
             KeyHandling();
             Physics(deltatime);
             UpdateBullet();
@@ -707,9 +734,27 @@ namespace Pleasework
                 );
             }
 
+
+            Vector2 heartscale = new Vector2(0.0625f,0.0625f);
+
+            for (int i = 0;i < rockethealth;i++)
+            {
+                _spriteBatch.Draw(
+                    HealthTexture,
+                    new Vector2(HealthTexture.Width*heartscale.X*i, 00),
+                    null,
+                    Color.White,
+                    0,
+                    new Vector2(0,0),
+                    heartscale,
+                    SpriteEffects.None,
+                    0
+                    
+
+                );
+            }
             Vector2 FontOriginx = Vector2.Zero; //arial.MeasureString(xword) / 2;
             Vector2 FontOriginy = Vector2.Zero; //arial.MeasureString(yword) / 2;
-
             _spriteBatch.DrawString(
                 arial,
                 $"X : {Math.Round(rocketposition.X, 3)}",

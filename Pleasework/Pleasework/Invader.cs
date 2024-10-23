@@ -33,6 +33,7 @@ public class Bullet
 
     public Rectangle enemyrect;
     public List<Invader> enemyrectlist;
+    public bool hascollided;
     public Bullet()
     {
 
