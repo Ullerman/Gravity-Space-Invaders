@@ -37,6 +37,12 @@
 /processorParam:TextureFormat=Color
 /build:coin.png
 
+#begin CRT.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:CRT.fx
+
 #begin Earth.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -56,7 +56,7 @@ namespace Pleasework
         Vector2 rocketscale;
         Rectangle RocketRectangle;
         int rockethealth;
-        
+
         Texture2D HealthTexture;
 
         Texture2D bullettexure;
@@ -83,14 +83,17 @@ namespace Pleasework
         float moonangle;
         float moonanglularvelocity;
 
+        Vector2 rocketcameraoffset;
         Random rnd;
+
+        Effect effect;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _graphics.IsFullScreen = false;
+            _graphics.IsFullScreen = true;
             // IsFixedTimeStep = false;
             // _graphics.SynchronizeWithVerticalRetrace = false;
 
@@ -101,6 +104,7 @@ namespace Pleasework
         protected override void Initialize()
         {
             rnd = new Random();
+
 
             r = 0;
             g = 0;
@@ -116,12 +120,11 @@ namespace Pleasework
             rocketmomentum = new Vector2(0, 0);
             rocketangle = 0f;
             velocity = 0.5f;
-            friction = 1f; // .1f;
+            friction = 0.99f; // .1f;
             angularVelocity = 0f;
             angularAcceleration = 0.09f;
             angularFriction = .99f;
             rockethealth = 3;
-
 
             bulletscale = 0.125f;
 
@@ -139,10 +142,12 @@ namespace Pleasework
             moonorbitradius = 500f;
 
             coinscale = new Vector2(.125f, .125f);
-            rocketscale = new Vector2(.125f, .125f);
+            rocketscale = new Vector2(.0625f, .0625f);
             earthscale = new Vector2(.25f, .25f);
 
             invaderlist = new List<Invader>();
+
+            rocketcameraoffset = Vector2.Zero;
 
             _graphics.ApplyChanges();
 
@@ -155,6 +160,8 @@ namespace Pleasework
 
             arial = Content.Load<SpriteFont>("File");
 
+            effect = Content.Load<Effect>("CRT");
+
             thingtexture = Content.Load<Texture2D>("coin");
 
             rockettexure = Content.Load<Texture2D>("rocket");
@@ -166,6 +173,7 @@ namespace Pleasework
 
             Invader1Texture = Content.Load<Texture2D>("Invader1");
         }
+
 
         private void KeyHandling()
         {
@@ -218,7 +226,8 @@ namespace Pleasework
                     rocketangle,
                     rocketmomentum,
                     ref RocketRectangle,
-                    ref invaderlist
+                    ref invaderlist,
+                    ref rocketbulletdelay
                 );
             }
 
@@ -236,10 +245,11 @@ namespace Pleasework
             float fireangle,
             Vector2 velocity,
             ref Rectangle selfrect,
-            ref List<Invader> enemyrectlist
+            ref List<Invader> enemyrectlist,
+            ref Timer delay
         )
         {
-            if (rocketbulletdelay.IsFinished() || !rocketbulletdelay.IsRunning())
+            if (delay.IsFinished() || !delay.IsRunning())
             {
                 Bullet bullet = new Bullet();
 
@@ -257,7 +267,7 @@ namespace Pleasework
                 bullet.hascollided = false;
                 Bulletlist.Add(bullet);
 
-                rocketbulletdelay.Start();
+                delay.Start();
             }
         }
 
@@ -266,10 +276,12 @@ namespace Pleasework
             float fireangle,
             Vector2 velocity,
             ref List<Invader> selfrectlist,
-            ref Rectangle enemyrect
+            ref Rectangle enemyrect,
+            ref Timer delay
         )
         {
-            if (rocketbulletdelay.IsFinished() || !rocketbulletdelay.IsRunning())
+            Console.WriteLine(delay.GetRemainingTime() + "" );
+            if (delay.IsFinished() || !delay.IsRunning())
             {
                 Bullet bullet = new Bullet();
 
@@ -286,7 +298,7 @@ namespace Pleasework
                 bullet.enemyrect = enemyrect;
                 Bulletlist.Add(bullet);
 
-                rocketbulletdelay.Start();
+                delay.Start();
             }
         }
 
@@ -312,7 +324,7 @@ namespace Pleasework
 
                     if (
                         IsRectCollidingWithCircle(earthposition, earthradius, bulletrect)
-                        & !RocketRectangle.Intersects(bulletrect )
+                        & !RocketRectangle.Intersects(bulletrect)
                     )
                     {
                         removebullets.Add(bullet);
@@ -433,6 +445,7 @@ namespace Pleasework
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
                 invader.OrbitRadius = rnd.Next(400, 800);
                 invader.SightRadius = rnd.Next(100, 300);
+                invader.delay = new Timer(0.75f);
             }
         }
 
@@ -478,21 +491,14 @@ namespace Pleasework
             rocketposition += rocketmomentum;
             rocketmomentum *= friction;
 
-            Rectangle rocketRect = new Rectangle(
-                (int)rocketposition.X,
-                (int)rocketposition.Y,
-                (int)(rockettexure.Width * rocketscale.X),
-                (int)(rockettexure.Height * rocketscale.Y - 100)
-            );
-
             Vector2 earthcentre = earthposition;
             float earthradius = (earthTexture.Width * earthscale.X) / 2 - 5;
 
-            if (IsRectCollidingWithCircle(earthcentre, earthradius, rocketRect))
+            if (IsRectCollidingWithCircle(earthcentre, earthradius, RocketRectangle))
             {
                 Vector2 collisionNormal = rocketposition - earthcentre;
                 collisionNormal.Normalize();
-                rocketmomentum *= friction;
+                // rocketmomentum *= friction;
                 float penetration = earthradius - (rocketposition - earthcentre).Length();
                 if (penetration > 0)
                 {
@@ -501,11 +507,18 @@ namespace Pleasework
                 if (rocketmomentum.X > 1 || rocketmomentum.Y > 1)
                 {
                     rocketmomentum = Vector2.Reflect(rocketmomentum, collisionNormal) * 0.8f;
-                    angularVelocity = -angularVelocity * 0.5f;
+                    // angularVelocity = -angularVelocity * 0.5f;
                 }
                 if (rocketmomentum.Length() < 0.1f)
                 {
                     //rocketmomentum = Vector2.Zero;
+                }
+                if (
+                    DistancesquaredBetweenpointandrect(RocketRectangle, earthcentre)
+                    < earthradius * earthradius + 36
+                )
+                {
+                    rocketmomentum *= friction;
                 }
             }
         }
@@ -539,19 +552,25 @@ namespace Pleasework
             //b++;
         }
 
+        private float DistancesquaredBetweenpointandrect(Rectangle rectangle, Vector2 point)
+        {
+            float closestX = Math.Clamp(point.X, rectangle.Left, rectangle.Right);
+            float closestY = Math.Clamp(point.Y, rectangle.Top, rectangle.Bottom);
+
+            float distanceX = point.X - closestX;
+            float distanceY = point.Y - closestY;
+
+            float distance = distanceX * distanceX + distanceY * distanceY;
+            return distance;
+        }
+
         private bool IsRectCollidingWithCircle(
             Vector2 circleCenter,
             float circleRadius,
             Rectangle rect
         )
         {
-            float closestX = Math.Clamp(circleCenter.X, rect.Left, rect.Right);
-            float closestY = Math.Clamp(circleCenter.Y, rect.Top, rect.Bottom);
-
-            float distanceX = circleCenter.X - closestX;
-            float distanceY = circleCenter.Y - closestY;
-
-            float distance = (distanceX * distanceX + distanceY * distanceY);
+            float distance = DistancesquaredBetweenpointandrect(rect, circleCenter);
             return distance <= (circleRadius * circleRadius);
         }
 
@@ -583,10 +602,41 @@ namespace Pleasework
                         angle + MathF.PI,
                         Vector2.Zero,
                         ref invaderlist,
-                        ref RocketRectangle
+                        ref RocketRectangle,
+                        ref invader.delay
                     );
                 }
             }
+        }
+
+        private void Camera()
+        {
+            Vector2 targetScreenPosition = new Vector2(
+                Constants.SCREENWIDTH / 2,
+                Constants.SCREENHEIGHT / 2
+            );
+
+            Vector2 rocketScreenPosition = rocketposition + rocketcameraoffset;
+
+            Vector2 directionToCenter = targetScreenPosition - rocketScreenPosition;
+            float distanceX = rocketScreenPosition.X - targetScreenPosition.X;
+            float distanceY = rocketScreenPosition.Y - targetScreenPosition.X;
+            float distance = distanceX * distanceY;
+            float returnSpeed = 0.23f;
+            if (distance > 400 * 400)
+            {
+                rocketcameraoffset = Vector2.Lerp(
+                    rocketcameraoffset,
+                    rocketcameraoffset + directionToCenter,
+                    returnSpeed * 2.5f
+                );
+            }
+            else
+                rocketcameraoffset = Vector2.Lerp(
+                    rocketcameraoffset,
+                    rocketcameraoffset + directionToCenter,
+                    returnSpeed
+                );
         }
 
         protected override void Update(GameTime gameTime)
@@ -624,8 +674,16 @@ namespace Pleasework
                 invader.rectangle.X = (int)invader.Position.X;
                 invader.rectangle.Y = (int)invader.Position.Y;
             }
+
+            Camera();
             base.Update(gameTime);
         }
+        private void DrawWithCrt(Texture2D texture)
+            {
+                effect.Parameters["textureSize"].SetValue(new Vector2(texture.Width, texture.Height));
+
+
+            }
 
         protected override void Draw(GameTime gameTime)
         {
@@ -635,12 +693,23 @@ namespace Pleasework
             Vector2 cameraoffset = (
                 -rocketposition + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
             );
-            _spriteBatch.Begin();
+            
+            // effect.Parameters["videoSize"].SetValue(new Vector2(_graphics.GraphicsDevice.Viewport.Width, _graphics.GraphicsDevice.Viewport.Height));
+            // effect.Parameters["outputSize"].SetValue(new Vector2(_graphics.GraphicsDevice.Viewport.Width, _graphics.GraphicsDevice.Viewport.Height));
+
+            // effect.Parameters["hardScan"].SetValue(-8.0f);
+            // effect.Parameters["hardPix"].SetValue(-3.0f);
+            // effect.Parameters["warp"].SetValue(new Vector2(0.03f, 0.04f));
+            // effect.Parameters["maskDark"].SetValue(0.5f);
+            // effect.Parameters["maskLight"].SetValue(1.5f);
+            // effect.Parameters["bloomAmount"].SetValue(0.1f);
+
+            _spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null);
             RocketRectangle = new Rectangle(
                 (int)rocketposition.X,
                 (int)rocketposition.Y,
                 (int)(rockettexure.Width * rocketscale.X),
-                (int)(rockettexure.Height * rocketscale.Y)
+                (int)(rockettexure.Height * rocketscale.Y - 50)
             );
             _spriteBatch.Draw(
                 earthTexture,
@@ -678,7 +747,7 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 rockettexure,
-                rocketposition + cameraoffset,
+                rocketposition + rocketcameraoffset,
                 null,
                 Color.White,
                 rocketangle,
@@ -696,9 +765,7 @@ namespace Pleasework
 
                     _spriteBatch.Draw(
                         bullettexure,
-                        bullet.position
-                            - rocketposition
-                            + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
+                        bullet.position + cameraoffset,
                         null,
                         Color.White,
                         bullet.angle,
@@ -721,9 +788,7 @@ namespace Pleasework
 
                 _spriteBatch.Draw(
                     Invader1Texture,
-                    invader.Position
-                        - rocketposition
-                        + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
+                    invader.Position + cameraoffset,
                     null,
                     invader.Color,
                     0,
@@ -734,23 +799,20 @@ namespace Pleasework
                 );
             }
 
+            Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
 
-            Vector2 heartscale = new Vector2(0.0625f,0.0625f);
-
-            for (int i = 0;i < rockethealth;i++)
+            for (int i = 0; i < rockethealth; i++)
             {
                 _spriteBatch.Draw(
                     HealthTexture,
-                    new Vector2(HealthTexture.Width*heartscale.X*i, 00),
+                    new Vector2(HealthTexture.Width * heartscale.X * i, 00),
                     null,
                     Color.White,
                     0,
-                    new Vector2(0,0),
+                    new Vector2(0, 0),
                     heartscale,
                     SpriteEffects.None,
                     0
-                    
-
                 );
             }
             Vector2 FontOriginx = Vector2.Zero; //arial.MeasureString(xword) / 2;

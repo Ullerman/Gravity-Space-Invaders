@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/CRT.fx</SourceFile>
+  <SourceTime>2024-10-25T20:04:09.7176212+01:00</SourceTime>
+  <DestFile>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/bin/DesktopGL/CRT.xnb</DestFile>
+  <DestTime>2024-10-25T20:04:13.9652447+01:00</DestTime>
+  <Importer>EffectImporter</Importer>
+  <ImporterTime>2022-07-26T12:44:56+01:00</ImporterTime>
+  <Processor>EffectProcessor</Processor>
+  <ProcessorTime>2022-07-26T12:44:56+01:00</ProcessorTime>
+  <Parameters>
+    <Key>DebugMode</Key>
+    <Value>Auto</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

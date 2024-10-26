@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Pleasework;
 
 public class Invader
 {
@@ -16,6 +16,7 @@ public class Invader
     public float anglularvelocity;
     public float SightRadius;
     public Rectangle rectangle;
+    public Timer delay;
 
     public Invader()
     {
