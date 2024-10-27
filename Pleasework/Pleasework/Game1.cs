@@ -93,7 +93,11 @@ namespace Pleasework
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _graphics.IsFullScreen = true;
+            _graphics.IsFullScreen = false;
+            Window.AllowUserResizing = true;
+            Window.Title = "Asteroid Invader";
+            Window.IsBorderless = false;
+
             // IsFixedTimeStep = false;
             // _graphics.SynchronizeWithVerticalRetrace = false;
 
@@ -175,22 +179,44 @@ namespace Pleasework
         }
 
 
-        private void KeyHandling()
+        private void KeyHandling(GameTime gameTime)
         {
+
             var kstate = Keyboard.GetState();
             var gamepadState = GamePad.GetState(PlayerIndex.One);
 
+            Vector2 leftThumbstick = gamepadState.ThumbSticks.Left;
+            Vector2 rightThumbstick = gamepadState.ThumbSticks.Right;
+
+
+
+            float leftTriggerValue = gamepadState.Triggers.Left;
+            float rightTriggerValue = gamepadState.Triggers.Right;
+
+            angularVelocity += angularAcceleration * leftThumbstick.X;
+
+
+            float triangleAnglecontrol = (float)(rocketangle - Math.PI / 2);
+            rocketmomentum.X += (float)(Math.Cos(triangleAnglecontrol) * velocity)*rightTriggerValue;
+            rocketmomentum.Y += (float)(Math.Sin(triangleAnglecontrol) * velocity)*rightTriggerValue;
+
+            rocketmomentum.X -= (float)(Math.Cos(triangleAnglecontrol) * velocity)*leftTriggerValue;
+            rocketmomentum.Y -= (float)(Math.Sin(triangleAnglecontrol) * velocity)*leftTriggerValue;
+
+
+
             if (
                 kstate.IsKeyDown(Keys.Left)
-                || gamepadState.ThumbSticks.Left.X < -0.5f
+                
                 || kstate.IsKeyDown(Keys.A)
             )
             {
                 angularVelocity -= angularAcceleration;
             }
+        
             if (
                 kstate.IsKeyDown(Keys.Right)
-                || gamepadState.ThumbSticks.Left.X > 0.5f
+                
                 || kstate.IsKeyDown(Keys.D)
             )
             {
@@ -199,7 +225,6 @@ namespace Pleasework
 
             if (
                 kstate.IsKeyDown(Keys.Up)
-                || gamepadState.Triggers.Right > 0.5f
                 || kstate.IsKeyDown(Keys.W)
             )
             {
@@ -227,7 +252,8 @@ namespace Pleasework
                     rocketmomentum,
                     ref RocketRectangle,
                     ref invaderlist,
-                    ref rocketbulletdelay
+                    ref rocketbulletdelay,
+                    gameTime
                 );
             }
 
@@ -246,9 +272,12 @@ namespace Pleasework
             Vector2 velocity,
             ref Rectangle selfrect,
             ref List<Invader> enemyrectlist,
-            ref Timer delay
+            ref Timer delay,
+            GameTime gameTime
         )
         {
+            delay.Update(gameTime);
+
             if (delay.IsFinished() || !delay.IsRunning())
             {
                 Bullet bullet = new Bullet();
@@ -277,12 +306,16 @@ namespace Pleasework
             Vector2 velocity,
             ref List<Invader> selfrectlist,
             ref Rectangle enemyrect,
-            ref Timer delay
+            ref Timer delay,
+            GameTime gameTime
+             
         )
         {
-            Console.WriteLine(delay.GetRemainingTime() + "" );
+            delay.Update(gameTime);
+            // Console.WriteLine(delay.GetRemainingTime() + "" );
             if (delay.IsFinished() || !delay.IsRunning())
             {
+                Console.WriteLine("FIREBULLET");
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
@@ -482,7 +515,7 @@ namespace Pleasework
                 rocketposition,
                 rocketmomentum,
                 gravityOffset,
-                4
+                3.9f
             );
 
             rocketangle += (float)(angularVelocity * deltatime);
@@ -584,7 +617,7 @@ namespace Pleasework
             return angle;
         }
 
-        private void InvaderCompute()
+        private void InvaderCompute(GameTime gameTime)
         {
             foreach (Invader invader in invaderlist)
             {
@@ -596,14 +629,16 @@ namespace Pleasework
                     )
                 )
                 {
+                    // Console.WriteLine("invadersee");
                     float angle = CalculateAngleBetweenPoints(invader.Position, rocketposition);
                     FireBullet(
                         invader.Position,
-                        angle + MathF.PI,
+                        angle,
                         Vector2.Zero,
                         ref invaderlist,
                         ref RocketRectangle,
-                        ref invader.delay
+                        ref invader.delay,
+                        gameTime
                     );
                 }
             }
@@ -655,10 +690,10 @@ namespace Pleasework
                 SpawnInvaders();
             }
             rocketbulletdelay.Update(gameTime);
-            KeyHandling();
+            KeyHandling(gameTime);
             Physics(deltatime);
             UpdateBullet();
-            InvaderCompute();
+            InvaderCompute(gameTime);
             BackroundColour();
 
             moonangle += moonanglularvelocity;
