@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.Intrinsics.X86;
 using Microsoft.VisualBasic;
@@ -36,6 +37,8 @@ namespace Pleasework
         bool iscolourforward;
 
         char whatcolour;
+
+        Texture2D Gameover;
         Texture2D thingtexture;
 
         Vector2 thingposition;
@@ -135,7 +138,7 @@ namespace Pleasework
             Bulletlist = new List<Bullet>();
 
             bulletdefaultspeed = 10f;
-            rocketbulletdelay = new Timer(0.25f);
+            rocketbulletdelay = new Timer(0.4f);
 
             earthposition = new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2);
 
@@ -143,7 +146,7 @@ namespace Pleasework
             moonscale = new Vector2(0.0625f, 0.0625f);
             moonanglularvelocity = 0.01f;
             moonangle = 0f;
-            moonorbitradius = 500f;
+            moonorbitradius = 650f;
 
             coinscale = new Vector2(.125f, .125f);
             rocketscale = new Vector2(.0625f, .0625f);
@@ -165,6 +168,8 @@ namespace Pleasework
             arial = Content.Load<SpriteFont>("File");
 
             effect = Content.Load<Effect>("CRT");
+
+            Gameover = Content.Load<Texture2D>("game_over");
 
             thingtexture = Content.Load<Texture2D>("coin");
 
@@ -345,9 +350,8 @@ namespace Pleasework
                 foreach (Bullet bullet in Bulletlist)
                 {
                     bullet.position += bullet.momentum;
-                    bullet.angle = (float)(
-                        MathF.Atan2(bullet.momentum.X, bullet.momentum.Y) + Math.PI / 2
-                    );
+                    bullet.angle = MathF.Atan2(bullet.momentum.Y, bullet.momentum.X);
+
                     Rectangle bulletrect = new Rectangle(
                         (int)bullet.position.X,
                         (int)bullet.position.Y,
@@ -484,7 +488,7 @@ namespace Pleasework
 
         private void Physics(double deltatime)
         {
-            float gravityOffset = 100f;
+            float gravityOffset = 75f;
 
             rocketmomentum = GravityCalculation(
                 earthposition,
@@ -492,6 +496,14 @@ namespace Pleasework
                 rocketmomentum,
                 gravityOffset,
                 6
+            );
+            
+            rocketmomentum = GravityCalculation(
+                moonposition,
+                rocketposition,
+                rocketmomentum,
+                gravityOffset*0.6f,
+                3.9f
             );
             foreach (Bullet bullet in Bulletlist)
             {
@@ -510,13 +522,6 @@ namespace Pleasework
                     4
                 );
             }
-            rocketmomentum = GravityCalculation(
-                moonposition,
-                rocketposition,
-                rocketmomentum,
-                gravityOffset,
-                3.9f
-            );
 
             rocketangle += (float)(angularVelocity * deltatime);
             angularVelocity *= angularFriction;
@@ -689,12 +694,15 @@ namespace Pleasework
             {
                 SpawnInvaders();
             }
-            rocketbulletdelay.Update(gameTime);
-            KeyHandling(gameTime);
-            Physics(deltatime);
-            UpdateBullet();
-            InvaderCompute(gameTime);
-            BackroundColour();
+            if (rockethealth != 0){
+                rocketbulletdelay.Update(gameTime);
+                KeyHandling(gameTime);
+                Physics(deltatime);
+                UpdateBullet();
+                InvaderCompute(gameTime);
+                BackroundColour();
+            }
+
 
             moonangle += moonanglularvelocity;
             moonposition.X = earthposition.X + (float)(moonorbitradius * Math.Cos(moonangle));
@@ -713,18 +721,13 @@ namespace Pleasework
             Camera();
             base.Update(gameTime);
         }
-        private void DrawWithCrt(Texture2D texture)
-            {
-                effect.Parameters["textureSize"].SetValue(new Vector2(texture.Width, texture.Height));
 
-
-            }
 
         protected override void Draw(GameTime gameTime)
         {
             Color mycolour = new Color(r, g, b);
 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Purple);
             Vector2 cameraoffset = (
                 -rocketposition + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
             );
@@ -896,6 +899,23 @@ namespace Pleasework
                 SpriteEffects.None,
                 0.5f
             );
+
+            if (rockethealth == 0){
+
+                _spriteBatch.Draw(Gameover,
+                new Vector2(Constants.SCREENWIDTH/2,Constants.SCREENHEIGHT/2),
+                null,
+                Color.Red,
+                0,
+                new Vector2(Gameover.Width/2,Gameover.Height/2),
+                new Vector2(.5f,.5f),
+                SpriteEffects.None,
+                0
+                );
+
+            }
+
+
 
             _spriteBatch.End();
 
