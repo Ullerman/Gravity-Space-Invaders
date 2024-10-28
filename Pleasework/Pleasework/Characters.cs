@@ -6,7 +6,6 @@ using Pleasework;
 
 public class Rocket{
     public Texture2D Texture;
-    
     public Vector2 Scale;
     public Color Color;
     public Vector2 Position;
@@ -15,18 +14,12 @@ public class Rocket{
     public float Acceleration;
     public float AngularVelocity;
     public float AngularAcceleration;
-
     public Rectangle Rectangle;
     public Timer Delay;
     public int Health;
-
-
     public Rocket(){
 
     }
-
-
-
 }
 
 

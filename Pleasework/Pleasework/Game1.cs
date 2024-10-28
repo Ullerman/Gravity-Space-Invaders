@@ -29,6 +29,8 @@ namespace Pleasework
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        Vector2 cameraPosition;
+
         SpriteFont arial;
 
         byte r,
@@ -39,7 +41,11 @@ namespace Pleasework
         char whatcolour;
 
         Texture2D Gameover;
+        Texture2D BackroundTexture;
         Texture2D thingtexture;
+
+        Texture2D AnnaRocket;
+        bool togglerocket;
 
         Vector2 thingposition;
         byte updatecoin;
@@ -47,12 +53,11 @@ namespace Pleasework
         bool coinforward;
         Vector2 coinscale;
 
-
         Rocket rocket;
         float friction;
         float angularFriction;
-        Vector2 rocketscale;
 
+        Texture2D rocketTexture;
         Texture2D HealthTexture;
 
         Texture2D bullettexure;
@@ -105,6 +110,7 @@ namespace Pleasework
         {
             rnd = new Random();
 
+            togglerocket = true;
 
             r = 0;
             g = 0;
@@ -116,13 +122,12 @@ namespace Pleasework
             updatecoin = 0;
             fakecoinx = 600.0f;
 
-
             rocket = new Rocket();
             rocket.Position = new Vector2(300, 300);
             rocket.Velocity = new Vector2(0, 0);
             rocket.Angle = 0f;
             rocket.Acceleration = 0.5f;
-            friction = 0.99f; // .1f;
+            friction = 0.9999999f; // .1f;
             rocket.AngularVelocity = 0f;
             rocket.AngularAcceleration = 0.09f;
             angularFriction = .99f;
@@ -144,7 +149,7 @@ namespace Pleasework
             moonorbitradius = 650f;
 
             coinscale = new Vector2(.125f, .125f);
-            rocketscale = new Vector2(.0625f, .0625f);
+            rocket.Scale = new Vector2(.125f, .125f);
             earthscale = new Vector2(.25f, .25f);
 
             invaderlist = new List<Invader>();
@@ -165,10 +170,12 @@ namespace Pleasework
             effect = Content.Load<Effect>("CRT");
 
             Gameover = Content.Load<Texture2D>("game_over");
+            BackroundTexture = Content.Load<Texture2D>("Backround");
 
             thingtexture = Content.Load<Texture2D>("coin");
 
-            rocket.Texture = Content.Load<Texture2D>("rocket");
+            rocketTexture = Content.Load<Texture2D>("rocket");
+            AnnaRocket = Content.Load<Texture2D>("AnnaRocket");
             bullettexure = Content.Load<Texture2D>("bullet");
             HealthTexture = Content.Load<Texture2D>("heart");
 
@@ -178,55 +185,41 @@ namespace Pleasework
             Invader1Texture = Content.Load<Texture2D>("Invader1");
         }
 
-
         private void KeyHandling(GameTime gameTime)
         {
-
             var kstate = Keyboard.GetState();
             var gamepadState = GamePad.GetState(PlayerIndex.One);
 
             Vector2 leftThumbstick = gamepadState.ThumbSticks.Left;
             Vector2 rightThumbstick = gamepadState.ThumbSticks.Right;
 
-
-
             float leftTriggerValue = gamepadState.Triggers.Left;
             float rightTriggerValue = gamepadState.Triggers.Right;
 
             rocket.AngularVelocity += rocket.AngularAcceleration * leftThumbstick.X;
 
-
             float triangleAnglecontrol = (float)(rocket.Angle - Math.PI / 2);
-            rocket.Velocity.X += (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration)*rightTriggerValue;
-            rocket.Velocity.Y += (float)(Math.Sin(triangleAnglecontrol) * rocket.Acceleration)*rightTriggerValue;
+            rocket.Velocity.X +=
+                (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration) * rightTriggerValue;
+            rocket.Velocity.Y +=
+                (float)(Math.Sin(triangleAnglecontrol) * rocket.Acceleration) * rightTriggerValue;
 
-            rocket.Velocity.X -= (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration)*leftTriggerValue;
-            rocket.Velocity.Y -= (float)(Math.Sin(triangleAnglecontrol) * rocket.Acceleration)*leftTriggerValue;
+            rocket.Velocity.X -=
+                (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration) * leftTriggerValue;
+            rocket.Velocity.Y -=
+                (float)(Math.Sin(triangleAnglecontrol) * rocket.Acceleration) * leftTriggerValue;
 
-
-
-            if (
-                kstate.IsKeyDown(Keys.Left)
-                
-                || kstate.IsKeyDown(Keys.A)
-            )
+            if (kstate.IsKeyDown(Keys.Left) || kstate.IsKeyDown(Keys.A))
             {
                 rocket.AngularVelocity -= rocket.AngularAcceleration;
             }
-        
-            if (
-                kstate.IsKeyDown(Keys.Right)
-                
-                || kstate.IsKeyDown(Keys.D)
-            )
+
+            if (kstate.IsKeyDown(Keys.Right) || kstate.IsKeyDown(Keys.D))
             {
                 rocket.AngularVelocity += rocket.AngularAcceleration;
             }
 
-            if (
-                kstate.IsKeyDown(Keys.Up)
-                || kstate.IsKeyDown(Keys.W)
-            )
+            if (kstate.IsKeyDown(Keys.Up) || kstate.IsKeyDown(Keys.W))
             {
                 float triangleAngle = (float)(rocket.Angle - Math.PI / 2);
                 rocket.Velocity.X += (float)(Math.Cos(triangleAngle) * rocket.Acceleration);
@@ -259,10 +252,16 @@ namespace Pleasework
 
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
             {
-                rocket.Position = new Vector2(Constants.SCREENWIDTH / 8, Constants.SCREENHEIGHT / 8);
+                rocket.Position = new Vector2(
+                    Constants.SCREENWIDTH / 8,
+                    Constants.SCREENHEIGHT / 8
+                );
                 rocket.Velocity = Vector2.Zero;
                 rocket.AngularVelocity = 0;
                 rocket.Health = 3;
+            }
+            if (kstate.IsKeyDown(Keys.P)){
+                togglerocket = !togglerocket;
             }
         }
 
@@ -285,9 +284,9 @@ namespace Pleasework
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
                 float triangleAngle = (float)(angle - Math.PI / 2);
                 Vector2 offset = new Vector2(
-                MathF.Cos(triangleAngle) * 20,
-                MathF.Sin(triangleAngle) * 20
-            );
+                    MathF.Cos(triangleAngle) * 20,
+                    MathF.Sin(triangleAngle) * 20
+                );
                 bullet.position = new Vector2(position.X, position.Y) + offset;
                 bullet.angle = angle;
                 bullet.momentum = new Vector2(
@@ -311,7 +310,6 @@ namespace Pleasework
             ref Rectangle enemyrect,
             ref Timer delay,
             GameTime gameTime
-             
         )
         {
             delay.Update(gameTime);
@@ -475,7 +473,7 @@ namespace Pleasework
                 );
                 invader.Scale = new Vector2(1, 1);
                 invader.angle = rnd.Next(0, 200);
-                invader.anglularvelocity = (float)rnd.Next(10,15)/1000;
+                invader.anglularvelocity = (float)rnd.Next(10, 15) / 1000;
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
                 invader.OrbitRadius = rnd.Next(400, 800);
                 invader.SightRadius = rnd.Next(100, 300);
@@ -494,12 +492,12 @@ namespace Pleasework
                 gravityOffset,
                 6
             );
-            
+
             rocket.Velocity = GravityCalculation(
                 moonposition,
                 rocket.Position,
                 rocket.Velocity,
-                gravityOffset*0.6f,
+                gravityOffset * 0.6f,
                 3.9f
             );
             foreach (Bullet bullet in Bulletlist)
@@ -646,35 +644,7 @@ namespace Pleasework
             }
         }
 
-        private void Camera()
-        {
-            Vector2 targetScreenPosition = new Vector2(
-                Constants.SCREENWIDTH / 2,
-                Constants.SCREENHEIGHT / 2
-            );
 
-            Vector2 rocketScreenPosition = rocket.Position + rocketcameraoffset;
-
-            Vector2 directionToCenter = targetScreenPosition - rocketScreenPosition;
-            float distanceX = rocketScreenPosition.X - targetScreenPosition.X;
-            float distanceY = rocketScreenPosition.Y - targetScreenPosition.X;
-            float distance = distanceX * distanceY;
-            float returnSpeed = 0.23f;
-            if (distance > 400 * 400)
-            {
-                rocketcameraoffset = Vector2.Lerp(
-                    rocketcameraoffset,
-                    rocketcameraoffset + directionToCenter,
-                    returnSpeed * 2.5f
-                );
-            }
-            else
-                rocketcameraoffset = Vector2.Lerp(
-                    rocketcameraoffset,
-                    rocketcameraoffset + directionToCenter,
-                    returnSpeed
-                );
-        }
 
         protected override void Update(GameTime gameTime)
         {
@@ -685,13 +655,22 @@ namespace Pleasework
                 || Keyboard.GetState().IsKeyDown(Keys.Escape)
             )
                 Exit();
+            if (togglerocket){
+                rocket.Texture = rocketTexture;
+                rocket.Scale = new Vector2(.0625f);
 
+            }
+            else{
+                rocket.Texture = AnnaRocket;
+                rocket.Scale = new Vector2(.125f);
+            }
             Coin();
             if (invaderlist.Count == 0)
             {
                 SpawnInvaders();
             }
-            if (rocket.Health != 0){
+            if (rocket.Health != 0)
+            {
                 rocketbulletdelay.Update(gameTime);
                 Physics(deltatime);
                 UpdateBullet();
@@ -699,8 +678,6 @@ namespace Pleasework
                 BackroundColour();
             }
             KeyHandling(gameTime);
-
-
 
             moonangle += moonanglularvelocity;
             moonposition.X = earthposition.X + (float)(moonorbitradius * Math.Cos(moonangle));
@@ -719,122 +696,61 @@ namespace Pleasework
             Camera();
             base.Update(gameTime);
         }
-
-
-        protected override void Draw(GameTime gameTime)
+        private void Camera()
         {
-            Color mycolour = new Color(r, g, b);
-
-            GraphicsDevice.Clear(Color.Purple);
-            Vector2 cameraoffset = (
-                -rocket.Position + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
-            );
-            
-            // effect.Parameters["videoSize"].SetValue(new Vector2(_graphics.GraphicsDevice.Viewport.Width, _graphics.GraphicsDevice.Viewport.Height));
-            // effect.Parameters["outputSize"].SetValue(new Vector2(_graphics.GraphicsDevice.Viewport.Width, _graphics.GraphicsDevice.Viewport.Height));
-
-            // effect.Parameters["hardScan"].SetValue(-8.0f);
-            // effect.Parameters["hardPix"].SetValue(-3.0f);
-            // effect.Parameters["warp"].SetValue(new Vector2(0.03f, 0.04f));
-            // effect.Parameters["maskDark"].SetValue(0.5f);
-            // effect.Parameters["maskLight"].SetValue(1.5f);
-            // effect.Parameters["bloomAmount"].SetValue(0.1f);
-
-            _spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null);
-            rocket.Rectangle = new Rectangle(
-                (int)rocket.Position.X,
-                (int)rocket.Position.Y,
-                (int)(rocket.Texture.Width * rocketscale.X),
-                (int)(rocket.Texture.Height * rocketscale.Y - 50)
-            );
-            _spriteBatch.Draw(
-                earthTexture,
-                earthposition + cameraoffset,
-                null,
-                Color.White,
-                0,
-                new Vector2(earthTexture.Width / 2, earthTexture.Height / 2),
-                earthscale,
-                SpriteEffects.None,
-                0
-            );
-            _spriteBatch.Draw(
-                moontexture,
-                moonposition + cameraoffset,
-                null,
-                Color.White,
-                0,
-                new Vector2(moontexture.Width / 2, moontexture.Height / 2),
-                moonscale,
-                SpriteEffects.None,
-                0
+            Vector2 targetScreenPosition = new Vector2(
+                Constants.SCREENWIDTH / 2,
+                Constants.SCREENHEIGHT / 2
             );
 
-            _spriteBatch.Draw(
-                thingtexture,
-                thingposition + cameraoffset,
-                null,
-                Color.White,
-                0,
-                Vector2.Zero,
-                coinscale,
-                SpriteEffects.None,
-                0
-            );
-            _spriteBatch.Draw(
-                rocket.Texture,
-                rocket.Position + rocketcameraoffset,
-                null,
-                Color.White,
-                rocket.Angle,
-                new Vector2(rocket.Texture.Width / 2, rocket.Texture.Height / 2),
-                rocketscale,
-                SpriteEffects.None,
-                0
-            );
+            Vector2 rocketScreenPosition = rocket.Position + rocketcameraoffset;
 
-            if (Bulletlist != null)
+            Vector2 directionToCenter = targetScreenPosition - rocketScreenPosition;
+            float distanceX = rocketScreenPosition.X - targetScreenPosition.X;
+            float distanceY = rocketScreenPosition.Y - targetScreenPosition.X;
+            float distance = distanceX * distanceY;
+            float returnSpeed = 0.25f;
+            if (distance > 400 * 400)
             {
-                foreach (Bullet bullet in Bulletlist)
-                {
-                    ;
+                rocketcameraoffset = Vector2.Lerp(
+                    rocketcameraoffset,
+                    rocketcameraoffset + directionToCenter,
+                    returnSpeed * 2.5f
+                );
+            }
+            else
+                rocketcameraoffset = Vector2.Lerp(
+                    rocketcameraoffset,
+                    rocketcameraoffset + directionToCenter,
+                    returnSpeed
+                );
+            cameraPosition = rocket.Position + rocketcameraoffset;
+        }
 
-                    _spriteBatch.Draw(
-                        bullettexure,
-                        bullet.position + cameraoffset,
-                        null,
-                        Color.White,
-                        bullet.angle,
-                        new Vector2(bullettexure.Width / 2, bullettexure.Height / 2),
-                        bulletscale,
-                        SpriteEffects.None,
-                        1
+        void DrawBackground(SpriteBatch _spriteBatch, Vector2 CameraOffset)
+        {
+            Vector2 tileSize = new Vector2(BackroundTexture.Width, BackroundTexture.Height);
+            
+            int tilesX = (int)Math.Ceiling(Constants.SCREENWIDTH / tileSize.X) + 2;
+            int tilesY = (int)Math.Ceiling(Constants.SCREENHEIGHT / tileSize.Y) + 2;
+
+            float offsetX = -CameraOffset.X % tileSize.X;
+            float offsetY = -CameraOffset.Y % tileSize.Y;
+
+            for (int y = -1; y < tilesY; y++)
+            {
+                for (int x = -1; x < tilesX; x++)
+                {
+                    Vector2 tilePosition = new Vector2(
+                        (x * tileSize.X) - offsetX,
+                        (y * tileSize.Y) - offsetY
                     );
+
+                    _spriteBatch.Draw(BackroundTexture, tilePosition, Color.White);
                 }
             }
-
-            foreach (Invader invader in invaderlist)
-            {
-                invader.rectangle = new Rectangle(
-                    (int)invader.Position.X,
-                    (int)invader.Position.Y,
-                    (int)(Invader1Texture.Width * invader.Scale.X),
-                    (int)(Invader1Texture.Height * invader.Scale.Y)
-                );
-
-                _spriteBatch.Draw(
-                    Invader1Texture,
-                    invader.Position + cameraoffset,
-                    null,
-                    invader.Color,
-                    0,
-                    new Vector2(0, 0),
-                    invader.Scale,
-                    SpriteEffects.None,
-                    0
-                );
-            }
-
+        }
+        private void DrawHUD(SpriteBatch  _spriteBatch){
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
 
             for (int i = 0; i < rocket.Health; i++)
@@ -898,23 +814,153 @@ namespace Pleasework
                 0.5f
             );
 
-            if (rocket.Health == 0){
-
-                _spriteBatch.Draw(Gameover,
-                new Vector2(Constants.SCREENWIDTH/2,Constants.SCREENHEIGHT/2),
-                null,
-                Color.Red,
-                0,
-                new Vector2(Gameover.Width/2,Gameover.Height/2),
-                new Vector2(.5f,.5f),
-                SpriteEffects.None,
-                0
+            if (rocket.Health == 0)
+            {
+                _spriteBatch.Draw(
+                    Gameover,
+                    new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
+                    null,
+                    Color.Red,
+                    0,
+                    new Vector2(Gameover.Width / 2, Gameover.Height / 2),
+                    new Vector2(.5f, .5f),
+                    SpriteEffects.None,
+                    0
+                );
+            }
+        }
+        private void DrawEnemies(SpriteBatch  _spriteBatch,Vector2 cameraoffset){
+        foreach (Invader invader in invaderlist)
+            {
+                invader.rectangle = new Rectangle(
+                    (int)invader.Position.X,
+                    (int)invader.Position.Y,
+                    (int)(Invader1Texture.Width * invader.Scale.X),
+                    (int)(Invader1Texture.Height * invader.Scale.Y)
                 );
 
+                _spriteBatch.Draw(
+                    Invader1Texture,
+                    invader.Position + cameraoffset,
+                    null,
+                    invader.Color,
+                    0,
+                    new Vector2(0, 0),
+                    invader.Scale,
+                    SpriteEffects.None,
+                    0
+                );
+            }
+        }
+        private void DrawBullets(SpriteBatch  _spriteBatch,Vector2 cameraoffset){
+            if (Bulletlist != null)
+            {
+                foreach (Bullet bullet in Bulletlist)
+                {
+                    ;
+
+                    _spriteBatch.Draw(
+                        bullettexure,
+                        bullet.position + cameraoffset,
+                        null,
+                        Color.White,
+                        bullet.angle,
+                        new Vector2(bullettexure.Width / 2, bullettexure.Height / 2),
+                        bulletscale,
+                        SpriteEffects.None,
+                        0
+                    );
+                }
+            }
+        }
+        private void DrawEnviroment(SpriteBatch  _spriteBatch,Vector2 cameraoffset){
+             _spriteBatch.Draw(
+                earthTexture,
+                earthposition + cameraoffset,
+                null,
+                Color.White,
+                0,
+                new Vector2(earthTexture.Width / 2, earthTexture.Height / 2),
+                earthscale,
+                SpriteEffects.None,
+                0
+            );
+            _spriteBatch.Draw(
+                moontexture,
+                moonposition + cameraoffset,
+                null,
+                Color.White,
+                0,
+                new Vector2(moontexture.Width / 2, moontexture.Height / 2),
+                moonscale,
+                SpriteEffects.None,
+                0
+            );
+
+
+        }
+        private void DrawConsumables(SpriteBatch _spriteBatch,Vector2 cameraoffset){
+        _spriteBatch.Draw(
+                    thingtexture,
+                    thingposition + cameraoffset,
+                    null,
+                    Color.White,
+                    0,
+                    Vector2.Zero,
+                    coinscale,
+                    SpriteEffects.None,
+                    0
+                );
             }
 
+        protected override void Draw(GameTime gameTime)
+        {
+            Color mycolour = new Color(r, g, b);
+
+            GraphicsDevice.Clear(Color.Purple);
+            Vector2 cameraoffset = (
+                -rocket.Position
+                + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
+            );
 
 
+            _spriteBatch.Begin();
+
+
+            DrawBackground(_spriteBatch, cameraoffset);
+
+            DrawEnviroment(_spriteBatch, cameraoffset);
+            DrawEnemies(_spriteBatch, cameraoffset);
+            DrawBullets(_spriteBatch, cameraoffset);
+            DrawConsumables(_spriteBatch, cameraoffset);
+            
+
+            rocket.Rectangle = new Rectangle(
+                (int)rocket.Position.X,
+                (int)rocket.Position.Y,
+                (int)(rocket.Texture.Width * rocket.Scale.X),
+                (int)(rocket.Texture.Height * rocket.Scale.Y)
+            );
+
+            _spriteBatch.Draw(
+                rocket.Texture,
+                rocket.Position + rocketcameraoffset,
+                null,
+                Color.White,
+                rocket.Angle,
+                new Vector2(rocket.Texture.Width / 2, rocket.Texture.Height / 2),
+                rocket.Scale,
+                SpriteEffects.None,
+                0
+            );
+            
+
+            
+
+            
+
+            
+            DrawHUD(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);
