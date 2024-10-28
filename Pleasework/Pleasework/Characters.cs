@@ -4,6 +4,32 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Pleasework;
 
+public class Rocket{
+    public Texture2D Texture;
+    
+    public Vector2 Scale;
+    public Color Color;
+    public Vector2 Position;
+    public float Angle;
+    public Vector2 Velocity;
+    public float Acceleration;
+    public float AngularVelocity;
+    public float AngularAcceleration;
+
+    public Rectangle Rectangle;
+    public Timer Delay;
+    public int Health;
+
+
+    public Rocket(){
+
+    }
+
+
+
+}
+
+
 public class Invader
 {
     public Texture2D Texture;

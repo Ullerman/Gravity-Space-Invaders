@@ -47,18 +47,11 @@ namespace Pleasework
         bool coinforward;
         Vector2 coinscale;
 
-        Texture2D rockettexure;
-        Vector2 rocketposition;
-        Vector2 rocketmomentum;
-        float rocketangle;
-        float velocity;
+
+        Rocket rocket;
         float friction;
-        float angularVelocity;
-        float angularAcceleration;
         float angularFriction;
         Vector2 rocketscale;
-        Rectangle RocketRectangle;
-        int rockethealth;
 
         Texture2D HealthTexture;
 
@@ -123,15 +116,17 @@ namespace Pleasework
             updatecoin = 0;
             fakecoinx = 600.0f;
 
-            rocketposition = new Vector2(300, 300);
-            rocketmomentum = new Vector2(0, 0);
-            rocketangle = 0f;
-            velocity = 0.5f;
+
+            rocket = new Rocket();
+            rocket.Position = new Vector2(300, 300);
+            rocket.Velocity = new Vector2(0, 0);
+            rocket.Angle = 0f;
+            rocket.Acceleration = 0.5f;
             friction = 0.99f; // .1f;
-            angularVelocity = 0f;
-            angularAcceleration = 0.09f;
+            rocket.AngularVelocity = 0f;
+            rocket.AngularAcceleration = 0.09f;
             angularFriction = .99f;
-            rockethealth = 3;
+            rocket.Health = 3;
 
             bulletscale = 0.125f;
 
@@ -173,7 +168,7 @@ namespace Pleasework
 
             thingtexture = Content.Load<Texture2D>("coin");
 
-            rockettexure = Content.Load<Texture2D>("rocket");
+            rocket.Texture = Content.Load<Texture2D>("rocket");
             bullettexure = Content.Load<Texture2D>("bullet");
             HealthTexture = Content.Load<Texture2D>("heart");
 
@@ -198,15 +193,15 @@ namespace Pleasework
             float leftTriggerValue = gamepadState.Triggers.Left;
             float rightTriggerValue = gamepadState.Triggers.Right;
 
-            angularVelocity += angularAcceleration * leftThumbstick.X;
+            rocket.AngularVelocity += rocket.AngularAcceleration * leftThumbstick.X;
 
 
-            float triangleAnglecontrol = (float)(rocketangle - Math.PI / 2);
-            rocketmomentum.X += (float)(Math.Cos(triangleAnglecontrol) * velocity)*rightTriggerValue;
-            rocketmomentum.Y += (float)(Math.Sin(triangleAnglecontrol) * velocity)*rightTriggerValue;
+            float triangleAnglecontrol = (float)(rocket.Angle - Math.PI / 2);
+            rocket.Velocity.X += (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration)*rightTriggerValue;
+            rocket.Velocity.Y += (float)(Math.Sin(triangleAnglecontrol) * rocket.Acceleration)*rightTriggerValue;
 
-            rocketmomentum.X -= (float)(Math.Cos(triangleAnglecontrol) * velocity)*leftTriggerValue;
-            rocketmomentum.Y -= (float)(Math.Sin(triangleAnglecontrol) * velocity)*leftTriggerValue;
+            rocket.Velocity.X -= (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration)*leftTriggerValue;
+            rocket.Velocity.Y -= (float)(Math.Sin(triangleAnglecontrol) * rocket.Acceleration)*leftTriggerValue;
 
 
 
@@ -216,7 +211,7 @@ namespace Pleasework
                 || kstate.IsKeyDown(Keys.A)
             )
             {
-                angularVelocity -= angularAcceleration;
+                rocket.AngularVelocity -= rocket.AngularAcceleration;
             }
         
             if (
@@ -225,7 +220,7 @@ namespace Pleasework
                 || kstate.IsKeyDown(Keys.D)
             )
             {
-                angularVelocity += angularAcceleration;
+                rocket.AngularVelocity += rocket.AngularAcceleration;
             }
 
             if (
@@ -233,9 +228,9 @@ namespace Pleasework
                 || kstate.IsKeyDown(Keys.W)
             )
             {
-                float triangleAngle = (float)(rocketangle - Math.PI / 2);
-                rocketmomentum.X += (float)(Math.Cos(triangleAngle) * velocity);
-                rocketmomentum.Y += (float)(Math.Sin(triangleAngle) * velocity);
+                float triangleAngle = (float)(rocket.Angle - Math.PI / 2);
+                rocket.Velocity.X += (float)(Math.Cos(triangleAngle) * rocket.Acceleration);
+                rocket.Velocity.Y += (float)(Math.Sin(triangleAngle) * rocket.Acceleration);
             }
 
             if (
@@ -244,18 +239,18 @@ namespace Pleasework
                 || kstate.IsKeyDown(Keys.S)
             )
             {
-                float triangleAngle = (float)(rocketangle - Math.PI / 2);
-                rocketmomentum.X -= (float)(Math.Cos(triangleAngle) * velocity);
-                rocketmomentum.Y -= (float)(Math.Sin(triangleAngle) * velocity);
+                float triangleAngle = (float)(rocket.Angle - Math.PI / 2);
+                rocket.Velocity.X -= (float)(Math.Cos(triangleAngle) * rocket.Acceleration);
+                rocket.Velocity.Y -= (float)(Math.Sin(triangleAngle) * rocket.Acceleration);
             }
 
             if (kstate.IsKeyDown(Keys.Space) || gamepadState.Buttons.A == ButtonState.Pressed)
             {
                 FireBullet(
-                    rocketposition,
-                    rocketangle,
-                    rocketmomentum,
-                    ref RocketRectangle,
+                    rocket.Position,
+                    rocket.Angle,
+                    rocket.Velocity,
+                    ref rocket.Rectangle,
                     ref invaderlist,
                     ref rocketbulletdelay,
                     gameTime
@@ -264,10 +259,10 @@ namespace Pleasework
 
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
             {
-                rocketposition = new Vector2(Constants.SCREENWIDTH / 8, Constants.SCREENHEIGHT / 8);
-                rocketmomentum = Vector2.Zero;
-                angularVelocity = 0;
-                rockethealth = 3;
+                rocket.Position = new Vector2(Constants.SCREENWIDTH / 8, Constants.SCREENHEIGHT / 8);
+                rocket.Velocity = Vector2.Zero;
+                rocket.AngularVelocity = 0;
+                rocket.Health = 3;
             }
         }
 
@@ -289,8 +284,11 @@ namespace Pleasework
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
                 float triangleAngle = (float)(angle - Math.PI / 2);
-
-                bullet.position = position;
+                Vector2 offset = new Vector2(
+                MathF.Cos(triangleAngle) * 20,
+                MathF.Sin(triangleAngle) * 20
+            );
+                bullet.position = new Vector2(position.X, position.Y) + offset;
                 bullet.angle = angle;
                 bullet.momentum = new Vector2(
                     (float)(Math.Cos(triangleAngle) * bulletdefaultspeed + velocity.X),
@@ -320,7 +318,6 @@ namespace Pleasework
             // Console.WriteLine(delay.GetRemainingTime() + "" );
             if (delay.IsFinished() || !delay.IsRunning())
             {
-                Console.WriteLine("FIREBULLET");
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
@@ -361,7 +358,7 @@ namespace Pleasework
 
                     if (
                         IsRectCollidingWithCircle(earthposition, earthradius, bulletrect)
-                        & !RocketRectangle.Intersects(bulletrect)
+                        & !rocket.Rectangle.Intersects(bulletrect)
                     )
                     {
                         removebullets.Add(bullet);
@@ -394,7 +391,7 @@ namespace Pleasework
                             {
                                 removebullets.Add(bullet);
                                 //removeinvader.Add(enemy);
-                                rockethealth -= 1;
+                                rocket.Health -= 1;
                                 bullet.hascollided = true;
                             }
                         }
@@ -478,7 +475,7 @@ namespace Pleasework
                 );
                 invader.Scale = new Vector2(1, 1);
                 invader.angle = rnd.Next(0, 200);
-                invader.anglularvelocity = 0.01f;
+                invader.anglularvelocity = (float)rnd.Next(10,15)/1000;
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
                 invader.OrbitRadius = rnd.Next(400, 800);
                 invader.SightRadius = rnd.Next(100, 300);
@@ -490,18 +487,18 @@ namespace Pleasework
         {
             float gravityOffset = 75f;
 
-            rocketmomentum = GravityCalculation(
+            rocket.Velocity = GravityCalculation(
                 earthposition,
-                rocketposition,
-                rocketmomentum,
+                rocket.Position,
+                rocket.Velocity,
                 gravityOffset,
                 6
             );
             
-            rocketmomentum = GravityCalculation(
+            rocket.Velocity = GravityCalculation(
                 moonposition,
-                rocketposition,
-                rocketmomentum,
+                rocket.Position,
+                rocket.Velocity,
                 gravityOffset*0.6f,
                 3.9f
             );
@@ -523,40 +520,40 @@ namespace Pleasework
                 );
             }
 
-            rocketangle += (float)(angularVelocity * deltatime);
-            angularVelocity *= angularFriction;
+            rocket.Angle += (float)(rocket.AngularVelocity * deltatime);
+            rocket.AngularVelocity *= angularFriction;
 
-            rocketposition += rocketmomentum;
-            rocketmomentum *= friction;
+            rocket.Position += rocket.Velocity;
+            rocket.Velocity *= friction;
 
             Vector2 earthcentre = earthposition;
             float earthradius = (earthTexture.Width * earthscale.X) / 2 - 5;
 
-            if (IsRectCollidingWithCircle(earthcentre, earthradius, RocketRectangle))
+            if (IsRectCollidingWithCircle(earthcentre, earthradius, rocket.Rectangle))
             {
-                Vector2 collisionNormal = rocketposition - earthcentre;
+                Vector2 collisionNormal = rocket.Position - earthcentre;
                 collisionNormal.Normalize();
-                // rocketmomentum *= friction;
-                float penetration = earthradius - (rocketposition - earthcentre).Length();
+                // rocket.Velocity *= friction;
+                float penetration = earthradius - (rocket.Position - earthcentre).Length();
                 if (penetration > 0)
                 {
-                    rocketposition += collisionNormal * penetration;
+                    rocket.Position += collisionNormal * penetration;
                 }
-                if (rocketmomentum.X > 1 || rocketmomentum.Y > 1)
+                if (rocket.Velocity.X > 1 || rocket.Velocity.Y > 1)
                 {
-                    rocketmomentum = Vector2.Reflect(rocketmomentum, collisionNormal) * 0.8f;
-                    // angularVelocity = -angularVelocity * 0.5f;
+                    rocket.Velocity = Vector2.Reflect(rocket.Velocity, collisionNormal) * 0.8f;
+                    // rocket.AngularVelocity = -rocket.AngularVelocity * 0.5f;
                 }
-                if (rocketmomentum.Length() < 0.1f)
+                if (rocket.Velocity.Length() < 0.1f)
                 {
-                    //rocketmomentum = Vector2.Zero;
+                    //rocket.Velocity = Vector2.Zero;
                 }
                 if (
-                    DistancesquaredBetweenpointandrect(RocketRectangle, earthcentre)
+                    DistancesquaredBetweenpointandrect(rocket.Rectangle, earthcentre)
                     < earthradius * earthradius + 36
                 )
                 {
-                    rocketmomentum *= friction;
+                    rocket.Velocity *= friction;
                 }
             }
         }
@@ -630,18 +627,18 @@ namespace Pleasework
                     IsRectCollidingWithCircle(
                         invader.Position,
                         invader.SightRadius,
-                        RocketRectangle
+                        rocket.Rectangle
                     )
                 )
                 {
                     // Console.WriteLine("invadersee");
-                    float angle = CalculateAngleBetweenPoints(invader.Position, rocketposition);
+                    float angle = CalculateAngleBetweenPoints(invader.Position, rocket.Position);
                     FireBullet(
                         invader.Position,
                         angle,
                         Vector2.Zero,
                         ref invaderlist,
-                        ref RocketRectangle,
+                        ref rocket.Rectangle,
                         ref invader.delay,
                         gameTime
                     );
@@ -656,7 +653,7 @@ namespace Pleasework
                 Constants.SCREENHEIGHT / 2
             );
 
-            Vector2 rocketScreenPosition = rocketposition + rocketcameraoffset;
+            Vector2 rocketScreenPosition = rocket.Position + rocketcameraoffset;
 
             Vector2 directionToCenter = targetScreenPosition - rocketScreenPosition;
             float distanceX = rocketScreenPosition.X - targetScreenPosition.X;
@@ -694,14 +691,15 @@ namespace Pleasework
             {
                 SpawnInvaders();
             }
-            if (rockethealth != 0){
+            if (rocket.Health != 0){
                 rocketbulletdelay.Update(gameTime);
-                KeyHandling(gameTime);
                 Physics(deltatime);
                 UpdateBullet();
                 InvaderCompute(gameTime);
                 BackroundColour();
             }
+            KeyHandling(gameTime);
+
 
 
             moonangle += moonanglularvelocity;
@@ -729,7 +727,7 @@ namespace Pleasework
 
             GraphicsDevice.Clear(Color.Purple);
             Vector2 cameraoffset = (
-                -rocketposition + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
+                -rocket.Position + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
             );
             
             // effect.Parameters["videoSize"].SetValue(new Vector2(_graphics.GraphicsDevice.Viewport.Width, _graphics.GraphicsDevice.Viewport.Height));
@@ -743,11 +741,11 @@ namespace Pleasework
             // effect.Parameters["bloomAmount"].SetValue(0.1f);
 
             _spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null);
-            RocketRectangle = new Rectangle(
-                (int)rocketposition.X,
-                (int)rocketposition.Y,
-                (int)(rockettexure.Width * rocketscale.X),
-                (int)(rockettexure.Height * rocketscale.Y - 50)
+            rocket.Rectangle = new Rectangle(
+                (int)rocket.Position.X,
+                (int)rocket.Position.Y,
+                (int)(rocket.Texture.Width * rocketscale.X),
+                (int)(rocket.Texture.Height * rocketscale.Y - 50)
             );
             _spriteBatch.Draw(
                 earthTexture,
@@ -784,12 +782,12 @@ namespace Pleasework
                 0
             );
             _spriteBatch.Draw(
-                rockettexure,
-                rocketposition + rocketcameraoffset,
+                rocket.Texture,
+                rocket.Position + rocketcameraoffset,
                 null,
                 Color.White,
-                rocketangle,
-                new Vector2(rockettexure.Width / 2, rockettexure.Height / 2),
+                rocket.Angle,
+                new Vector2(rocket.Texture.Width / 2, rocket.Texture.Height / 2),
                 rocketscale,
                 SpriteEffects.None,
                 0
@@ -839,7 +837,7 @@ namespace Pleasework
 
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
 
-            for (int i = 0; i < rockethealth; i++)
+            for (int i = 0; i < rocket.Health; i++)
             {
                 _spriteBatch.Draw(
                     HealthTexture,
@@ -857,7 +855,7 @@ namespace Pleasework
             Vector2 FontOriginy = Vector2.Zero; //arial.MeasureString(yword) / 2;
             _spriteBatch.DrawString(
                 arial,
-                $"X : {Math.Round(rocketposition.X, 3)}",
+                $"X : {Math.Round(rocket.Position.X, 3)}",
                 new Vector2(10, 10),
                 Color.LightGreen,
                 0,
@@ -868,7 +866,7 @@ namespace Pleasework
             );
             _spriteBatch.DrawString(
                 arial,
-                $"Y : {Math.Round(rocketposition.Y, 3)}",
+                $"Y : {Math.Round(rocket.Position.Y, 3)}",
                 new Vector2(10, 25),
                 Color.LightGreen,
                 0,
@@ -879,7 +877,7 @@ namespace Pleasework
             );
             _spriteBatch.DrawString(
                 arial,
-                $"X Momentum : {Math.Round(rocketmomentum.X, 3)}",
+                $"X Momentum : {Math.Round(rocket.Velocity.X, 3)}",
                 new Vector2(10, 40),
                 Color.LightGreen,
                 0,
@@ -890,7 +888,7 @@ namespace Pleasework
             );
             _spriteBatch.DrawString(
                 arial,
-                $"Y Momentum : {Math.Round(rocketmomentum.Y, 3)}",
+                $"Y Momentum : {Math.Round(rocket.Velocity.Y, 3)}",
                 new Vector2(10, 55),
                 Color.LightGreen,
                 0,
@@ -900,7 +898,7 @@ namespace Pleasework
                 0.5f
             );
 
-            if (rockethealth == 0){
+            if (rocket.Health == 0){
 
                 _spriteBatch.Draw(Gameover,
                 new Vector2(Constants.SCREENWIDTH/2,Constants.SCREENHEIGHT/2),
