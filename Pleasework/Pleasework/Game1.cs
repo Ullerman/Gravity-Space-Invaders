@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Net.Sockets;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.Intrinsics.X86;
@@ -643,8 +644,23 @@ namespace Pleasework
                 }
             }
         }
+private void Bounds(GameTime gameTime)
+{
+    float distanceSquared = DistancesquaredBetweenpointandrect(rocket.Rectangle, earthposition);
 
+    float outOfBoundsDistanceSquared = 100000000;   
+    float maxDistanceSquared = 400000000;           
+    if (distanceSquared > outOfBoundsDistanceSquared)
+    {
 
+        float distanceRatio = MathHelper.Clamp((distanceSquared - outOfBoundsDistanceSquared) / (maxDistanceSquared - outOfBoundsDistanceSquared), 0f, 1f);
+
+        rocket.Velocity *= 1f - (distanceRatio * 0.05f); 
+
+        float lerpFactor = 0.01f * distanceRatio; 
+        rocket.Position = Vector2.Lerp(rocket.Position, earthposition, lerpFactor);
+    }
+}
 
         protected override void Update(GameTime gameTime)
         {
@@ -662,7 +678,7 @@ namespace Pleasework
             }
             else{
                 rocket.Texture = AnnaRocket;
-                rocket.Scale = new Vector2(.125f);
+                rocket.Scale = new Vector2(.25f);
             }
             Coin();
             if (invaderlist.Count == 0)
@@ -678,6 +694,7 @@ namespace Pleasework
                 BackroundColour();
             }
             KeyHandling(gameTime);
+            Bounds(gameTime);
 
             moonangle += moonanglularvelocity;
             moonposition.X = earthposition.X + (float)(moonorbitradius * Math.Cos(moonangle));
@@ -964,6 +981,9 @@ namespace Pleasework
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        protected override void UnloadContent(){
+
         }
     }
 }
