@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection.Metadata;
@@ -10,6 +11,14 @@ using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Myra;
+using Myra.Graphics2D;
+using Myra.Graphics2D.TextureAtlases;
+using Myra.Graphics2D.UI;
+using Myra.Graphics2D.Brushes;
+using Myra.Graphics2D.UI.Properties;
+using FontStashSharp.RichText;
+using AssetManagementBase;
 using Pleasework;
 
 public class Constants
@@ -25,10 +34,55 @@ public class Constants
 
 namespace Pleasework
 {
+    	partial class Game1: Panel
+	{
+		private void BuildUI()
+		{
+			var label1 = new Label();
+			label1.Text = "My Awesome Game";
+			label1.TextColor = Color.Orange;
+			label1.HorizontalAlignment = Myra.Graphics2D.UI.HorizontalAlignment.Center;
+
+			_menuStartNewGame = new MenuItem();
+			_menuStartNewGame.Text = "Start New Game";
+			_menuStartNewGame.Id = "_menuStartNewGame";
+
+			_menuOptions = new MenuItem();
+			_menuOptions.Text = "Options";
+			_menuOptions.Id = "_menuOptions";
+
+			_menuQuit = new MenuItem();
+			_menuQuit.Text = "Quit";
+			_menuQuit.Id = "_menuQuit";
+
+			var verticalMenu1 = new VerticalMenu();
+			verticalMenu1.HorizontalAlignment = Myra.Graphics2D.UI.HorizontalAlignment.Center;
+			verticalMenu1.VerticalAlignment = Myra.Graphics2D.UI.VerticalAlignment.Center;
+			verticalMenu1.Items.Add(_menuStartNewGame);
+			verticalMenu1.Items.Add(_menuOptions);
+			verticalMenu1.Items.Add(_menuQuit);
+
+			
+			Widgets.Add(label1);
+			Widgets.Add(verticalMenu1);
+		}
+
+		
+		public MenuItem _menuStartNewGame;
+		public MenuItem _menuOptions;
+		public MenuItem _menuQuit;
+	}
+}
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        private Desktop _desktop;
+
+        const string filePath = "Main_Menu.xmmp";
+        string data;
+        Project project;
 
         Vector2 cameraPosition;
 
@@ -105,6 +159,8 @@ namespace Pleasework
 
             _graphics.PreferredBackBufferWidth = Constants.SCREENWIDTH;
             _graphics.PreferredBackBufferHeight = Constants.SCREENHEIGHT;
+            
+            MyraEnvironment.Game = this;
         }
 
         protected override void Initialize()
@@ -162,9 +218,15 @@ namespace Pleasework
             base.Initialize();
         }
 
+        private void LoadMenu()
+        {
+
+
+        }
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            LoadMenu();
 
             arial = Content.Load<SpriteFont>("File");
 
@@ -261,7 +323,8 @@ namespace Pleasework
                 rocket.AngularVelocity = 0;
                 rocket.Health = 3;
             }
-            if (kstate.IsKeyDown(Keys.P)){
+            if (kstate.IsKeyDown(Keys.P))
+            {
                 togglerocket = !togglerocket;
             }
         }
@@ -644,23 +707,31 @@ namespace Pleasework
                 }
             }
         }
-private void Bounds(GameTime gameTime)
-{
-    float distanceSquared = DistancesquaredBetweenpointandrect(rocket.Rectangle, earthposition);
 
-    float outOfBoundsDistanceSquared = 100000000;   
-    float maxDistanceSquared = 400000000;           
-    if (distanceSquared > outOfBoundsDistanceSquared)
-    {
+        private void Bounds(GameTime gameTime)
+        {
+            float distanceSquared = DistancesquaredBetweenpointandrect(
+                rocket.Rectangle,
+                earthposition
+            );
 
-        float distanceRatio = MathHelper.Clamp((distanceSquared - outOfBoundsDistanceSquared) / (maxDistanceSquared - outOfBoundsDistanceSquared), 0f, 1f);
+            float outOfBoundsDistanceSquared = 100000000;
+            float maxDistanceSquared = 400000000;
+            if (distanceSquared > outOfBoundsDistanceSquared)
+            {
+                float distanceRatio = MathHelper.Clamp(
+                    (distanceSquared - outOfBoundsDistanceSquared)
+                        / (maxDistanceSquared - outOfBoundsDistanceSquared),
+                    0f,
+                    1f
+                );
 
-        rocket.Velocity *= 1f - (distanceRatio * 0.05f); 
+                rocket.Velocity *= 1f - (distanceRatio * 0.05f);
 
-        float lerpFactor = 0.01f * distanceRatio; 
-        rocket.Position = Vector2.Lerp(rocket.Position, earthposition, lerpFactor);
-    }
-}
+                float lerpFactor = 0.01f * distanceRatio;
+                rocket.Position = Vector2.Lerp(rocket.Position, earthposition, lerpFactor);
+            }
+        }
 
         protected override void Update(GameTime gameTime)
         {
@@ -671,12 +742,13 @@ private void Bounds(GameTime gameTime)
                 || Keyboard.GetState().IsKeyDown(Keys.Escape)
             )
                 Exit();
-            if (togglerocket){
+            if (togglerocket)
+            {
                 rocket.Texture = rocketTexture;
                 rocket.Scale = new Vector2(.0625f);
-
             }
-            else{
+            else
+            {
                 rocket.Texture = AnnaRocket;
                 rocket.Scale = new Vector2(.25f);
             }
@@ -713,6 +785,7 @@ private void Bounds(GameTime gameTime)
             Camera();
             base.Update(gameTime);
         }
+
         private void Camera()
         {
             Vector2 targetScreenPosition = new Vector2(
@@ -747,7 +820,7 @@ private void Bounds(GameTime gameTime)
         void DrawBackground(SpriteBatch _spriteBatch, Vector2 CameraOffset)
         {
             Vector2 tileSize = new Vector2(BackroundTexture.Width, BackroundTexture.Height);
-            
+
             int tilesX = (int)Math.Ceiling(Constants.SCREENWIDTH / tileSize.X) + 2;
             int tilesY = (int)Math.Ceiling(Constants.SCREENHEIGHT / tileSize.Y) + 2;
 
@@ -767,7 +840,9 @@ private void Bounds(GameTime gameTime)
                 }
             }
         }
-        private void DrawHUD(SpriteBatch  _spriteBatch){
+
+        private void DrawHUD(SpriteBatch _spriteBatch)
+        {
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
 
             for (int i = 0; i < rocket.Health; i++)
@@ -846,8 +921,10 @@ private void Bounds(GameTime gameTime)
                 );
             }
         }
-        private void DrawEnemies(SpriteBatch  _spriteBatch,Vector2 cameraoffset){
-        foreach (Invader invader in invaderlist)
+
+        private void DrawEnemies(SpriteBatch _spriteBatch, Vector2 cameraoffset)
+        {
+            foreach (Invader invader in invaderlist)
             {
                 invader.rectangle = new Rectangle(
                     (int)invader.Position.X,
@@ -869,7 +946,9 @@ private void Bounds(GameTime gameTime)
                 );
             }
         }
-        private void DrawBullets(SpriteBatch  _spriteBatch,Vector2 cameraoffset){
+
+        private void DrawBullets(SpriteBatch _spriteBatch, Vector2 cameraoffset)
+        {
             if (Bulletlist != null)
             {
                 foreach (Bullet bullet in Bulletlist)
@@ -890,8 +969,10 @@ private void Bounds(GameTime gameTime)
                 }
             }
         }
-        private void DrawEnviroment(SpriteBatch  _spriteBatch,Vector2 cameraoffset){
-             _spriteBatch.Draw(
+
+        private void DrawEnviroment(SpriteBatch _spriteBatch, Vector2 cameraoffset)
+        {
+            _spriteBatch.Draw(
                 earthTexture,
                 earthposition + cameraoffset,
                 null,
@@ -913,36 +994,34 @@ private void Bounds(GameTime gameTime)
                 SpriteEffects.None,
                 0
             );
-
-
         }
-        private void DrawConsumables(SpriteBatch _spriteBatch,Vector2 cameraoffset){
-        _spriteBatch.Draw(
-                    thingtexture,
-                    thingposition + cameraoffset,
-                    null,
-                    Color.White,
-                    0,
-                    Vector2.Zero,
-                    coinscale,
-                    SpriteEffects.None,
-                    0
-                );
-            }
+
+        private void DrawConsumables(SpriteBatch _spriteBatch, Vector2 cameraoffset)
+        {
+            _spriteBatch.Draw(
+                thingtexture,
+                thingposition + cameraoffset,
+                null,
+                Color.White,
+                0,
+                Vector2.Zero,
+                coinscale,
+                SpriteEffects.None,
+                0
+            );
+        }
 
         protected override void Draw(GameTime gameTime)
         {
             Color mycolour = new Color(r, g, b);
 
-            GraphicsDevice.Clear(Color.Purple);
+            GraphicsDevice.Clear(Color.Black);
             Vector2 cameraoffset = (
                 -rocket.Position
                 + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
             );
 
-
             _spriteBatch.Begin();
-
 
             DrawBackground(_spriteBatch, cameraoffset);
 
@@ -950,7 +1029,6 @@ private void Bounds(GameTime gameTime)
             DrawEnemies(_spriteBatch, cameraoffset);
             DrawBullets(_spriteBatch, cameraoffset);
             DrawConsumables(_spriteBatch, cameraoffset);
-            
 
             rocket.Rectangle = new Rectangle(
                 (int)rocket.Position.X,
@@ -970,20 +1048,17 @@ private void Bounds(GameTime gameTime)
                 SpriteEffects.None,
                 0
             );
-            
 
-            
-
-            
-
-            
             DrawHUD(_spriteBatch);
             _spriteBatch.End();
+            _desktop.Render();
 
             base.Draw(gameTime);
         }
-        protected override void UnloadContent(){
+    private void StartGame(){
 
-        }
+    }
+
+        protected override void UnloadContent() { }
     }
 }
