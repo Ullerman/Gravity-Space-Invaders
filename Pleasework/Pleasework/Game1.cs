@@ -20,6 +20,7 @@ using Myra.Graphics2D.UI.Properties;
 using FontStashSharp.RichText;
 using AssetManagementBase;
 using Pleasework;
+using Microsoft.Xna.Framework.Audio;
 
 public class Constants
 {
@@ -34,45 +35,6 @@ public class Constants
 
 namespace Pleasework
 {
-    	partial class Game1: Panel
-	{
-		private void BuildUI()
-		{
-			var label1 = new Label();
-			label1.Text = "My Awesome Game";
-			label1.TextColor = Color.Orange;
-			label1.HorizontalAlignment = Myra.Graphics2D.UI.HorizontalAlignment.Center;
-
-			_menuStartNewGame = new MenuItem();
-			_menuStartNewGame.Text = "Start New Game";
-			_menuStartNewGame.Id = "_menuStartNewGame";
-
-			_menuOptions = new MenuItem();
-			_menuOptions.Text = "Options";
-			_menuOptions.Id = "_menuOptions";
-
-			_menuQuit = new MenuItem();
-			_menuQuit.Text = "Quit";
-			_menuQuit.Id = "_menuQuit";
-
-			var verticalMenu1 = new VerticalMenu();
-			verticalMenu1.HorizontalAlignment = Myra.Graphics2D.UI.HorizontalAlignment.Center;
-			verticalMenu1.VerticalAlignment = Myra.Graphics2D.UI.VerticalAlignment.Center;
-			verticalMenu1.Items.Add(_menuStartNewGame);
-			verticalMenu1.Items.Add(_menuOptions);
-			verticalMenu1.Items.Add(_menuQuit);
-
-			
-			Widgets.Add(label1);
-			Widgets.Add(verticalMenu1);
-		}
-
-		
-		public MenuItem _menuStartNewGame;
-		public MenuItem _menuOptions;
-		public MenuItem _menuQuit;
-	}
-}
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -83,6 +45,8 @@ namespace Pleasework
         const string filePath = "Main_Menu.xmmp";
         string data;
         Project project;
+
+        byte level;
 
         Vector2 cameraPosition;
 
@@ -96,6 +60,7 @@ namespace Pleasework
         char whatcolour;
 
         Texture2D Gameover;
+
         Texture2D BackroundTexture;
         Texture2D thingtexture;
 
@@ -126,6 +91,7 @@ namespace Pleasework
 
         Texture2D Invader1Texture;
         Texture2D Invader2Texture;
+        SoundEffect[] InvaderNoiseArray = new SoundEffect[4];
 
         Texture2D earthTexture;
         Vector2 earthscale;
@@ -159,7 +125,7 @@ namespace Pleasework
 
             _graphics.PreferredBackBufferWidth = Constants.SCREENWIDTH;
             _graphics.PreferredBackBufferHeight = Constants.SCREENHEIGHT;
-            
+
             MyraEnvironment.Game = this;
         }
 
@@ -172,6 +138,7 @@ namespace Pleasework
             r = 0;
             g = 0;
             b = 0;
+           
             iscolourforward = true;
             coinforward = false;
             whatcolour = 'r';
@@ -210,6 +177,7 @@ namespace Pleasework
             earthscale = new Vector2(.25f, .25f);
 
             invaderlist = new List<Invader>();
+            
 
             rocketcameraoffset = Vector2.Zero;
 
@@ -246,6 +214,11 @@ namespace Pleasework
             moontexture = Content.Load<Texture2D>("moon");
 
             Invader1Texture = Content.Load<Texture2D>("Invader1");
+
+            InvaderNoiseArray[0] = Content.Load<SoundEffect>("fastinvader1");
+            InvaderNoiseArray[1] = Content.Load<SoundEffect>("fastinvader2");
+            InvaderNoiseArray[2] = Content.Load<SoundEffect>("fastinvader3");
+            InvaderNoiseArray[3] = Content.Load<SoundEffect>("fastinvader4");
         }
 
         private void KeyHandling(GameTime gameTime)
@@ -263,9 +236,9 @@ namespace Pleasework
 
             float triangleAnglecontrol = (float)(rocket.Angle - Math.PI / 2);
             rocket.Velocity.X +=
-                (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration) * rightTriggerValue;
+                (float)(MathF.Cos(triangleAnglecontrol) * rocket.Acceleration) * rightTriggerValue;
             rocket.Velocity.Y +=
-                (float)(Math.Sin(triangleAnglecontrol) * rocket.Acceleration) * rightTriggerValue;
+                (float)(MathF.Sin(triangleAnglecontrol) * rocket.Acceleration) * rightTriggerValue;
 
             rocket.Velocity.X -=
                 (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration) * leftTriggerValue;
@@ -285,8 +258,8 @@ namespace Pleasework
             if (kstate.IsKeyDown(Keys.Up) || kstate.IsKeyDown(Keys.W))
             {
                 float triangleAngle = (float)(rocket.Angle - Math.PI / 2);
-                rocket.Velocity.X += (float)(Math.Cos(triangleAngle) * rocket.Acceleration);
-                rocket.Velocity.Y += (float)(Math.Sin(triangleAngle) * rocket.Acceleration);
+                rocket.Velocity.X += (float)(MathF.Cos(triangleAngle) * rocket.Acceleration);
+                rocket.Velocity.Y += (float)(MathF.Sin(triangleAngle) * rocket.Acceleration);
             }
 
             if (
@@ -296,8 +269,8 @@ namespace Pleasework
             )
             {
                 float triangleAngle = (float)(rocket.Angle - Math.PI / 2);
-                rocket.Velocity.X -= (float)(Math.Cos(triangleAngle) * rocket.Acceleration);
-                rocket.Velocity.Y -= (float)(Math.Sin(triangleAngle) * rocket.Acceleration);
+                rocket.Velocity.X -= (float)(MathF.Cos(triangleAngle) * rocket.Acceleration);
+                rocket.Velocity.Y -= (float)(MathF.Sin(triangleAngle) * rocket.Acceleration);
             }
 
             if (kstate.IsKeyDown(Keys.Space) || gamepadState.Buttons.A == ButtonState.Pressed)
@@ -343,6 +316,8 @@ namespace Pleasework
 
             if (delay.IsFinished() || !delay.IsRunning())
             {
+                InvaderNoiseArray[rnd.Next(0, 4)].Play();
+
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
@@ -379,7 +354,10 @@ namespace Pleasework
             delay.Update(gameTime);
             // Console.WriteLine(delay.GetRemainingTime() + "" );
             if (delay.IsFinished() || !delay.IsRunning())
+                
+
             {
+                InvaderNoiseArray[rnd.Next(0, 4)].Play();
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
@@ -1051,14 +1029,16 @@ namespace Pleasework
 
             DrawHUD(_spriteBatch);
             _spriteBatch.End();
-            _desktop.Render();
+            //_desktop.Render();
 
             base.Draw(gameTime);
         }
-    private void StartGame(){
+        private void StartGame()
+        {
 
-    }
+        }
 
         protected override void UnloadContent() { }
     }
 }
+
