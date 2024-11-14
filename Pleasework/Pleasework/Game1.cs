@@ -88,10 +88,13 @@ namespace Pleasework
         Timer rocketbulletdelay;
 
         List<Invader> invaderlist;
+        float invaderspeedmultiplyer;
+        float invadertimermultiplyer;
 
         Texture2D Invader1Texture;
         Texture2D Invader2Texture;
         SoundEffect[] InvaderNoiseArray = new SoundEffect[4];
+
 
         Texture2D earthTexture;
         Vector2 earthscale;
@@ -177,7 +180,9 @@ namespace Pleasework
             earthscale = new Vector2(.25f, .25f);
 
             invaderlist = new List<Invader>();
-            
+            invaderspeedmultiplyer = 1.0f;
+            invadertimermultiplyer = 1.0f;
+
 
             rocketcameraoffset = Vector2.Zero;
 
@@ -515,13 +520,14 @@ namespace Pleasework
                 );
                 invader.Scale = new Vector2(1, 1);
                 invader.angle = rnd.Next(0, 200);
-                invader.anglularvelocity = (float)rnd.Next(10, 15) / 1000;
+                invader.anglularvelocity = (float)rnd.Next(10, 15) / 1000 * invaderspeedmultiplyer;
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
                 invader.OrbitRadius = rnd.Next(400, 800);
                 invader.SightRadius = rnd.Next(100, 300);
-                invader.delay = new Timer(0.75f);
+                invader.delay = new Timer(0.75f*invadertimermultiplyer);
             }
         }
+
 
         private void Physics(double deltatime)
         {
@@ -710,6 +716,16 @@ namespace Pleasework
                 rocket.Position = Vector2.Lerp(rocket.Position, earthposition, lerpFactor);
             }
         }
+        private void Level_Update(GameTime gameTime)
+        {
+            if (invaderlist.Count == 0)
+            {
+                invaderspeedmultiplyer += .1f;
+                invadertimermultiplyer -= .1f;
+
+                SpawnInvaders();
+            }
+        }
 
         protected override void Update(GameTime gameTime)
         {
@@ -731,17 +747,16 @@ namespace Pleasework
                 rocket.Scale = new Vector2(.25f);
             }
             Coin();
-            if (invaderlist.Count == 0)
-            {
-                SpawnInvaders();
-            }
-            if (rocket.Health != 0)
+            
+            if (rocket.Health > 0)
             {
                 rocketbulletdelay.Update(gameTime);
                 Physics(deltatime);
+                Level_Update(gameTime);
                 UpdateBullet();
                 InvaderCompute(gameTime);
                 BackroundColour();
+
             }
             KeyHandling(gameTime);
             Bounds(gameTime);
