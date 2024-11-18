@@ -70,6 +70,7 @@ namespace Pleasework
         Vector2 thingposition;
         byte updatecoin;
         float fakecoinx;
+        float coinT;
         bool coinforward;
         Vector2 coinscale;
 
@@ -94,6 +95,7 @@ namespace Pleasework
         Texture2D Invader1Texture;
         Texture2D Invader2Texture;
         SoundEffect[] InvaderNoiseArray = new SoundEffect[4];
+        SoundEffect ShootSound;
 
 
         Texture2D earthTexture;
@@ -148,6 +150,7 @@ namespace Pleasework
             thingposition = new Vector2(600 - 52.5f, 0);
             updatecoin = 0;
             fakecoinx = 600.0f;
+            coinT = 0;
 
             rocket = new Rocket();
             rocket.Position = new Vector2(300, 300);
@@ -224,11 +227,13 @@ namespace Pleasework
             InvaderNoiseArray[1] = Content.Load<SoundEffect>("fastinvader2");
             InvaderNoiseArray[2] = Content.Load<SoundEffect>("fastinvader3");
             InvaderNoiseArray[3] = Content.Load<SoundEffect>("fastinvader4");
+            ShootSound = Content.Load<SoundEffect>("shoot");
         }
 
         private void KeyHandling(GameTime gameTime)
         {
             var kstate = Keyboard.GetState();
+            
             var gamepadState = GamePad.GetState(PlayerIndex.One);
 
             Vector2 leftThumbstick = gamepadState.ThumbSticks.Left;
@@ -321,7 +326,7 @@ namespace Pleasework
 
             if (delay.IsFinished() || !delay.IsRunning())
             {
-                InvaderNoiseArray[rnd.Next(0, 4)].Play();
+                ShootSound.Play(1, rnd.Next(-100, 100) / 100, 0);
 
                 Bullet bullet = new Bullet();
 
@@ -362,7 +367,7 @@ namespace Pleasework
                 
 
             {
-                InvaderNoiseArray[rnd.Next(0, 4)].Play();
+                ShootSound.Play(1, rnd.Next(-10, 10)/10, 0);
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
@@ -455,8 +460,10 @@ namespace Pleasework
 
         private void Coin()
         {
+
             if (updatecoin % 1 == 0)
-                thingposition.Y = (float)Math.Sin(fakecoinx) * 200 + 200;
+                //thingposition.Y = ((float)MathF.Sin(fakecoinx) * 200 + 200);
+                thingposition.Y = ((MathF.Sin(10 * coinT)+8));
             updatecoin++;
 
             if (thingposition.X <= 0)
@@ -478,6 +485,7 @@ namespace Pleasework
                 thingposition.X -= 2;
                 fakecoinx -= 0.03125f;
             }
+            coinT += (2 * MathF.PI) / (60 * 5);
         }
 
         private Vector2 GravityCalculation(

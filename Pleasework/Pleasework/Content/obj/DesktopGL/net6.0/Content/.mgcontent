@@ -20,8 +20,10 @@
     <File>C:/Users/Leon/source/repos/Ullerman/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Invader2.png</File>
     <File>C:/Users/Leon/source/repos/Ullerman/Gravity-Space-Invaders/Pleasework/Pleasework/Content/moon.png</File>
     <File>C:/Users/Leon/source/repos/Ullerman/Gravity-Space-Invaders/Pleasework/Pleasework/Content/rocket.png</File>
+    <File>C:/Users/Leon/source/repos/Ullerman/Gravity-Space-Invaders/Pleasework/Pleasework/Content/shoot.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

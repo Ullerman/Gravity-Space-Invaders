@@ -176,3 +176,9 @@
 /processorParam:TextureFormat=Color
 /build:rocket.png
 
+#begin shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:shoot.wav
+
