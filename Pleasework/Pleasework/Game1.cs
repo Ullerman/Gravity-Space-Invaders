@@ -7,20 +7,20 @@ using System.Net.Sockets;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.Intrinsics.X86;
+using AssetManagementBase;
+using FontStashSharp.RichText;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D;
+using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
-using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI.Properties;
-using FontStashSharp.RichText;
-using AssetManagementBase;
 using Pleasework;
-using Microsoft.Xna.Framework.Audio;
 
 public class Constants
 {
@@ -40,11 +40,12 @@ namespace Pleasework
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private Desktop _desktop;
+        // private Desktop _desktop;
 
         const string filePath = "Main_Menu.xmmp";
-        string data;
-        Project project;
+
+        // string data;
+        // Project project;
 
         byte level;
 
@@ -97,7 +98,6 @@ namespace Pleasework
         SoundEffect[] InvaderNoiseArray = new SoundEffect[4];
         SoundEffect ShootSound;
 
-
         Texture2D earthTexture;
         Vector2 earthscale;
         Vector2 earthposition;
@@ -143,7 +143,7 @@ namespace Pleasework
             r = 0;
             g = 0;
             b = 0;
-           
+
             iscolourforward = true;
             coinforward = false;
             whatcolour = 'r';
@@ -186,7 +186,6 @@ namespace Pleasework
             invaderspeedmultiplyer = 1.0f;
             invadertimermultiplyer = 1.0f;
 
-
             rocketcameraoffset = Vector2.Zero;
 
             _graphics.ApplyChanges();
@@ -194,11 +193,8 @@ namespace Pleasework
             base.Initialize();
         }
 
-        private void LoadMenu()
-        {
+        private void LoadMenu() { }
 
-
-        }
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -233,7 +229,7 @@ namespace Pleasework
         private void KeyHandling(GameTime gameTime)
         {
             var kstate = Keyboard.GetState();
-            
+
             var gamepadState = GamePad.GetState(PlayerIndex.One);
 
             Vector2 leftThumbstick = gamepadState.ThumbSticks.Left;
@@ -364,8 +360,6 @@ namespace Pleasework
             delay.Update(gameTime);
             // Console.WriteLine(delay.GetRemainingTime() + "" );
             if (delay.IsFinished() || !delay.IsRunning())
-                
-
             {
                 ShootSound.Play(1, rnd.Next(-100, 100) / 100, 0);
                 Bullet bullet = new Bullet();
@@ -458,13 +452,20 @@ namespace Pleasework
             }
         }
 
-        private Vector2 parametricmovement(Vector2 position,Vector2 center, int radius,float timetocomplete, float updatespeed, GameTime gameTime)
+        private Vector2 parametricmovement(
+            Vector2 position,
+            Vector2 center,
+            int radius,
+            float timetocomplete,
+            float updatespeed,
+            GameTime gameTime
+        )
         {
             //((earthTexture.Width * earthscale.X / 2)+600)
             if (updatespeed % 1 == 0)
                 //thingposition.Y = ((float)MathF.Sin(fakecoinx) * 200 + 200);
-                position.Y = center.Y + radius * MathF.Sin(3*coinT);
-                position.X = center.X + radius * MathF.Cos(5*coinT);
+                position.Y = center.Y + radius * MathF.Sin(3 * coinT);
+            position.X = center.X + radius * MathF.Cos(5 * coinT);
             //FireBullet(thingposition, 0, Vector2.Zero, ref rocket.Rectangle, ref invaderlist, ref rocketbulletdelay, gameTime);
 
             updatespeed++;
@@ -491,9 +492,17 @@ namespace Pleasework
             coinT += (2 * MathF.PI) / (60 * updatecoin);
             return position;
         }
+
         private void Coin(GameTime gameTime)
         {
-            thingposition = parametricmovement(thingposition, earthposition, 700, 5,  updatecoin, gameTime);
+            thingposition = parametricmovement(
+                thingposition,
+                earthposition,
+                700,
+                5,
+                updatecoin,
+                gameTime
+            );
         }
 
         private Vector2 GravityCalculation(
@@ -540,10 +549,9 @@ namespace Pleasework
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
                 invader.OrbitRadius = rnd.Next(400, 800);
                 invader.SightRadius = rnd.Next(100, 300);
-                invader.delay = new Timer(0.75f*invadertimermultiplyer);
+                invader.delay = new Timer(0.75f * invadertimermultiplyer);
             }
         }
-
 
         private void Physics(double deltatime)
         {
@@ -727,11 +735,12 @@ namespace Pleasework
                 );
 
                 rocket.Velocity *= 1f - (distanceRatio * 0.05f);
-                
+
                 float lerpFactor = 0.01f * distanceRatio;
                 rocket.Position = Vector2.Lerp(rocket.Position, earthposition, lerpFactor);
             }
         }
+
         private void Level_Update(GameTime gameTime)
         {
             if (invaderlist.Count == 0)
@@ -772,7 +781,6 @@ namespace Pleasework
                 UpdateBullet();
                 InvaderCompute(gameTime);
                 BackroundColour();
-
             }
             KeyHandling(gameTime);
             Bounds(gameTime);
@@ -1064,12 +1072,9 @@ namespace Pleasework
 
             base.Draw(gameTime);
         }
-        private void StartGame()
-        {
 
-        }
+        private void StartGame() { }
 
         protected override void UnloadContent() { }
     }
 }
-
