@@ -205,3 +205,8 @@ C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework
 C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\obj\Debug\net6.0\Pleasework.genruntimeconfig.cache
 C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\obj\Debug\net6.0\ref\Pleasework.dll
 C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\shoot.xnb
+c:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\fastinvader1.xnb
+c:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\fastinvader2.xnb
+c:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\fastinvader3.xnb
+c:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\fastinvader4.xnb
+c:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\shoot.xnb

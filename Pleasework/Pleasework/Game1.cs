@@ -68,7 +68,7 @@ namespace Pleasework
         bool togglerocket;
 
         Vector2 thingposition;
-        byte updatecoin;
+        float updatecoin;
         float fakecoinx;
         float coinT;
         bool coinforward;
@@ -148,7 +148,7 @@ namespace Pleasework
             coinforward = false;
             whatcolour = 'r';
             thingposition = new Vector2(600 - 52.5f, 0);
-            updatecoin = 0;
+            updatecoin = 30;
             fakecoinx = 600.0f;
             coinT = 0;
 
@@ -168,7 +168,7 @@ namespace Pleasework
             Bulletlist = new List<Bullet>();
 
             bulletdefaultspeed = 10f;
-            rocketbulletdelay = new Timer(0f);
+            rocketbulletdelay = new Timer(0.4f);
 
             earthposition = new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2);
 
@@ -367,7 +367,7 @@ namespace Pleasework
                 
 
             {
-                ShootSound.Play(1, rnd.Next(-10, 10)/10, 0);
+                ShootSound.Play(1, rnd.Next(-100, 100) / 100, 0);
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
@@ -458,7 +458,7 @@ namespace Pleasework
             }
         }
 
-        private void parametricmovement(Vector2 position,Vector2 center, int radius,float timetocomplete,ref float updatespeed, GameTime gameTime)
+        private Vector2 parametricmovement(Vector2 position,Vector2 center, int radius,float timetocomplete, float updatespeed, GameTime gameTime)
         {
             //((earthTexture.Width * earthscale.X / 2)+600)
             if (updatespeed % 1 == 0)
@@ -488,7 +488,12 @@ namespace Pleasework
             //    thingposition.X -= 2;
             //    fakecoinx -= 0.03125f;
             //}
-            coinT += (2 * MathF.PI) / (60 * 5);
+            coinT += (2 * MathF.PI) / (60 * updatecoin);
+            return position;
+        }
+        private void Coin(GameTime gameTime)
+        {
+            thingposition = parametricmovement(thingposition, earthposition, 700, 5,  updatecoin, gameTime);
         }
 
         private Vector2 GravityCalculation(
@@ -757,7 +762,7 @@ namespace Pleasework
                 rocket.Texture = AnnaRocket;
                 rocket.Scale = new Vector2(.25f);
             }
-            //Coin(gameTime);
+            Coin(gameTime);
 
             if (rocket.Health > 0)
             {
