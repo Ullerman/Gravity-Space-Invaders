@@ -40,6 +40,14 @@ namespace Pleasework
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private PrimitiveBatch _primitiveBatch;
+
+        
+        List<PrimitiveBatch.Line> lines = new List<PrimitiveBatch.Line>();
+        List<PrimitiveBatch.Circle> circles = new List<PrimitiveBatch.Circle>();
+        
+        
+
         // private Desktop _desktop;
 
         const string filePath = "Main_Menu.xmmp";
@@ -51,6 +59,8 @@ namespace Pleasework
 
         Vector2 cameraPosition;
 
+
+
         SpriteFont arial;
 
         byte r,
@@ -59,6 +69,9 @@ namespace Pleasework
         bool iscolourforward;
 
         char whatcolour;
+
+        Texture2D Pixel;
+        Texture2D Circle;
 
         Texture2D Gameover;
 
@@ -199,6 +212,13 @@ namespace Pleasework
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LoadMenu();
+
+            Pixel = Content.Load<Texture2D>("Pixel");
+            Circle = Content.Load<Texture2D>("Circle");
+            
+
+            _primitiveBatch = new PrimitiveBatch();
+            _primitiveBatch.Primitive(Pixel,Circle);
 
             arial = Content.Load<SpriteFont>("File");
 
@@ -453,56 +473,24 @@ namespace Pleasework
         }
 
         private Vector2 parametricmovement(
-            Vector2 position,
             Vector2 center,
             int radius,
             float timetocomplete,
-            float updatespeed,
             GameTime gameTime
         )
         {
-            //((earthTexture.Width * earthscale.X / 2)+600)
-            if (updatespeed % 1 == 0)
-                //thingposition.Y = ((float)MathF.Sin(fakecoinx) * 200 + 200);
-                position.Y = center.Y + radius * MathF.Sin(3 * coinT);
+            Vector2 position = new Vector2();
+
+            position.Y = center.Y + radius * MathF.Sin(3 * coinT);
             position.X = center.X + radius * MathF.Cos(5 * coinT);
-            //FireBullet(thingposition, 0, Vector2.Zero, ref rocket.Rectangle, ref invaderlist, ref rocketbulletdelay, gameTime);
 
-            updatespeed++;
-
-            //if (thingposition.X <= 0)
-            //{
-            //    coinforward = true;
-            //}
-            //else if (thingposition.X >= Constants.SCREENWIDTH)
-            //{
-            //    coinforward = false;
-            //}
-
-            //if (coinforward)
-            //{
-            //    thingposition.X += 2;
-            //    fakecoinx += 0.03125f;
-            //}
-            //else
-            //{
-            //    thingposition.X -= 2;
-            //    fakecoinx -= 0.03125f;
-            //}
-            coinT += (2 * MathF.PI) / (60 * updatecoin);
+            coinT += 2 * MathF.PI / (60 * timetocomplete);
             return position;
         }
 
         private void Coin(GameTime gameTime)
         {
-            thingposition = parametricmovement(
-                thingposition,
-                earthposition,
-                700,
-                5,
-                updatecoin,
-                gameTime
-            );
+            thingposition = parametricmovement(earthposition, 200, 30, gameTime);
         }
 
         private Vector2 GravityCalculation(
@@ -545,9 +533,20 @@ namespace Pleasework
                 );
                 invader.Scale = new Vector2(1, 1);
                 invader.angle = rnd.Next(0, 200);
-                invader.anglularvelocity = (float)rnd.Next(10, 15) / 1000 * invaderspeedmultiplyer;
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
-                invader.OrbitRadius = rnd.Next(400, 800);
+                byte parametric = (byte)rnd.Next(0, 3);
+                invader.isparametric = parametric == 1;
+                if (invader.isparametric)
+                {
+                    invader.OrbitRadius = rnd.Next(400, 800);
+                    invader.anglularvelocity = rnd.Next(30, 150);
+                }
+                else
+                {
+                    invader.OrbitRadius = rnd.Next(400, 800);
+                    invader.anglularvelocity =
+                        (float)rnd.Next(10, 15) / 1000 * invaderspeedmultiplyer;
+                }
                 invader.SightRadius = rnd.Next(100, 300);
                 invader.delay = new Timer(0.75f * invadertimermultiplyer);
             }
@@ -693,6 +692,13 @@ namespace Pleasework
         {
             foreach (Invader invader in invaderlist)
             {
+                circles.Add(
+                    new PrimitiveBatch.Circle(
+                        invader.Position,
+                        invader.SightRadius,
+                        new Color(255, 0, 0, 50)
+                    )
+                );
                 if (
                     IsRectCollidingWithCircle(
                         invader.Position,
@@ -703,6 +709,7 @@ namespace Pleasework
                 {
                     // Console.WriteLine("invadersee");
                     float angle = CalculateAngleBetweenPoints(invader.Position, rocket.Position);
+                    lines.Add(new PrimitiveBatch.Line(invader.Position, rocket.Position, Color.White, 5));
                     FireBullet(
                         invader.Position,
                         angle,
@@ -710,6 +717,25 @@ namespace Pleasework
                         ref invaderlist,
                         ref rocket.Rectangle,
                         ref invader.delay,
+                        gameTime
+                    );
+                }
+                if (!invader.isparametric)
+                {
+                    invader.angle += invader.anglularvelocity;
+                    invader.Position.X =
+                        earthposition.X + (float)(invader.OrbitRadius * Math.Cos(invader.angle));
+                    invader.Position.Y =
+                        earthposition.Y + (float)(invader.OrbitRadius * Math.Sin(invader.angle));
+                    invader.rectangle.X = (int)invader.Position.X;
+                    invader.rectangle.Y = (int)invader.Position.Y;
+                }
+                else
+                {
+                    invader.Position = parametricmovement(
+                        earthposition,
+                        (int)invader.OrbitRadius,
+                        invader.anglularvelocity,
                         gameTime
                     );
                 }
@@ -788,16 +814,6 @@ namespace Pleasework
             moonangle += moonanglularvelocity;
             moonposition.X = earthposition.X + (float)(moonorbitradius * Math.Cos(moonangle));
             moonposition.Y = earthposition.Y + (float)(moonorbitradius * Math.Sin(moonangle));
-            foreach (Invader invader in invaderlist)
-            {
-                invader.angle += invader.anglularvelocity;
-                invader.Position.X =
-                    earthposition.X + (float)(invader.OrbitRadius * Math.Cos(invader.angle));
-                invader.Position.Y =
-                    earthposition.Y + (float)(invader.OrbitRadius * Math.Sin(invader.angle));
-                invader.rectangle.X = (int)invader.Position.X;
-                invader.rectangle.Y = (int)invader.Position.Y;
-            }
 
             Camera();
             base.Update(gameTime);
@@ -938,6 +954,20 @@ namespace Pleasework
                 );
             }
         }
+        private void DrawDebugGraphics(SpriteBatch _spriteBatch, Vector2 cameraoffset)
+        {
+            foreach (PrimitiveBatch.Line line in lines)
+            {
+                line.Draw(_spriteBatch, _primitiveBatch,cameraoffset);
+            }
+            lines.Clear();
+            foreach (PrimitiveBatch.Circle circle in circles)
+            {
+                circle.Draw(_spriteBatch, _primitiveBatch,cameraoffset);
+            }
+            circles.Clear();
+            
+        }
 
         private void DrawEnemies(SpriteBatch _spriteBatch, Vector2 cameraoffset)
         {
@@ -956,7 +986,7 @@ namespace Pleasework
                     null,
                     invader.Color,
                     0,
-                    new Vector2(0, 0),
+                    new Vector2(Invader1Texture.Width/2, Invader1Texture.Height/2),
                     invader.Scale,
                     SpriteEffects.None,
                     0
@@ -1046,6 +1076,7 @@ namespace Pleasework
             DrawEnemies(_spriteBatch, cameraoffset);
             DrawBullets(_spriteBatch, cameraoffset);
             DrawConsumables(_spriteBatch, cameraoffset);
+            DrawDebugGraphics(_spriteBatch, cameraoffset);
 
             rocket.Rectangle = new Rectangle(
                 (int)rocket.Position.X,

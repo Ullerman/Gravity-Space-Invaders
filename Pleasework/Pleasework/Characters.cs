@@ -36,6 +36,8 @@ public class Invader
     public float SightRadius;
     public Rectangle rectangle;
     public Timer delay;
+    public int Health;
+    public bool isparametric;
 
     public Invader()
     {
