@@ -168,7 +168,7 @@ namespace Pleasework
             Bulletlist = new List<Bullet>();
 
             bulletdefaultspeed = 10f;
-            rocketbulletdelay = new Timer(0.4f);
+            rocketbulletdelay = new Timer(0f);
 
             earthposition = new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2);
 
@@ -458,33 +458,36 @@ namespace Pleasework
             }
         }
 
-        private void Coin()
+        private void parametricmovement(Vector2 position,Vector2 center, int radius,float timetocomplete,ref float updatespeed, GameTime gameTime)
         {
-
-            if (updatecoin % 1 == 0)
+            //((earthTexture.Width * earthscale.X / 2)+600)
+            if (updatespeed % 1 == 0)
                 //thingposition.Y = ((float)MathF.Sin(fakecoinx) * 200 + 200);
-                thingposition.Y = ((MathF.Sin(10 * coinT)+8));
-            updatecoin++;
+                position.Y = center.Y + radius * MathF.Sin(3*coinT);
+                position.X = center.X + radius * MathF.Cos(5*coinT);
+            //FireBullet(thingposition, 0, Vector2.Zero, ref rocket.Rectangle, ref invaderlist, ref rocketbulletdelay, gameTime);
 
-            if (thingposition.X <= 0)
-            {
-                coinforward = true;
-            }
-            else if (thingposition.X >= Constants.SCREENWIDTH)
-            {
-                coinforward = false;
-            }
+            updatespeed++;
 
-            if (coinforward)
-            {
-                thingposition.X += 2;
-                fakecoinx += 0.03125f;
-            }
-            else
-            {
-                thingposition.X -= 2;
-                fakecoinx -= 0.03125f;
-            }
+            //if (thingposition.X <= 0)
+            //{
+            //    coinforward = true;
+            //}
+            //else if (thingposition.X >= Constants.SCREENWIDTH)
+            //{
+            //    coinforward = false;
+            //}
+
+            //if (coinforward)
+            //{
+            //    thingposition.X += 2;
+            //    fakecoinx += 0.03125f;
+            //}
+            //else
+            //{
+            //    thingposition.X -= 2;
+            //    fakecoinx -= 0.03125f;
+            //}
             coinT += (2 * MathF.PI) / (60 * 5);
         }
 
@@ -719,7 +722,7 @@ namespace Pleasework
                 );
 
                 rocket.Velocity *= 1f - (distanceRatio * 0.05f);
-
+                
                 float lerpFactor = 0.01f * distanceRatio;
                 rocket.Position = Vector2.Lerp(rocket.Position, earthposition, lerpFactor);
             }
@@ -754,8 +757,8 @@ namespace Pleasework
                 rocket.Texture = AnnaRocket;
                 rocket.Scale = new Vector2(.25f);
             }
-            Coin();
-            
+            //Coin(gameTime);
+
             if (rocket.Health > 0)
             {
                 rocketbulletdelay.Update(gameTime);
