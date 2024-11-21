@@ -29,6 +29,13 @@ namespace Pleasework
                 Color = color;
                 Width = width;
             }
+            public Line(Vector2 start, float angle,float distance, Color color, float width)
+            {
+                Start = start;
+                End = new Vector2((float)Math.Cos(angle)*distance, (float)Math.Sin(angle)*distance);
+                Color = color;
+                Width = width;
+            }
 
             public void Draw(SpriteBatch spriteBatch, PrimitiveBatch primitiveBatch, Vector2 CameraOffset)
             {

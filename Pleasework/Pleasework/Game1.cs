@@ -385,7 +385,7 @@ namespace Pleasework
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
-                float triangleAngle = (float)(angle - Math.PI / 2);
+                float triangleAngle = (float)(angle + Math.PI/2);
 
                 bullet.position = position;
                 bullet.angle = angle;
@@ -393,6 +393,8 @@ namespace Pleasework
                     (float)(Math.Cos(triangleAngle) * bulletdefaultspeed + velocity.X),
                     (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + velocity.Y)
                 );
+                float momentumDirection = MathF.Atan2(bullet.momentum.Y, bullet.momentum.X);
+                lines.Add(new PrimitiveBatch.Line(bullet.position,momentumDirection,500,Color.Red,10));
                 bullet.selfrectlist = selfrectlist;
                 bullet.enemyrect = enemyrect;
                 Bulletlist.Add(bullet);
@@ -683,7 +685,7 @@ namespace Pleasework
             float deltaX = point2.X - point1.X;
             float deltaY = point2.Y - point1.Y;
 
-            float angle = MathF.Atan2(deltaX, deltaY);
+            float angle = MathF.Atan2(deltaY, deltaX);
 
             return angle;
         }
@@ -709,7 +711,9 @@ namespace Pleasework
                 {
                     // Console.WriteLine("invadersee");
                     float angle = CalculateAngleBetweenPoints(invader.Position, rocket.Position);
-                    lines.Add(new PrimitiveBatch.Line(invader.Position, rocket.Position, Color.White, 5));
+                    //lines.Add(new PrimitiveBatch.Line(invader.Position, rocket.Position, Color.White, 5));
+                    lines.Add(new PrimitiveBatch.Line(invader.Position, angle,500, Color.White, 5));
+                    invader.angle = angle;
                     FireBullet(
                         invader.Position,
                         angle,
@@ -985,7 +989,7 @@ namespace Pleasework
                     invader.Position + cameraoffset,
                     null,
                     invader.Color,
-                    0,
+                    invader.angle,
                     new Vector2(Invader1Texture.Width/2, Invader1Texture.Height/2),
                     invader.Scale,
                     SpriteEffects.None,
@@ -1073,10 +1077,11 @@ namespace Pleasework
             DrawBackground(_spriteBatch, cameraoffset);
 
             DrawEnviroment(_spriteBatch, cameraoffset);
-            DrawEnemies(_spriteBatch, cameraoffset);
             DrawBullets(_spriteBatch, cameraoffset);
             DrawConsumables(_spriteBatch, cameraoffset);
             DrawDebugGraphics(_spriteBatch, cameraoffset);
+            DrawEnemies(_spriteBatch, cameraoffset);
+
 
             rocket.Rectangle = new Rectangle(
                 (int)rocket.Position.X,
