@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Common;
 using System.IO;
 using System.Linq;
@@ -42,11 +43,8 @@ namespace Pleasework
 
         private PrimitiveBatch _primitiveBatch;
 
-        
         List<PrimitiveBatch.Line> lines = new List<PrimitiveBatch.Line>();
         List<PrimitiveBatch.Circle> circles = new List<PrimitiveBatch.Circle>();
-        
-        
 
         // private Desktop _desktop;
 
@@ -58,8 +56,6 @@ namespace Pleasework
         byte level;
 
         Vector2 cameraPosition;
-
-
 
         SpriteFont arial;
 
@@ -73,6 +69,8 @@ namespace Pleasework
         Texture2D Pixel;
         Texture2D Circle;
 
+        Texture2D arrow;
+
         Texture2D Gameover;
 
         Texture2D BackroundTexture;
@@ -80,6 +78,7 @@ namespace Pleasework
 
         Texture2D AnnaRocket;
         bool togglerocket;
+        bool toggleDebug;
 
         Vector2 thingposition;
         float updatecoin;
@@ -152,6 +151,7 @@ namespace Pleasework
             rnd = new Random();
 
             togglerocket = true;
+            toggleDebug = false;
 
             r = 0;
             g = 0;
@@ -215,10 +215,11 @@ namespace Pleasework
 
             Pixel = Content.Load<Texture2D>("Pixel");
             Circle = Content.Load<Texture2D>("Circle");
-            
+
+            arrow = Content.Load<Texture2D>("arrow");
 
             _primitiveBatch = new PrimitiveBatch();
-            _primitiveBatch.Primitive(Pixel,Circle);
+            _primitiveBatch.Primitive(Pixel, Circle);
 
             arial = Content.Load<SpriteFont>("File");
 
@@ -326,6 +327,10 @@ namespace Pleasework
             {
                 togglerocket = !togglerocket;
             }
+            if (kstate.IsKeyDown(Keys.F3))
+            {
+                toggleDebug = !toggleDebug;
+            }
         }
 
         private void FireBullet(
@@ -385,16 +390,18 @@ namespace Pleasework
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
-                float triangleAngle = (float)(angle + Math.PI/2);
+                float triangleAngle = (float)(angle + Math.PI / 2);
 
                 bullet.position = position;
                 bullet.angle = angle;
                 bullet.momentum = new Vector2(
-                    (float)(Math.Cos(triangleAngle) * bulletdefaultspeed + velocity.X),
-                    (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + velocity.Y)
+                    (float)(Math.Cos(angle) * bulletdefaultspeed + velocity.X),
+                    (float)(Math.Sin(angle) * bulletdefaultspeed + velocity.Y)
                 );
                 float momentumDirection = MathF.Atan2(bullet.momentum.Y, bullet.momentum.X);
-                lines.Add(new PrimitiveBatch.Line(bullet.position,momentumDirection,500,Color.Red,10));
+                lines.Add(
+                    new PrimitiveBatch.Line(bullet.position, momentumDirection, 500, Color.Red, 10)
+                );
                 bullet.selfrectlist = selfrectlist;
                 bullet.enemyrect = enemyrect;
                 Bulletlist.Add(bullet);
@@ -534,7 +541,7 @@ namespace Pleasework
                     rnd.Next(0, Constants.SCREENHEIGHT)
                 );
                 invader.Scale = new Vector2(1, 1);
-                invader.angle = rnd.Next(0, 200);
+                invader.orbitAngle = rnd.Next(0, 200);
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
                 byte parametric = (byte)rnd.Next(0, 3);
                 invader.isparametric = parametric == 1;
@@ -712,8 +719,10 @@ namespace Pleasework
                     // Console.WriteLine("invadersee");
                     float angle = CalculateAngleBetweenPoints(invader.Position, rocket.Position);
                     //lines.Add(new PrimitiveBatch.Line(invader.Position, rocket.Position, Color.White, 5));
-                    lines.Add(new PrimitiveBatch.Line(invader.Position, angle,500, Color.White, 5));
-                    invader.angle = angle;
+                    lines.Add(
+                        new PrimitiveBatch.Line(invader.Position, angle, 500, Color.White, 5)
+                    );
+                    invader.angle = angle - MathF.PI / 2;
                     FireBullet(
                         invader.Position,
                         angle,
@@ -724,13 +733,20 @@ namespace Pleasework
                         gameTime
                     );
                 }
+                else
+                {
+                    float angle = CalculateAngleBetweenPoints(invader.Position, earthposition);
+                    invader.angle = MathHelper.Lerp(invader.angle, angle - MathF.PI / 2, 0.125f); //angle- MathF.PI/2;
+                }
                 if (!invader.isparametric)
                 {
-                    invader.angle += invader.anglularvelocity;
+                    invader.orbitAngle += invader.anglularvelocity;
                     invader.Position.X =
-                        earthposition.X + (float)(invader.OrbitRadius * Math.Cos(invader.angle));
+                        earthposition.X
+                        + (float)(invader.OrbitRadius * Math.Cos(invader.orbitAngle));
                     invader.Position.Y =
-                        earthposition.Y + (float)(invader.OrbitRadius * Math.Sin(invader.angle));
+                        earthposition.Y
+                        + (float)(invader.OrbitRadius * Math.Sin(invader.orbitAngle));
                     invader.rectangle.X = (int)invader.Position.X;
                     invader.rectangle.Y = (int)invader.Position.Y;
                 }
@@ -878,7 +894,32 @@ namespace Pleasework
             }
         }
 
-        private void DrawHUD(SpriteBatch _spriteBatch)
+        private void HUDArrowtopoint(
+            Vector2 firstPoint,
+            Vector2 secondPoint,
+            Texture2D arrowTexture,
+            Vector2 cameraoffset,
+            SpriteBatch _spriteBatch
+        )
+        {
+            float angle = CalculateAngleBetweenPoints(firstPoint, secondPoint);
+            Vector2 direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+            Vector2 arrowPosition = firstPoint + direction * 100;
+            float arrowAngle = angle + MathF.PI / 2;
+            _spriteBatch.Draw(
+                arrowTexture,
+                arrowPosition + cameraoffset,
+                null,
+                Color.White,
+                arrowAngle,
+                new Vector2(arrowTexture.Width / 2, arrowTexture.Height / 2),
+                new Vector2(0.25f, 0.25f),
+                SpriteEffects.None,
+                0
+            );
+        }
+
+        private void DrawHUD(Vector2 cameraoffset, SpriteBatch _spriteBatch)
         {
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
 
@@ -942,6 +983,13 @@ namespace Pleasework
                 SpriteEffects.None,
                 0.5f
             );
+            HUDArrowtopoint(
+                rocket.Position,
+                earthposition,
+                arrow,
+                rocketcameraoffset,
+                _spriteBatch
+            );
 
             if (rocket.Health == 0)
             {
@@ -958,19 +1006,19 @@ namespace Pleasework
                 );
             }
         }
+
         private void DrawDebugGraphics(SpriteBatch _spriteBatch, Vector2 cameraoffset)
         {
             foreach (PrimitiveBatch.Line line in lines)
             {
-                line.Draw(_spriteBatch, _primitiveBatch,cameraoffset);
+                line.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
             }
             lines.Clear();
             foreach (PrimitiveBatch.Circle circle in circles)
             {
-                circle.Draw(_spriteBatch, _primitiveBatch,cameraoffset);
+                circle.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
             }
             circles.Clear();
-            
         }
 
         private void DrawEnemies(SpriteBatch _spriteBatch, Vector2 cameraoffset)
@@ -990,7 +1038,7 @@ namespace Pleasework
                     null,
                     invader.Color,
                     invader.angle,
-                    new Vector2(Invader1Texture.Width/2, Invader1Texture.Height/2),
+                    new Vector2(Invader1Texture.Width / 2, Invader1Texture.Height / 2),
                     invader.Scale,
                     SpriteEffects.None,
                     0
@@ -1079,9 +1127,9 @@ namespace Pleasework
             DrawEnviroment(_spriteBatch, cameraoffset);
             DrawBullets(_spriteBatch, cameraoffset);
             DrawConsumables(_spriteBatch, cameraoffset);
-            DrawDebugGraphics(_spriteBatch, cameraoffset);
+            if (toggleDebug)
+                DrawDebugGraphics(_spriteBatch, cameraoffset);
             DrawEnemies(_spriteBatch, cameraoffset);
-
 
             rocket.Rectangle = new Rectangle(
                 (int)rocket.Position.X,
@@ -1102,7 +1150,7 @@ namespace Pleasework
                 0
             );
 
-            DrawHUD(_spriteBatch);
+            DrawHUD(cameraoffset, _spriteBatch);
             _spriteBatch.End();
             //_desktop.Render();
 

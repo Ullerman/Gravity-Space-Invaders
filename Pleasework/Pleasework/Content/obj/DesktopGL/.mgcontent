@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/AnnaRocket.png</File>
+    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/arrow.png</File>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Backround.jpg</File>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/bullet.png</File>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Circle.png</File>
@@ -25,6 +26,7 @@
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/shoot.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

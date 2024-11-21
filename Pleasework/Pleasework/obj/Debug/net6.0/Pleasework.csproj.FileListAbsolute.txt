@@ -214,3 +214,4 @@ c:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasewor
 c:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\Circle.xnb
 C:\Users\Leon\Source\Repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\Circle.xnb
 C:\Users\Leon\Source\Repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\pixel.xnb
+c:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Content\arrow.xnb

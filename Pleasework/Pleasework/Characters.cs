@@ -32,6 +32,7 @@ public class Invader
     public float OrbitRadius;
     public byte numberofpointsgiven;
     public float angle;
+    public float orbitAngle;
     public float anglularvelocity;
     public float SightRadius;
     public Rectangle rectangle;
