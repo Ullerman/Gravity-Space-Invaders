@@ -45,6 +45,7 @@ namespace Pleasework
 
         List<PrimitiveBatch.Line> lines = new List<PrimitiveBatch.Line>();
         List<PrimitiveBatch.Circle> circles = new List<PrimitiveBatch.Circle>();
+        List<PrimitiveBatch.Rectangle> drawRect = new List<PrimitiveBatch.Rectangle>();
 
         // private Desktop _desktop;
 
@@ -334,6 +335,10 @@ namespace Pleasework
             {
                 toggleDebug = !toggleDebug;
             }
+            if (kstate.IsKeyDown(Keys.F4) && kstate.IsKeyDown(Keys.L))
+            {
+                drawRect.Clear();
+            }
         }
 
         private void FireBullet(
@@ -499,6 +504,9 @@ namespace Pleasework
             position.X = center.X + radius * MathF.Cos(9.95f * increment);
 
             increment += 2 * MathF.PI / (60 * timetocomplete);
+            drawRect.Add(
+                new PrimitiveBatch.Rectangle(position, new Vector2(10), Color.MonoGameOrange)
+            );
             return (position, increment);
         }
 
@@ -920,7 +928,6 @@ namespace Pleasework
             Vector2 fullscale = new Vector2(0.25f);
             Vector2 smallscale = new Vector2(0.01f);
 
-
             if (distanceFromEarth > 500)
             {
                 arrowScale = Vector2.Lerp(arrowScale, fullscale, .1f);
@@ -941,7 +948,6 @@ namespace Pleasework
                     SpriteEffects.None,
                     0
                 );
-
         }
 
         private void DrawHUD(Vector2 cameraoffset, SpriteBatch _spriteBatch)
@@ -1042,6 +1048,14 @@ namespace Pleasework
             foreach (PrimitiveBatch.Circle circle in circles)
             {
                 circle.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
+            }
+            foreach (PrimitiveBatch.Rectangle rectangle in drawRect)
+            {
+                rectangle.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
+            }
+            if (!toggleDebug)
+            {
+                drawRect.Clear();
             }
             circles.Clear();
         }
