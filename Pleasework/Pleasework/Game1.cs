@@ -70,6 +70,7 @@ namespace Pleasework
         Texture2D Circle;
 
         Texture2D arrow;
+        Vector2 arrowScale;
 
         Texture2D Gameover;
 
@@ -152,6 +153,8 @@ namespace Pleasework
 
             togglerocket = true;
             toggleDebug = false;
+
+            arrowScale = new Vector2(.25f);
 
             r = 0;
             g = 0;
@@ -552,7 +555,8 @@ namespace Pleasework
                 {
                     invader.OrbitRadius = rnd.Next(910, 1600);
                     invader.anglularvelocity = rnd.Next(30, 150);
-                    float parametricincrement = 2 * MathF.PI / (60 * invader.anglularvelocity)*rnd.Next(6);
+                    float parametricincrement =
+                        2 * MathF.PI / (60 * invader.anglularvelocity) * rnd.Next(6);
                     invader.parametricincrement = parametricincrement;
                 }
                 else
@@ -912,17 +916,29 @@ namespace Pleasework
             Vector2 direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
             Vector2 arrowPosition = firstPoint + direction * 100;
             float arrowAngle = angle + MathF.PI / 2;
-            _spriteBatch.Draw(
-                arrowTexture,
-                arrowPosition + cameraoffset,
-                null,
-                Color.White,
-                arrowAngle,
-                new Vector2(arrowTexture.Width / 2, arrowTexture.Height / 2),
-                new Vector2(0.25f, 0.25f),
-                SpriteEffects.None,
-                0
-            );
+            float distanceFromEarth = Vector2.Distance(firstPoint, secondPoint);
+            if (distanceFromEarth > 500)
+            {
+                Vector2 fullscale = new Vector2(0.25f);
+                arrowScale = Vector2.Lerp(arrowScale, fullscale, .1f);
+            }
+            else
+            {
+                Vector2 smallscale = new Vector2(0.01f);
+                arrowScale = Vector2.Lerp(arrowScale, smallscale, .1f);
+            }
+            if (arrowScale != new Vector2(0.01f))
+                _spriteBatch.Draw(
+                    arrowTexture,
+                    arrowPosition + cameraoffset,
+                    null,
+                    Color.White,
+                    arrowAngle,
+                    new Vector2(arrowTexture.Width / 2, arrowTexture.Height / 2),
+                    arrowScale,
+                    SpriteEffects.None,
+                    0
+                );
         }
 
         private void DrawHUD(Vector2 cameraoffset, SpriteBatch _spriteBatch)
