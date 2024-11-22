@@ -489,7 +489,7 @@ namespace Pleasework
             GameTime gameTime
         )
         {
-            //https://www.desmos.com/calculator/w5hnfr98nl
+            //https://www.desmos.com/calculator/bxgdwxj6xs
             Vector2 position = new Vector2();
 
             position.Y = center.Y + radius * MathF.Sin(2.5f * increment);
