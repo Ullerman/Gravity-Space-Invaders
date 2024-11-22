@@ -495,8 +495,8 @@ namespace Pleasework
             //https://www.desmos.com/calculator/bxgdwxj6xs
             Vector2 position = new Vector2();
 
-            position.Y = center.Y + radius * MathF.Sin(2.5f * increment);
-            position.X = center.X + radius * MathF.Cos(4.15f * increment);
+            position.Y = center.Y + radius * MathF.Sin(3.34f * increment);
+            position.X = center.X + radius * MathF.Cos(9.95f * increment);
 
             increment += 2 * MathF.PI / (60 * timetocomplete);
             return (position, increment);
@@ -505,7 +505,7 @@ namespace Pleasework
         private void Coin(GameTime gameTime)
         {
             // thingposition = parametricmovement(earthposition, 200, 30, gameTime);
-            (thingposition, coinT) = parametricmovement(earthposition, 200, 30, coinT, gameTime);
+            (thingposition, coinT) = parametricmovement(earthposition, 784, 30, coinT, gameTime);
         }
 
         private Vector2 GravityCalculation(
