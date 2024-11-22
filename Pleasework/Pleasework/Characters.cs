@@ -39,6 +39,7 @@ public class Invader
     public Timer delay;
     public int Health;
     public bool isparametric;
+    public float parametricincrement;
 
     public Invader()
     {

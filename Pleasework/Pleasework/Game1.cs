@@ -481,25 +481,28 @@ namespace Pleasework
             }
         }
 
-        private Vector2 parametricmovement(
+        private (Vector2, float) parametricmovement(
             Vector2 center,
             int radius,
             float timetocomplete,
+            float increment,
             GameTime gameTime
         )
         {
+            //https://www.desmos.com/calculator/w5hnfr98nl
             Vector2 position = new Vector2();
 
-            position.Y = center.Y + radius * MathF.Sin(3 * coinT);
-            position.X = center.X + radius * MathF.Cos(5 * coinT);
+            position.Y = center.Y + radius * MathF.Sin(2.5f * increment);
+            position.X = center.X + radius * MathF.Cos(4.15f * increment);
 
-            coinT += 2 * MathF.PI / (60 * timetocomplete);
-            return position;
+            increment += 2 * MathF.PI / (60 * timetocomplete);
+            return (position, increment);
         }
 
         private void Coin(GameTime gameTime)
         {
-            thingposition = parametricmovement(earthposition, 200, 30, gameTime);
+            // thingposition = parametricmovement(earthposition, 200, 30, gameTime);
+            (thingposition, coinT) = parametricmovement(earthposition, 200, 30, coinT, gameTime);
         }
 
         private Vector2 GravityCalculation(
@@ -547,8 +550,10 @@ namespace Pleasework
                 invader.isparametric = parametric == 1;
                 if (invader.isparametric)
                 {
-                    invader.OrbitRadius = rnd.Next(400, 800);
+                    invader.OrbitRadius = rnd.Next(910, 1600);
                     invader.anglularvelocity = rnd.Next(30, 150);
+                    float parametricincrement = 2 * MathF.PI / (60 * invader.anglularvelocity)*rnd.Next(6);
+                    invader.parametricincrement = parametricincrement;
                 }
                 else
                 {
@@ -752,10 +757,11 @@ namespace Pleasework
                 }
                 else
                 {
-                    invader.Position = parametricmovement(
+                    (invader.Position, invader.parametricincrement) = parametricmovement(
                         earthposition,
                         (int)invader.OrbitRadius,
                         invader.anglularvelocity,
+                        invader.parametricincrement,
                         gameTime
                     );
                 }
