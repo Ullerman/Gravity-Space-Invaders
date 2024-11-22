@@ -917,17 +917,19 @@ namespace Pleasework
             Vector2 arrowPosition = firstPoint + direction * 100;
             float arrowAngle = angle + MathF.PI / 2;
             float distanceFromEarth = Vector2.Distance(firstPoint, secondPoint);
+            Vector2 fullscale = new Vector2(0.25f);
+            Vector2 smallscale = new Vector2(0.01f);
+
+
             if (distanceFromEarth > 500)
             {
-                Vector2 fullscale = new Vector2(0.25f);
                 arrowScale = Vector2.Lerp(arrowScale, fullscale, .1f);
             }
             else
             {
-                Vector2 smallscale = new Vector2(0.01f);
                 arrowScale = Vector2.Lerp(arrowScale, smallscale, .1f);
             }
-            if (arrowScale != new Vector2(0.01f))
+            if (arrowScale.X >= 0.02f)
                 _spriteBatch.Draw(
                     arrowTexture,
                     arrowPosition + cameraoffset,
@@ -939,6 +941,7 @@ namespace Pleasework
                     SpriteEffects.None,
                     0
                 );
+
         }
 
         private void DrawHUD(Vector2 cameraoffset, SpriteBatch _spriteBatch)
