@@ -15,13 +15,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Myra;
-using Myra.Graphics2D;
-using Myra.Graphics2D.Brushes;
-using Myra.Graphics2D.TextureAtlases;
-using Myra.Graphics2D.UI;
-using Myra.Graphics2D.UI.Properties;
+
 using Pleasework;
+
 
 public class Constants
 {
@@ -54,18 +50,17 @@ namespace Pleasework
         // string data;
         // Project project;
 
-        byte level;
+        // byte level;
 
         Vector2 cameraPosition;
 
-        SpriteFont arial;
+        SpriteFont debugFont;
+        MultiLineText debugText;
 
         byte r,
             g,
             b;
-        bool iscolourforward;
 
-        char whatcolour;
 
         Texture2D Pixel;
         Texture2D Circle;
@@ -83,10 +78,7 @@ namespace Pleasework
         bool toggleDebug;
 
         Vector2 thingposition;
-        float updatecoin;
-        float fakecoinx;
         float coinT;
-        bool coinforward;
         Vector2 coinscale;
 
         Rocket rocket;
@@ -108,7 +100,7 @@ namespace Pleasework
         float invadertimermultiplyer;
 
         Texture2D Invader1Texture;
-        Texture2D Invader2Texture;
+        // Texture2D Invader2Texture;
         SoundEffect[] InvaderNoiseArray = new SoundEffect[4];
         SoundEffect ShootSound;
 
@@ -118,7 +110,6 @@ namespace Pleasework
 
         Texture2D moontexture;
         Vector2 moonposition;
-        Vector2 moonvelocity;
         Vector2 moonscale;
         float moonorbitradius;
         float moonangle;
@@ -145,7 +136,6 @@ namespace Pleasework
             _graphics.PreferredBackBufferWidth = Constants.SCREENWIDTH;
             _graphics.PreferredBackBufferHeight = Constants.SCREENHEIGHT;
 
-            MyraEnvironment.Game = this;
         }
 
         protected override void Initialize()
@@ -155,18 +145,16 @@ namespace Pleasework
             togglerocket = true;
             toggleDebug = false;
 
+            
+
             arrowScale = new Vector2(.25f);
 
             r = 0;
             g = 0;
             b = 0;
 
-            iscolourforward = true;
-            coinforward = false;
-            whatcolour = 'r';
+
             thingposition = new Vector2(600 - 52.5f, 0);
-            updatecoin = 30;
-            fakecoinx = 600.0f;
             coinT = 0;
 
             rocket = new Rocket();
@@ -204,6 +192,9 @@ namespace Pleasework
             invadertimermultiplyer = 1.0f;
 
             rocketcameraoffset = Vector2.Zero;
+            string text = $"X : {Math.Round(rocket.Position.X, 3)}\n Y : {MathF.Round(rocket.Position.Y,3)}\n Angle : {Math.Round(rocket.Angle, 3)}\n Velocity : {Math.Round(rocket.Velocity.Length(), 3)}\n Angular Velocity : {Math.Round(rocket.AngularVelocity, 3)}\n Health : {rocket.Health}";
+            
+            debugText = new Pleasework.MultiLineText.multiLineText(text, debugFont, 200);
 
             _graphics.ApplyChanges();
 
@@ -225,7 +216,7 @@ namespace Pleasework
             _primitiveBatch = new PrimitiveBatch();
             _primitiveBatch.Primitive(Pixel, Circle);
 
-            arial = Content.Load<SpriteFont>("File");
+            debugFont = Content.Load<SpriteFont>("File");
 
             effect = Content.Load<Effect>("CRT");
 
@@ -970,50 +961,7 @@ namespace Pleasework
             }
             Vector2 FontOriginx = Vector2.Zero; //arial.MeasureString(xword) / 2;
             Vector2 FontOriginy = Vector2.Zero; //arial.MeasureString(yword) / 2;
-            _spriteBatch.DrawString(
-                arial,
-                $"X : {Math.Round(rocket.Position.X, 3)}",
-                new Vector2(10, 10),
-                Color.LightGreen,
-                0,
-                FontOriginx,
-                1.0f,
-                SpriteEffects.None,
-                0.5f
-            );
-            _spriteBatch.DrawString(
-                arial,
-                $"Y : {Math.Round(rocket.Position.Y, 3)}",
-                new Vector2(10, 25),
-                Color.LightGreen,
-                0,
-                FontOriginy,
-                1.0f,
-                SpriteEffects.None,
-                0.5f
-            );
-            _spriteBatch.DrawString(
-                arial,
-                $"X Momentum : {Math.Round(rocket.Velocity.X, 3)}",
-                new Vector2(10, 40),
-                Color.LightGreen,
-                0,
-                FontOriginy,
-                1.0f,
-                SpriteEffects.None,
-                0.5f
-            );
-            _spriteBatch.DrawString(
-                arial,
-                $"Y Momentum : {Math.Round(rocket.Velocity.Y, 3)}",
-                new Vector2(10, 55),
-                Color.LightGreen,
-                0,
-                FontOriginy,
-                1.0f,
-                SpriteEffects.None,
-                0.5f
-            );
+           
             HUDArrowtopoint(
                 rocket.Position,
                 earthposition,
