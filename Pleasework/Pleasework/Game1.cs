@@ -46,6 +46,7 @@ namespace Pleasework
         List<PrimitiveBatch.Line> lines = new List<PrimitiveBatch.Line>();
         List<PrimitiveBatch.Circle> circles = new List<PrimitiveBatch.Circle>();
         List<PrimitiveBatch.Rectangle> drawRect = new List<PrimitiveBatch.Rectangle>();
+        List<PrimitiveBatch.Rectangle> cornerss = new List<PrimitiveBatch.Rectangle>();
 
         // private Desktop _desktop;
 
@@ -54,18 +55,11 @@ namespace Pleasework
         // string data;
         // Project project;
 
-        byte level;
+        // byte level;
 
         Vector2 cameraPosition;
 
         SpriteFont arial;
-
-        byte r,
-            g,
-            b;
-        bool iscolourforward;
-
-        char whatcolour;
 
         Texture2D Pixel;
         Texture2D Circle;
@@ -83,18 +77,18 @@ namespace Pleasework
         bool toggleDebug;
 
         Vector2 thingposition;
-        float updatecoin;
-        float fakecoinx;
+
         float coinT;
-        bool coinforward;
         Vector2 coinscale;
 
         Rocket rocket;
+
         float friction;
         float angularFriction;
 
         Texture2D rocketTexture;
         Texture2D HealthTexture;
+        Texture2D ShieldTexture;
 
         Texture2D bullettexure;
         List<Bullet> Bulletlist;
@@ -118,7 +112,6 @@ namespace Pleasework
 
         Texture2D moontexture;
         Vector2 moonposition;
-        Vector2 moonvelocity;
         Vector2 moonscale;
         float moonorbitradius;
         float moonangle;
@@ -157,22 +150,21 @@ namespace Pleasework
 
             arrowScale = new Vector2(.25f);
 
-            r = 0;
-            g = 0;
-            b = 0;
-
-            iscolourforward = true;
-            coinforward = false;
-            whatcolour = 'r';
             thingposition = new Vector2(600 - 52.5f, 0);
-            updatecoin = 30;
-            fakecoinx = 600.0f;
+
             coinT = 0;
 
             rocket = new Rocket();
             rocket.Position = new Vector2(300, 300);
+
             rocket.Velocity = new Vector2(0, 0);
             rocket.Angle = 0f;
+            rocket.rotRect = new RotRectangle(
+                rocketTexture,
+                rocket.Position,
+                new Vector2(50, 50),
+                rocket.Angle
+            );
             rocket.Acceleration = 0.5f;
             friction = 0.9999999f; // .1f;
             rocket.AngularVelocity = 0f;
@@ -235,6 +227,8 @@ namespace Pleasework
             thingtexture = Content.Load<Texture2D>("coin");
 
             rocketTexture = Content.Load<Texture2D>("rocket");
+            rocket.rotRect.Texture = rocketTexture;
+            rocket.rotRect.Size = new Vector2(rocketTexture.Width * rocket.Scale.X,rocketTexture.Height*rocket.Scale.Y);
             AnnaRocket = Content.Load<Texture2D>("AnnaRocket");
             bullettexure = Content.Load<Texture2D>("bullet");
             HealthTexture = Content.Load<Texture2D>("heart");
@@ -272,9 +266,9 @@ namespace Pleasework
                 (float)(MathF.Sin(triangleAnglecontrol) * rocket.Acceleration) * rightTriggerValue;
 
             rocket.Velocity.X -=
-                (float)(Math.Cos(triangleAnglecontrol) * rocket.Acceleration) * leftTriggerValue;
+                (float)(MathF.Cos(triangleAnglecontrol) * rocket.Acceleration) * leftTriggerValue;
             rocket.Velocity.Y -=
-                (float)(Math.Sin(triangleAnglecontrol) * rocket.Acceleration) * leftTriggerValue;
+                (float)(MathF.Sin(triangleAnglecontrol) * rocket.Acceleration) * leftTriggerValue;
 
             if (kstate.IsKeyDown(Keys.Left) || kstate.IsKeyDown(Keys.A))
             {
@@ -341,6 +335,11 @@ namespace Pleasework
             }
         }
 
+        private static Vector2 RadialToVector(float angle, float length)
+        {
+            return new Vector2(MathF.Cos(angle) * length, MathF.Sin(angle) * length);
+        }
+
         private void FireBullet(
             Vector2 position,
             float fireangle,
@@ -355,22 +354,16 @@ namespace Pleasework
 
             if (delay.IsFinished() || !delay.IsRunning())
             {
-                ShootSound.Play(1, rnd.Next(-100, 100) / 100, 0);
+                this.ShootSound.Play(1, rnd.Next(-100, 100) / 100, 0);
 
                 Bullet bullet = new Bullet();
 
                 float angle = fireangle + rnd.Next(-60, 60) / 100;
                 float triangleAngle = (float)(angle - Math.PI / 2);
-                Vector2 offset = new Vector2(
-                    MathF.Cos(triangleAngle) * 20,
-                    MathF.Sin(triangleAngle) * 20
-                );
+                Vector2 offset = RadialToVector(triangleAngle, 20);
                 bullet.position = new Vector2(position.X, position.Y) + offset;
                 bullet.angle = angle;
-                bullet.momentum = new Vector2(
-                    (float)(Math.Cos(triangleAngle) * bulletdefaultspeed + velocity.X),
-                    (float)(Math.Sin(triangleAngle) * bulletdefaultspeed + velocity.Y)
-                );
+                bullet.momentum = RadialToVector(triangleAngle, bulletdefaultspeed) + velocity;
                 bullet.selfrect = selfrect;
                 bullet.enemyrectlist = enemyrectlist;
                 bullet.hascollided = false;
@@ -500,8 +493,8 @@ namespace Pleasework
             //https://www.desmos.com/calculator/bxgdwxj6xs
             Vector2 position = new Vector2();
 
-            position.Y = center.Y + radius * MathF.Sin(3.34f * increment);
             position.X = center.X + radius * MathF.Cos(9.95f * increment);
+            position.Y = center.Y + radius * MathF.Sin(3.34f * increment);
 
             increment += 2 * MathF.PI / (60 * timetocomplete);
             drawRect.Add(
@@ -653,35 +646,6 @@ namespace Pleasework
             }
         }
 
-        private void BackroundColour()
-        {
-            //if (r == 255 || r == 0)
-            //    iscolourforward = !iscolourforward;
-
-
-            //if (iscolourforward)
-            //    r++;
-            //else
-            //    r--;
-
-            if (r < 255 & g == 0 & b == 0)
-                r++;
-            else if (r == 255 & g < 255 & b == 0)
-                g++;
-            else if (r == 255 & g == 255 & b < 255)
-                b++;
-            else if (r <= 255 & g == 255 & b == 255)
-                r--;
-
-            //else if r = 2 & g < 255 & b == 0
-            //    g++
-            //else if r = 255 & g = 255 & b < 255
-            //    b++
-
-            //g++;
-            //b++;
-        }
-
         private float DistancesquaredBetweenpointandrect(Rectangle rectangle, Vector2 point)
         {
             float closestX = Math.Clamp(point.X, rectangle.Left, rectangle.Right);
@@ -702,6 +666,92 @@ namespace Pleasework
         {
             float distance = DistancesquaredBetweenpointandrect(rect, circleCenter);
             return distance <= (circleRadius * circleRadius);
+        }
+
+        private bool IsRectCollidingWithCircle(
+            Vector2 circleCenter,
+            float circleRadius,
+            RotRectangle rect
+        )
+        {
+            Vector2[] corners = rect.GetCorners();
+
+            // Check if the circle's center is inside the rectangle
+            if (IsPointInRotatedRectangle(circleCenter, rect))
+            {
+                return true;
+            }
+
+            // Check if any of the rectangle's edges intersect with the circle
+            for (int i = 0; i < corners.Length; i++)
+            {
+                Vector2 start = corners[i];
+                Vector2 end = corners[(i + 1) % corners.Length];
+                if (IsCircleIntersectingLine(circleCenter, circleRadius, start, end))
+                {
+                    return true;
+                }
+            }
+
+            // Check if any of the rectangle's corners are inside the circle
+            foreach (var corner in corners)
+            {
+                if (Vector2.DistanceSquared(corner, circleCenter) <= circleRadius * circleRadius)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsPointInRotatedRectangle(Vector2 point, RotRectangle rect)
+        {
+            Vector2[] corners = rect.GetCorners();
+            Vector2 AB = corners[1] - corners[0];
+            Vector2 AM = point - corners[0];
+            Vector2 BC = corners[2] - corners[1];
+            Vector2 BM = point - corners[1];
+
+            float dotABAM = Vector2.Dot(AB, AM);
+            float dotABAB = Vector2.Dot(AB, AB);
+            float dotBCBM = Vector2.Dot(BC, BM);
+            float dotBCBC = Vector2.Dot(BC, BC);
+
+            return 0 <= dotABAM && dotABAM <= dotABAB && 0 <= dotBCBM && dotBCBM <= dotBCBC;
+        }
+
+        private bool IsCircleIntersectingLine(
+            Vector2 circleCenter,
+            float circleRadius,
+            Vector2 lineStart,
+            Vector2 lineEnd
+        )
+        {
+            Vector2 d = lineEnd - lineStart;
+            Vector2 f = lineStart - circleCenter;
+
+            float a = Vector2.Dot(d, d);
+            float b = 2 * Vector2.Dot(f, d);
+            float c = Vector2.Dot(f, f) - circleRadius * circleRadius;
+
+            float discriminant = b * b - 4 * a * c;
+            if (discriminant < 0)
+            {
+                return false;
+            }
+
+            discriminant = MathF.Sqrt(discriminant);
+
+            float t1 = (-b - discriminant) / (2 * a);
+            float t2 = (-b + discriminant) / (2 * a);
+
+            if (t1 >= 0 && t1 <= 1 || t2 >= 0 && t2 <= 1)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private float CalculateAngleBetweenPoints(Vector2 point1, Vector2 point2)
@@ -836,6 +886,17 @@ namespace Pleasework
                 rocket.Scale = new Vector2(.25f);
             }
             Coin(gameTime);
+            rocket.Health = 5;
+
+            Vector2[] corners = rocket.rotRect.GetCorners();
+
+            foreach (Vector2 corner in corners){
+                cornerss.Add(new PrimitiveBatch.Rectangle(corner,new Vector2(5),Color.Orange));
+                
+            }
+
+            rocket.rotRect.Rotation = rocket.Angle;
+            rocket.rotRect.Position = rocket.Position;
 
             if (rocket.Health > 0)
             {
@@ -844,7 +905,6 @@ namespace Pleasework
                 Level_Update(gameTime);
                 UpdateBullet();
                 InvaderCompute(gameTime);
-                BackroundColour();
             }
             KeyHandling(gameTime);
             Bounds(gameTime);
@@ -1053,6 +1113,11 @@ namespace Pleasework
             {
                 rectangle.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
             }
+            foreach (PrimitiveBatch.Rectangle corner in cornerss){
+                corner.Draw(_spriteBatch,_primitiveBatch,cameraoffset);
+            }
+            cornerss.Clear();
+            
             if (!toggleDebug)
             {
                 drawRect.Clear();
@@ -1151,8 +1216,6 @@ namespace Pleasework
 
         protected override void Draw(GameTime gameTime)
         {
-            Color mycolour = new Color(r, g, b);
-
             GraphicsDevice.Clear(Color.Black);
             Vector2 cameraoffset = (
                 -rocket.Position
