@@ -15,7 +15,6 @@ public class Rocket{
     public float AngularVelocity;
     public float AngularAcceleration;
     public Rectangle Rectangle;
-    public RotRectangle rotRect;
     public Timer Delay;
     public int Health;
     public Rocket(){

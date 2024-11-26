@@ -40,7 +40,6 @@ namespace Pleasework
         List<PrimitiveBatch.Line> lines = new List<PrimitiveBatch.Line>();
         List<PrimitiveBatch.Circle> circles = new List<PrimitiveBatch.Circle>();
         List<PrimitiveBatch.Rectangle> drawRect = new List<PrimitiveBatch.Rectangle>();
-        List<PrimitiveBatch.Rectangle> cornerss = new List<PrimitiveBatch.Rectangle>();
 
         // private Desktop _desktop;
 
@@ -162,12 +161,7 @@ namespace Pleasework
 
             rocket.Velocity = new Vector2(0, 0);
             rocket.Angle = 0f;
-            rocket.rotRect = new RotRectangle(
-                rocketTexture,
-                rocket.Position,
-                new Vector2(50, 50),
-                rocket.Angle
-            );
+
             rocket.Acceleration = 0.5f;
             friction = 0.9999999f; // .1f;
             rocket.AngularVelocity = 0f;
@@ -233,8 +227,7 @@ namespace Pleasework
             thingtexture = Content.Load<Texture2D>("coin");
 
             rocketTexture = Content.Load<Texture2D>("rocket");
-            rocket.rotRect.Texture = rocketTexture;
-            rocket.rotRect.Size = new Vector2(rocketTexture.Width * rocket.Scale.X,rocketTexture.Height*rocket.Scale.Y);
+
             AnnaRocket = Content.Load<Texture2D>("AnnaRocket");
             bullettexure = Content.Load<Texture2D>("bullet");
             HealthTexture = Content.Load<Texture2D>("heart");
@@ -690,91 +683,7 @@ namespace Pleasework
             return distance <= (circleRadius * circleRadius);
         }
 
-        private bool IsRectCollidingWithCircle(
-            Vector2 circleCenter,
-            float circleRadius,
-            RotRectangle rect
-        )
-        {
-            Vector2[] corners = rect.GetCorners();
 
-            // Check if the circle's center is inside the rectangle
-            if (IsPointInRotatedRectangle(circleCenter, rect))
-            {
-                return true;
-            }
-
-            // Check if any of the rectangle's edges intersect with the circle
-            for (int i = 0; i < corners.Length; i++)
-            {
-                Vector2 start = corners[i];
-                Vector2 end = corners[(i + 1) % corners.Length];
-                if (IsCircleIntersectingLine(circleCenter, circleRadius, start, end))
-                {
-                    return true;
-                }
-            }
-
-            // Check if any of the rectangle's corners are inside the circle
-            foreach (var corner in corners)
-            {
-                if (Vector2.DistanceSquared(corner, circleCenter) <= circleRadius * circleRadius)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private bool IsPointInRotatedRectangle(Vector2 point, RotRectangle rect)
-        {
-            Vector2[] corners = rect.GetCorners();
-            Vector2 AB = corners[1] - corners[0];
-            Vector2 AM = point - corners[0];
-            Vector2 BC = corners[2] - corners[1];
-            Vector2 BM = point - corners[1];
-
-            float dotABAM = Vector2.Dot(AB, AM);
-            float dotABAB = Vector2.Dot(AB, AB);
-            float dotBCBM = Vector2.Dot(BC, BM);
-            float dotBCBC = Vector2.Dot(BC, BC);
-
-            return 0 <= dotABAM && dotABAM <= dotABAB && 0 <= dotBCBM && dotBCBM <= dotBCBC;
-        }
-
-        private bool IsCircleIntersectingLine(
-            Vector2 circleCenter,
-            float circleRadius,
-            Vector2 lineStart,
-            Vector2 lineEnd
-        )
-        {
-            Vector2 d = lineEnd - lineStart;
-            Vector2 f = lineStart - circleCenter;
-
-            float a = Vector2.Dot(d, d);
-            float b = 2 * Vector2.Dot(f, d);
-            float c = Vector2.Dot(f, f) - circleRadius * circleRadius;
-
-            float discriminant = b * b - 4 * a * c;
-            if (discriminant < 0)
-            {
-                return false;
-            }
-
-            discriminant = MathF.Sqrt(discriminant);
-
-            float t1 = (-b - discriminant) / (2 * a);
-            float t2 = (-b + discriminant) / (2 * a);
-
-            if (t1 >= 0 && t1 <= 1 || t2 >= 0 && t2 <= 1)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
         private float CalculateAngleBetweenPoints(Vector2 point1, Vector2 point2)
         {
@@ -911,15 +820,9 @@ namespace Pleasework
             Coin(gameTime);
             rocket.Health = 5;
 
-            Vector2[] corners = rocket.rotRect.GetCorners();
 
-            foreach (Vector2 corner in corners){
-                cornerss.Add(new PrimitiveBatch.Rectangle(corner,new Vector2(5),Color.Orange));
-                
-            }
 
-            rocket.rotRect.Rotation = rocket.Angle;
-            rocket.rotRect.Position = rocket.Position;
+
 
             if (rocket.Health > 0)
             {
@@ -1094,10 +997,7 @@ namespace Pleasework
             {
                 rectangle.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
             }
-            foreach (PrimitiveBatch.Rectangle corner in cornerss){
-                corner.Draw(_spriteBatch,_primitiveBatch,cameraoffset);
-            }
-            cornerss.Clear();
+
             
             if (!toggleDebug)
             {
