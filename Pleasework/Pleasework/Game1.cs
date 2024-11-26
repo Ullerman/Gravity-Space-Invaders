@@ -15,9 +15,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using Pleasework;
-
 
 public class Constants
 {
@@ -55,12 +53,11 @@ namespace Pleasework
         Vector2 cameraPosition;
 
         SpriteFont debugFont;
-        MultiLineText debugText;
+        TextBox debugText;
 
         byte r,
             g,
             b;
-
 
         Texture2D Pixel;
         Texture2D Circle;
@@ -79,6 +76,7 @@ namespace Pleasework
 
         Vector2 thingposition;
         float coinT;
+        bool coinbool;
         Vector2 coinscale;
 
         Rocket rocket;
@@ -100,6 +98,7 @@ namespace Pleasework
         float invadertimermultiplyer;
 
         Texture2D Invader1Texture;
+
         // Texture2D Invader2Texture;
         SoundEffect[] InvaderNoiseArray = new SoundEffect[4];
         SoundEffect ShootSound;
@@ -135,7 +134,6 @@ namespace Pleasework
 
             _graphics.PreferredBackBufferWidth = Constants.SCREENWIDTH;
             _graphics.PreferredBackBufferHeight = Constants.SCREENHEIGHT;
-
         }
 
         protected override void Initialize()
@@ -145,17 +143,15 @@ namespace Pleasework
             togglerocket = true;
             toggleDebug = false;
 
-            
-
             arrowScale = new Vector2(.25f);
 
             r = 0;
             g = 0;
             b = 0;
 
-
             thingposition = new Vector2(600 - 52.5f, 0);
             coinT = 0;
+            coinbool = true;
 
             rocket = new Rocket();
             rocket.Position = new Vector2(300, 300);
@@ -192,9 +188,8 @@ namespace Pleasework
             invadertimermultiplyer = 1.0f;
 
             rocketcameraoffset = Vector2.Zero;
-            string text = $"X : {Math.Round(rocket.Position.X, 3)}\n Y : {MathF.Round(rocket.Position.Y,3)}\n Angle : {Math.Round(rocket.Angle, 3)}\n Velocity : {Math.Round(rocket.Velocity.Length(), 3)}\n Angular Velocity : {Math.Round(rocket.AngularVelocity, 3)}\n Health : {rocket.Health}";
-            
-            debugText = new Pleasework.MultiLineText.multiLineText(text, debugFont, 200);
+
+            debugText = new TextBox();
 
             _graphics.ApplyChanges();
 
@@ -217,6 +212,7 @@ namespace Pleasework
             _primitiveBatch.Primitive(Pixel, Circle);
 
             debugFont = Content.Load<SpriteFont>("File");
+            debugFont.LineSpacing = 10;
 
             effect = Content.Load<Effect>("CRT");
 
@@ -480,11 +476,12 @@ namespace Pleasework
             }
         }
 
-        private (Vector2, float) parametricmovement(
+        private (Vector2, float, bool) parametricmovement(
             Vector2 center,
             int radius,
             float timetocomplete,
             float increment,
+            bool max,
             GameTime gameTime
         )
         {
@@ -493,18 +490,32 @@ namespace Pleasework
 
             position.Y = center.Y + radius * MathF.Sin(3.34f * increment);
             position.X = center.X + radius * MathF.Cos(9.95f * increment);
-
-            increment += 2 * MathF.PI / (60 * timetocomplete);
+            if (max)
+                increment += 2 * MathF.PI / (60 * timetocomplete);
+            else
+                increment -= 2 * MathF.PI / (60 * timetocomplete);
+            if (increment >= 10)
+                max = false;
+            else if (increment <= 0)
+                max = true;
             drawRect.Add(
                 new PrimitiveBatch.Rectangle(position, new Vector2(10), Color.MonoGameOrange)
             );
-            return (position, increment);
+
+            return (position, increment, max);
         }
 
         private void Coin(GameTime gameTime)
         {
             // thingposition = parametricmovement(earthposition, 200, 30, gameTime);
-            (thingposition, coinT) = parametricmovement(earthposition, 784, 30, coinT, gameTime);
+            (thingposition, coinT, coinbool) = parametricmovement(
+                earthposition,
+                784,
+                30,
+                coinT,
+                coinbool,
+                gameTime
+            );
         }
 
         private Vector2 GravityCalculation(
@@ -557,6 +568,8 @@ namespace Pleasework
                     float parametricincrement =
                         2 * MathF.PI / (60 * invader.anglularvelocity) * rnd.Next(6);
                     invader.parametricincrement = parametricincrement;
+                    byte parabool = (byte)rnd.Next(0,2);
+                    invader.parametricbool = parabool == 1;
                 }
                 else
                 {
@@ -760,11 +773,12 @@ namespace Pleasework
                 }
                 else
                 {
-                    (invader.Position, invader.parametricincrement) = parametricmovement(
+                    (invader.Position, invader.parametricincrement,invader.parametricbool) = parametricmovement(
                         earthposition,
                         (int)invader.OrbitRadius,
                         invader.anglularvelocity,
                         invader.parametricincrement,
+                        invader.parametricbool,
                         gameTime
                     );
                 }
@@ -944,12 +958,15 @@ namespace Pleasework
         private void DrawHUD(Vector2 cameraoffset, SpriteBatch _spriteBatch)
         {
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
+            float speed = rocket.Velocity.Length();
+            string text = $"X: {rocket.Position.X}\n Y: {rocket.Position.Y}\n speed : {speed} ";
+            debugText.Draw(_spriteBatch, text, debugFont, 400, new Vector2(10, 75), Color.White);
 
             for (int i = 0; i < rocket.Health; i++)
             {
                 _spriteBatch.Draw(
                     HealthTexture,
-                    new Vector2(HealthTexture.Width * heartscale.X * i, 00),
+                    new Vector2(HealthTexture.Width * heartscale.X * i, 0),
                     null,
                     Color.White,
                     0,
@@ -959,9 +976,7 @@ namespace Pleasework
                     0
                 );
             }
-            Vector2 FontOriginx = Vector2.Zero; //arial.MeasureString(xword) / 2;
-            Vector2 FontOriginy = Vector2.Zero; //arial.MeasureString(yword) / 2;
-           
+
             HUDArrowtopoint(
                 rocket.Position,
                 earthposition,

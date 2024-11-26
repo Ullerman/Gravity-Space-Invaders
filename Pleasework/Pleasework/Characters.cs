@@ -40,6 +40,7 @@ public class Invader
     public int Health;
     public bool isparametric;
     public float parametricincrement;
+    public bool parametricbool;
 
     public Invader()
     {

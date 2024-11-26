@@ -4,19 +4,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pleasework
 {
-    public class MultiLineText
+    public class TextBox
     {
         string text;
         SpriteFont font;
         int width;
-        public void multiLineText(string text, SpriteFont font, int width)
+        public TextBox()
+        {
+
+        }
+        public void Draw(SpriteBatch spriteBatch,string text, SpriteFont font, int width, Vector2 position, Color color)
         {
             this.text = text;
             this.font = font;
             this.width = width;
-        }
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
-        {
             string[] words = text.Split(' ');
             string line = string.Empty;
             Vector2 size = Vector2.Zero;
