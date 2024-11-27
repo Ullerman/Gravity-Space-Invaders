@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Myra.Graphics2D.UI;
 using Pleasework;
 
 public class Constants
@@ -153,7 +154,7 @@ namespace Pleasework
             rocket.Velocity = new Vector2(0, 0);
             rocket.Angle = 0f;
 
-            rocket.Acceleration = 0.5f;
+            rocket.Acceleration = 0.4f;
             friction = 0.9999999f; // .1f;
             rocket.AngularVelocity = 0f;
             rocket.AngularAcceleration = 0.09f;
@@ -315,7 +316,6 @@ namespace Pleasework
 
                 invaderspeedmultiplyer = 1;
                 invadertimermultiplyer = 1;
-                
             }
             if (kstate.IsKeyDown(Keys.P))
             {
@@ -715,12 +715,18 @@ namespace Pleasework
                     float angle = CalculateAngleBetweenPoints(invader.Position, rocket.Position);
                     //lines.Add(new PrimitiveBatch.Line(invader.Position, rocket.Position, Color.White, 5));
                     lines.Add(
-                        new PrimitiveBatch.Line(invader.Position, angle, 500, Color.White, 5)
+                        new PrimitiveBatch.Line(
+                            invader.Position,
+                            invader.angle,
+                            500,
+                            Color.White,
+                            5
+                        )
                     );
-                    invader.angle = angle - MathF.PI / 2;
+                    invader.angle = MathHelper.Lerp(invader.angle, angle - MathF.PI / 2, 0.125f);
                     FireBullet(
                         invader.Position,
-                        angle,
+                        invader.angle + MathF.PI,
                         Vector2.Zero,
                         ref invaderlist,
                         ref rocket.Rectangle,
@@ -816,7 +822,6 @@ namespace Pleasework
                 rocket.Scale = new Vector2(.25f);
             }
             Coin(gameTime);
-            
 
             if (rocket.Health > 0)
             {
@@ -840,8 +845,8 @@ namespace Pleasework
         private void Camera()
         {
             Vector2 targetScreenPosition = new Vector2(
-                Constants.SCREENWIDTH / 2,
-                Constants.SCREENHEIGHT / 2
+                Window.ClientBounds.Width / 2,
+                Window.ClientBounds.Height / 2
             );
 
             Vector2 rocketScreenPosition = rocket.Position + rocketcameraoffset;
@@ -872,8 +877,8 @@ namespace Pleasework
         {
             Vector2 tileSize = new Vector2(BackroundTexture.Width, BackroundTexture.Height);
 
-            int tilesX = (int)Math.Ceiling(Constants.SCREENWIDTH / tileSize.X) + 2;
-            int tilesY = (int)Math.Ceiling(Constants.SCREENHEIGHT / tileSize.Y) + 2;
+            int tilesX = (int)Math.Ceiling(Window.ClientBounds.Width / tileSize.X) + 2;
+            int tilesY = (int)Math.Ceiling(Window.ClientBounds.Height / tileSize.Y) + 2;
 
             float offsetX = -CameraOffset.X % tileSize.X;
             float offsetY = -CameraOffset.Y % tileSize.Y;
@@ -965,7 +970,7 @@ namespace Pleasework
             {
                 _spriteBatch.Draw(
                     Gameover,
-                    new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2),
+                    new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2),
                     null,
                     Color.Red,
                     0,
@@ -1092,7 +1097,7 @@ namespace Pleasework
             GraphicsDevice.Clear(Color.Black);
             Vector2 cameraoffset = (
                 -rocket.Position
-                + new Vector2(Constants.SCREENWIDTH / 2, Constants.SCREENHEIGHT / 2)
+                + new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2)
             );
 
             _spriteBatch.Begin();
@@ -1112,7 +1117,6 @@ namespace Pleasework
                 (int)(rocket.Texture.Width * rocket.Scale.X),
                 (int)(rocket.Texture.Height * rocket.Scale.Y)
             );
-
             _spriteBatch.Draw(
                 rocket.Texture,
                 rocket.Position + rocketcameraoffset,
