@@ -1,0 +1,10 @@
+<Project>
+  <Panel>
+    <TextBlock Text="My Awesome Game" TextColor="#FFA500FF" HorizontalAlignment="Center" />
+    <VerticalMenu HorizontalAlignment="Center" VerticalAlignment="Center" >
+      <MenuItem Text="Start New Game" Id="_menuStartNewGame" />
+      <MenuItem Id="_menuOptions" Text="Options" />
+      <MenuItem Id="_menuQuit" Text="Quit" />
+    </VerticalMenu>
+  </Panel>
+</Project>

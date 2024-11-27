@@ -55,10 +55,6 @@ namespace Pleasework
         SpriteFont debugFont;
         TextBox debugText;
 
-        byte r,
-            g,
-            b;
-
         Texture2D Pixel;
         Texture2D Circle;
 
@@ -86,7 +82,6 @@ namespace Pleasework
 
         Texture2D rocketTexture;
         Texture2D HealthTexture;
-        Texture2D ShieldTexture;
 
         Texture2D bullettexure;
         List<Bullet> Bulletlist;
@@ -146,10 +141,6 @@ namespace Pleasework
             toggleDebug = false;
 
             arrowScale = new Vector2(.25f);
-
-            r = 0;
-            g = 0;
-            b = 0;
 
             thingposition = new Vector2(600 - 52.5f, 0);
 
@@ -494,6 +485,8 @@ namespace Pleasework
             Vector2 position = new Vector2();
 
             position.X = center.X + radius * MathF.Cos(9.95f * increment);
+            position.Y = center.Y + radius * MathF.Sin(3.34f * increment);
+
             if (max)
                 increment += 2 * MathF.PI / (60 * timetocomplete);
             else
@@ -572,7 +565,7 @@ namespace Pleasework
                     float parametricincrement =
                         2 * MathF.PI / (60 * invader.anglularvelocity) * rnd.Next(6);
                     invader.parametricincrement = parametricincrement;
-                    byte parabool = (byte)rnd.Next(0,2);
+                    byte parabool = (byte)rnd.Next(0, 2);
                     invader.parametricbool = parabool == 1;
                 }
                 else
@@ -683,8 +676,6 @@ namespace Pleasework
             return distance <= (circleRadius * circleRadius);
         }
 
-
-
         private float CalculateAngleBetweenPoints(Vector2 point1, Vector2 point2)
         {
             float deltaX = point2.X - point1.X;
@@ -750,14 +741,15 @@ namespace Pleasework
                 }
                 else
                 {
-                    (invader.Position, invader.parametricincrement,invader.parametricbool) = parametricmovement(
-                        earthposition,
-                        (int)invader.OrbitRadius,
-                        invader.anglularvelocity,
-                        invader.parametricincrement,
-                        invader.parametricbool,
-                        gameTime
-                    );
+                    (invader.Position, invader.parametricincrement, invader.parametricbool) =
+                        parametricmovement(
+                            earthposition,
+                            (int)invader.OrbitRadius,
+                            invader.anglularvelocity,
+                            invader.parametricincrement,
+                            invader.parametricbool,
+                            gameTime
+                        );
                 }
             }
         }
@@ -819,10 +811,6 @@ namespace Pleasework
             }
             Coin(gameTime);
             rocket.Health = 5;
-
-
-
-
 
             if (rocket.Health > 0)
             {
@@ -940,7 +928,8 @@ namespace Pleasework
         {
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
             float speed = rocket.Velocity.Length();
-            string text = $"X: {rocket.Position.X}\n Y: {rocket.Position.Y}\n speed : {speed} ";
+            string text =
+                $"X: {rocket.Position.X}\n Y: {rocket.Position.Y}\n speed : {MathF.Round(speed, 3)} ";
             debugText.Draw(_spriteBatch, text, debugFont, 400, new Vector2(10, 75), Color.White);
 
             for (int i = 0; i < rocket.Health; i++)
@@ -998,7 +987,6 @@ namespace Pleasework
                 rectangle.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
             }
 
-            
             if (!toggleDebug)
             {
                 drawRect.Clear();
@@ -1037,8 +1025,6 @@ namespace Pleasework
             {
                 foreach (Bullet bullet in Bulletlist)
                 {
-                    ;
-
                     _spriteBatch.Draw(
                         bullettexure,
                         bullet.position + cameraoffset,
