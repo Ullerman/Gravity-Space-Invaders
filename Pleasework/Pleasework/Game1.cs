@@ -310,6 +310,12 @@ namespace Pleasework
                 rocket.Velocity = Vector2.Zero;
                 rocket.AngularVelocity = 0;
                 rocket.Health = 3;
+                invaderlist.Clear();
+                Bulletlist.Clear();
+
+                invaderspeedmultiplyer = 1;
+                invadertimermultiplyer = 1;
+                
             }
             if (kstate.IsKeyDown(Keys.P))
             {
@@ -810,7 +816,7 @@ namespace Pleasework
                 rocket.Scale = new Vector2(.25f);
             }
             Coin(gameTime);
-            rocket.Health = 5;
+            
 
             if (rocket.Health > 0)
             {
