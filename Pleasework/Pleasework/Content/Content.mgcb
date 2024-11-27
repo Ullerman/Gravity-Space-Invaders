@@ -188,6 +188,18 @@
 /processorParam:TextureFormat=Color
 /build:moon.png
 
+#begin pin.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pin.png
+
 #begin pixel.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -217,4 +229,16 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:shoot.wav
+
+#begin speedometrenopin.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:speedometrenopin.png
 

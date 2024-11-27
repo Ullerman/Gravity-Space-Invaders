@@ -21,11 +21,15 @@
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Invader1.png</File>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Invader2.png</File>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/moon.png</File>
+    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/pin.png</File>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/pixel.png</File>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/rocket.png</File>
     <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/shoot.wav</File>
+    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/speedometrenopin.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -50,6 +50,8 @@ namespace Pleasework
         Vector2 arrowScale;
 
         Texture2D Gameover;
+        Texture2D Speedometrenopintexture;
+        Texture2D speedOmeterpintexture;
 
         Texture2D BackroundTexture;
         Texture2D thingtexture;
@@ -201,6 +203,8 @@ namespace Pleasework
             effect = Content.Load<Effect>("CRT");
 
             Gameover = Content.Load<Texture2D>("game_over");
+            Speedometrenopintexture = Content.Load<Texture2D>("speedometrenopin");
+            speedOmeterpintexture = Content.Load<Texture2D>("pin");
             BackroundTexture = Content.Load<Texture2D>("Backround");
 
             thingtexture = Content.Load<Texture2D>("coin");
@@ -710,10 +714,10 @@ namespace Pleasework
                             5
                         )
                     );
-                    invader.angle = MathHelper.Lerp(invader.angle, angle - MathF.PI / 2, 0.125f);
+                    invader.angle = MathHelper.Lerp(invader.angle, angle - MathF.PI / 2, 0.025f);
                     FireBullet(
                         invader.Position,
-                        invader.angle + MathF.PI,
+                        invader.angle + MathF.PI / 2,
                         Vector2.Zero,
                         ref invaderlist,
                         ref rocket.Rectangle,
@@ -819,7 +823,7 @@ namespace Pleasework
                 InvaderCompute(gameTime);
             }
             KeyHandling(gameTime);
-            Bounds(gameTime);
+            // Bounds(gameTime);
 
             moonangle += moonanglularvelocity;
             moonposition.X = earthposition.X + (float)(moonorbitradius * Math.Cos(moonangle));
@@ -921,7 +925,47 @@ namespace Pleasework
                     0
                 );
         }
+        private void DrawSpeedometer(SpriteBatch _spriteBatch)
+        {
+            Vector2 speedometerscale = new Vector2(0.5f);
+            Vector2 pinscale = new Vector2(0.5f);
+            Vector2 anglebounds = new Vector2(-135,135);
+            float speedPercentage = rocket.Velocity.Length()/100;
+            float angle = MathHelper.Lerp(anglebounds.X, anglebounds.Y, speedPercentage);
+            angle = MathHelper.ToRadians(angle);
 
+            _spriteBatch.Draw(
+                Speedometrenopintexture,
+                new Vector2(
+                    Window.ClientBounds.Width - Speedometrenopintexture.Width * speedometerscale.X,
+                    0
+                ),
+                null,
+                Color.White,
+                0,
+                Vector2.Zero,
+                speedometerscale,
+                SpriteEffects.None,
+                0
+            );
+
+            Vector2 pinPosition = new Vector2(
+                Window.ClientBounds.Width - Speedometrenopintexture.Width * speedometerscale.X / 2,
+                Speedometrenopintexture.Height * speedometerscale.Y / 2
+            );
+
+            _spriteBatch.Draw(
+                speedOmeterpintexture,
+                pinPosition,
+                null,
+                Color.White,
+                angle, 
+                new Vector2(speedOmeterpintexture.Width / 2, speedOmeterpintexture.Height), 
+                pinscale,
+                SpriteEffects.None,
+                0
+            );
+        }
         private void DrawHUD(Vector2 cameraoffset, SpriteBatch _spriteBatch)
         {
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
@@ -967,6 +1011,7 @@ namespace Pleasework
                     0
                 );
             }
+            DrawSpeedometer(_spriteBatch);
         }
 
         private void DrawDebugGraphics(SpriteBatch _spriteBatch, Vector2 cameraoffset)
@@ -1122,7 +1167,6 @@ namespace Pleasework
 
             base.Draw(gameTime);
         }
-
 
         protected override void UnloadContent() { }
     }
