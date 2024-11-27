@@ -1,22 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Reflection.Metadata;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.Intrinsics.X86;
-using AssetManagementBase;
-using FontStashSharp.RichText;
-using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Myra.Graphics2D.UI;
-using Pleasework;
 
 public class Constants
 {
@@ -1136,7 +1123,6 @@ namespace Pleasework
             base.Draw(gameTime);
         }
 
-        private void StartGame() { }
 
         protected override void UnloadContent() { }
     }
