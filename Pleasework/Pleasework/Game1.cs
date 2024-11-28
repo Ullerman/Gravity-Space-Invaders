@@ -555,6 +555,7 @@ namespace Pleasework
                 invader.Color = new Color(rnd.Next(255), rnd.Next(255), rnd.Next(255));
                 byte parametric = (byte)rnd.Next(0, 3);
                 invader.isparametric = parametric == 1;
+                invader.arrowScale = new Vector2(.25f);
                 if (invader.isparametric)
                 {
                     invader.OrbitRadius = rnd.Next(910, 1600);
@@ -823,7 +824,7 @@ namespace Pleasework
                 InvaderCompute(gameTime);
             }
             KeyHandling(gameTime);
-            // Bounds(gameTime);
+            Bounds(gameTime);
 
             moonangle += moonanglularvelocity;
             moonposition.X = earthposition.X + (float)(moonorbitradius * Math.Cos(moonangle));
@@ -888,11 +889,14 @@ namespace Pleasework
             }
         }
 
-        private void HUDArrowtopoint(
+        private Vector2 HUDArrowtopoint(
             Vector2 firstPoint,
             Vector2 secondPoint,
+            float distancetodisapear,
             Texture2D arrowTexture,
+            Vector2 arrowScale,
             Vector2 cameraoffset,
+            Color color,
             SpriteBatch _spriteBatch
         )
         {
@@ -904,7 +908,7 @@ namespace Pleasework
             Vector2 fullscale = new Vector2(0.25f);
             Vector2 smallscale = new Vector2(0.01f);
 
-            if (distanceFromEarth > 500)
+            if (distanceFromEarth > distancetodisapear)
             {
                 arrowScale = Vector2.Lerp(arrowScale, fullscale, .1f);
             }
@@ -917,20 +921,22 @@ namespace Pleasework
                     arrowTexture,
                     arrowPosition + cameraoffset,
                     null,
-                    Color.White,
+                    color,
                     arrowAngle,
                     new Vector2(arrowTexture.Width / 2, arrowTexture.Height / 2),
                     arrowScale,
                     SpriteEffects.None,
                     0
                 );
+            return arrowScale;
         }
+
         private void DrawSpeedometer(SpriteBatch _spriteBatch)
         {
             Vector2 speedometerscale = new Vector2(0.5f);
             Vector2 pinscale = new Vector2(0.5f);
-            Vector2 anglebounds = new Vector2(-135,135);
-            float speedPercentage = rocket.Velocity.Length()/100;
+            Vector2 anglebounds = new Vector2(-135, 135);
+            float speedPercentage = rocket.Velocity.Length() / 100;
             float angle = MathHelper.Lerp(anglebounds.X, anglebounds.Y, speedPercentage);
             angle = MathHelper.ToRadians(angle);
 
@@ -959,13 +965,14 @@ namespace Pleasework
                 pinPosition,
                 null,
                 Color.White,
-                angle, 
-                new Vector2(speedOmeterpintexture.Width / 2, speedOmeterpintexture.Height), 
+                angle,
+                new Vector2(speedOmeterpintexture.Width / 2, speedOmeterpintexture.Height),
                 pinscale,
                 SpriteEffects.None,
                 0
             );
         }
+
         private void DrawHUD(Vector2 cameraoffset, SpriteBatch _spriteBatch)
         {
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
@@ -989,11 +996,14 @@ namespace Pleasework
                 );
             }
 
-            HUDArrowtopoint(
+            arrowScale = HUDArrowtopoint(
                 rocket.Position,
                 earthposition,
+                500,
                 arrow,
+                arrowScale,
                 rocketcameraoffset,
+                Color.White,
                 _spriteBatch
             );
 
@@ -1010,6 +1020,22 @@ namespace Pleasework
                     SpriteEffects.None,
                     0
                 );
+            }
+            if (invaderlist.Count < 4)
+            {
+                foreach (Invader invader in invaderlist)
+                {
+                    invader.arrowScale = HUDArrowtopoint(
+                        rocket.Position,
+                        invader.Position,
+                        150,
+                        arrow,
+                        invader.arrowScale,
+                        rocketcameraoffset,
+                        Color.Red,
+                        _spriteBatch
+                    );
+                }
             }
             DrawSpeedometer(_spriteBatch);
         }

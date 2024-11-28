@@ -41,6 +41,7 @@ public class Invader
     public bool isparametric;
     public float parametricincrement;
     public bool parametricbool;
+    public Vector2 arrowScale;
 
     public Invader()
     {
