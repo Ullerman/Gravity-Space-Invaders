@@ -43,8 +43,8 @@ namespace Pleasework
 
             public void Draw(
                 SpriteBatch spriteBatch,
-                PrimitiveBatch primitiveBatch,
-                Vector2 CameraOffset
+                PrimitiveBatch primitiveBatch
+                
             )
             {
                 Vector2 edge = End - Start;
@@ -52,8 +52,8 @@ namespace Pleasework
                 spriteBatch.Draw(
                     primitiveBatch.WhitePixel,
                     new Microsoft.Xna.Framework.Rectangle(
-                        (int)(Start.X + CameraOffset.X),
-                        (int)(Start.Y + CameraOffset.Y),
+                        (int)(Start.X),
+                        (int)(Start.Y),
                         (int)edge.Length(),
                         (int)Width
                     ),
@@ -82,13 +82,13 @@ namespace Pleasework
 
             public void Draw(
                 SpriteBatch spriteBatch,
-                PrimitiveBatch primitiveBatch,
-                Vector2 CameraOffset
+                PrimitiveBatch primitiveBatch
+                 
             )
             {
                 spriteBatch.Draw(
                     primitiveBatch.WhiteCircle,
-                    Position + CameraOffset,
+                    Position ,
                     null,
                     Color,
                     0,
@@ -121,15 +121,15 @@ namespace Pleasework
 
             public void Draw(
                 SpriteBatch spriteBatch,
-                PrimitiveBatch primitiveBatch,
-                Vector2 CameraOffset
+                PrimitiveBatch primitiveBatch
+                 
             )
             {
                 spriteBatch.Draw(
                     primitiveBatch.WhitePixel,
                     new Microsoft.Xna.Framework.Rectangle(
-                        (int)(Position.X + CameraOffset.X),
-                        (int)(Position.Y + CameraOffset.Y),
+                        (int)(Position.X),
+                        (int)(Position.Y ),
                         (int)Size.X,
                         (int)Size.Y
                     ),
@@ -151,11 +151,11 @@ namespace Pleasework
 
             public void Draw(
                 SpriteBatch spriteBatch,
-                PrimitiveBatch primitiveBatch,
-                Vector2 CameraOffset
+                PrimitiveBatch primitiveBatch
+                
             )
             {
-                spriteBatch.Draw(primitiveBatch.WhitePixel, Position + CameraOffset, Color);
+                spriteBatch.Draw(primitiveBatch.WhitePixel, Position, Color);
             }
         }
     }

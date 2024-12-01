@@ -39,6 +39,10 @@ namespace Pleasework
         // // byte level;
 
         Vector2 cameraPosition;
+        float previousScrollWheelValue;
+        float rawZoom;
+        float smoothZoom;
+        
 
         SpriteFont debugFont;
         TextBox debugText;
@@ -126,6 +130,10 @@ namespace Pleasework
         protected override void Initialize()
         {
             rnd = new Random();
+            rawZoom = 1;
+            smoothZoom = 1;
+
+            previousScrollWheelValue = 0;
 
             togglerocket = true;
             toggleDebug = false;
@@ -232,6 +240,7 @@ namespace Pleasework
             var kstate = Keyboard.GetState();
 
             var gamepadState = GamePad.GetState(PlayerIndex.One);
+            var mouseState = Mouse.GetState();
 
             Vector2 leftThumbstick = gamepadState.ThumbSticks.Left;
             Vector2 rightThumbstick = gamepadState.ThumbSticks.Right;
@@ -292,7 +301,25 @@ namespace Pleasework
                     gameTime
                 );
             }
+                   
+            if (mouseState.ScrollWheelValue > previousScrollWheelValue)
+            {
+                rawZoom += 0.1f; 
+            }
+            else if (mouseState.ScrollWheelValue < previousScrollWheelValue)
+            {
+                rawZoom -= 0.1f; 
+            }
 
+            rawZoom = Math.Clamp(rawZoom, 0.1f, 3.0f); 
+
+            previousScrollWheelValue = mouseState.ScrollWheelValue;
+
+            smoothZoom = MathHelper.Lerp(smoothZoom,rawZoom,.5f);
+
+   
+
+        
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
             {
                 rocket.Position = new Vector2(
@@ -319,6 +346,10 @@ namespace Pleasework
             if (kstate.IsKeyDown(Keys.F4) && kstate.IsKeyDown(Keys.L))
             {
                 drawRect.Clear();
+            }
+                     if (kstate.IsKeyDown(Keys.F11))
+            {
+                _graphics.ToggleFullScreen();
             }
         }
 
@@ -919,12 +950,12 @@ namespace Pleasework
             if (arrowScale.X >= 0.02f)
                 _spriteBatch.Draw(
                     arrowTexture,
-                    arrowPosition + cameraoffset,
+                    (arrowPosition + cameraoffset)*smoothZoom,
                     null,
                     color,
                     arrowAngle,
                     new Vector2(arrowTexture.Width / 2, arrowTexture.Height / 2),
-                    arrowScale,
+                    arrowScale*smoothZoom,
                     SpriteEffects.None,
                     0
                 );
@@ -1040,20 +1071,24 @@ namespace Pleasework
             DrawSpeedometer(_spriteBatch);
         }
 
-        private void DrawDebugGraphics(SpriteBatch _spriteBatch, Vector2 cameraoffset)
+        private void DrawDebugGraphics(SpriteBatch _spriteBatcht,Vector2 cameraoffset)
         {
             foreach (PrimitiveBatch.Line line in lines)
             {
-                line.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
+                line.Start = (line.Start+cameraoffset)*smoothZoom;
+                line.Draw(_spriteBatch, _primitiveBatch);
             }
             lines.Clear();
             foreach (PrimitiveBatch.Circle circle in circles)
             {
-                circle.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
+                circle.Position = (circle.Position + cameraoffset)*smoothZoom;
+                circle.Draw(_spriteBatch, _primitiveBatch);
             }
             foreach (PrimitiveBatch.Rectangle rectangle in drawRect)
             {
-                rectangle.Draw(_spriteBatch, _primitiveBatch, cameraoffset);
+                rectangle.Position = (rectangle.Position + cameraoffset)*smoothZoom;
+                
+                rectangle.Draw(_spriteBatch, _primitiveBatch);
             }
 
             if (!toggleDebug)
@@ -1076,12 +1111,12 @@ namespace Pleasework
 
                 _spriteBatch.Draw(
                     Invader1Texture,
-                    invader.Position + cameraoffset,
+                    (invader.Position + cameraoffset)*smoothZoom,
                     null,
                     invader.Color,
                     invader.angle,
                     new Vector2(Invader1Texture.Width / 2, Invader1Texture.Height / 2),
-                    invader.Scale,
+                    invader.Scale*smoothZoom,
                     SpriteEffects.None,
                     0
                 );
@@ -1096,12 +1131,12 @@ namespace Pleasework
                 {
                     _spriteBatch.Draw(
                         bullettexure,
-                        bullet.position + cameraoffset,
+                        (bullet.position + cameraoffset)*smoothZoom,
                         null,
                         Color.White,
                         bullet.angle,
                         new Vector2(bullettexure.Width / 2, bullettexure.Height / 2),
-                        bulletscale,
+                        bulletscale*smoothZoom,
                         SpriteEffects.None,
                         0
                     );
@@ -1113,23 +1148,23 @@ namespace Pleasework
         {
             _spriteBatch.Draw(
                 earthTexture,
-                earthposition + cameraoffset,
+                (earthposition + cameraoffset)*smoothZoom,
                 null,
                 Color.White,
                 0,
                 new Vector2(earthTexture.Width / 2, earthTexture.Height / 2),
-                earthscale,
+                earthscale*smoothZoom,
                 SpriteEffects.None,
                 0
             );
             _spriteBatch.Draw(
                 moontexture,
-                moonposition + cameraoffset,
+                (moonposition + cameraoffset)*smoothZoom,
                 null,
                 Color.White,
                 0,
                 new Vector2(moontexture.Width / 2, moontexture.Height / 2),
-                moonscale,
+                moonscale*smoothZoom,
                 SpriteEffects.None,
                 0
             );
@@ -1139,12 +1174,12 @@ namespace Pleasework
         {
             _spriteBatch.Draw(
                 thingtexture,
-                thingposition + cameraoffset,
+                (thingposition + cameraoffset)*smoothZoom,
                 null,
                 Color.White,
                 0,
                 Vector2.Zero,
-                coinscale,
+                coinscale*smoothZoom,
                 SpriteEffects.None,
                 0
             );
@@ -1177,12 +1212,12 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 rocket.Texture,
-                rocket.Position + rocketcameraoffset,
+                (rocket.Position + rocketcameraoffset)*smoothZoom,
                 null,
                 Color.White,
                 rocket.Angle,
                 new Vector2(rocket.Texture.Width / 2, rocket.Texture.Height / 2),
-                rocket.Scale,
+                rocket.Scale*smoothZoom,
                 SpriteEffects.None,
                 0
             );

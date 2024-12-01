@@ -1,223 +1,220 @@
-15:18:59:682 [04412] | INFO  | Initializing crosire's ReShade version '6.2.0.1878' (64-bit) loaded from "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\OPENGL32.DLL" into "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.exe" (0xeb273f5e) ...
-15:18:59:682 [04412] | INFO  | Registering hooks for "user32.dll" ...
-15:18:59:682 [04412] | INFO  | > Libraries loaded.
-15:18:59:683 [04412] | INFO  | > Found 14 match(es). Installing ...
-15:18:59:714 [04412] | INFO  | Registering hooks for "C:\Windows\system32\dinput.dll" ...
-15:18:59:715 [04412] | INFO  | > Delayed.
-15:18:59:715 [04412] | INFO  | Registering hooks for "C:\Windows\system32\opengl32.dll" ...
-15:18:59:715 [04412] | INFO  | > Delayed until first call to an exported function.
-15:18:59:715 [04412] | INFO  | Registering hooks for "vrclient_x64.dll" ...
-15:18:59:715 [04412] | INFO  | > Delayed.
-15:18:59:715 [04412] | INFO  | Initialized.
-15:18:59:717 [04412] | INFO  | Redirecting wglChoosePixelFormat(hdc = FFFFFFFFFD010D86, ppfd = 000000EF9B99E1E0) ...
-15:18:59:717 [04412] | INFO  | > Dumping pixel format descriptor:
-15:18:59:717 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:717 [04412] | INFO  |   | Name                                    | Value                                   |
-15:18:59:717 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:717 [04412] | INFO  |   | Flags                                   | 0x25                                    |
-15:18:59:717 [04412] | INFO  |   | ColorBits                               | 24                                      |
-15:18:59:717 [04412] | INFO  |   | DepthBits                               | 24                                      |
-15:18:59:717 [04412] | INFO  |   | StencilBits                             | 0                                       |
-15:18:59:718 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:719 [04412] | INFO  | Installing export hooks for "C:\Windows\system32\opengl32.dll" ...
-15:18:59:719 [04412] | INFO  | > Found 360 match(es). Installing ...
-15:18:59:731 [04412] | INFO  | Returning pixel format: 5
-15:18:59:732 [04412] | INFO  | Redirecting wglSetPixelFormat(hdc = FFFFFFFFFD010D86, iPixelFormat = 5, ppfd = 000000EF9B99E1E0) ...
-15:18:59:732 [04412] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
-15:18:59:733 [04412] | INFO  | Redirecting wglCreateContext(hdc = FFFFFFFFFD010D86) ...
-15:18:59:733 [04412] | INFO  | > Passing on to wglCreateLayerContext:
-15:18:59:733 [04412] | INFO  | Redirecting wglCreateLayerContext(hdc = FFFFFFFFFD010D86, iLayerPlane = 0) ...
-15:18:59:800 [04412] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
-15:18:59:801 [04412] | WARN  | Window class style of window 00000000001A01DC is missing 'CS_OWNDC' flag.
-15:18:59:801 [04412] | INFO  | Redirecting wglDeleteContext(hglrc = 0000000000010000) ...
-15:18:59:825 [04412] | INFO  | Redirecting wglChoosePixelFormat(hdc = FFFFFFFF90010D1F, ppfd = 000000EF9B99E000) ...
-15:18:59:825 [04412] | INFO  | > Dumping pixel format descriptor:
-15:18:59:825 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:825 [04412] | INFO  |   | Name                                    | Value                                   |
-15:18:59:826 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:826 [04412] | INFO  |   | Flags                                   | 0x25                                    |
-15:18:59:826 [04412] | INFO  |   | ColorBits                               | 24                                      |
-15:18:59:832 [04412] | INFO  |   | DepthBits                               | 24                                      |
-15:18:59:832 [04412] | INFO  |   | StencilBits                             | 0                                       |
-15:18:59:832 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:833 [04412] | INFO  | Returning pixel format: 5
-15:18:59:833 [04412] | INFO  | Redirecting wglSetPixelFormat(hdc = FFFFFFFF90010D1F, iPixelFormat = 5, ppfd = 000000EF9B99E000) ...
-15:18:59:834 [04412] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
-15:18:59:834 [04412] | INFO  | Redirecting wglCreateContext(hdc = FFFFFFFF90010D1F) ...
-15:18:59:834 [04412] | INFO  | > Passing on to wglCreateLayerContext:
-15:18:59:834 [04412] | INFO  | Redirecting wglCreateLayerContext(hdc = FFFFFFFF90010D1F, iLayerPlane = 0) ...
-15:18:59:854 [04412] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
-15:18:59:855 [04412] | WARN  | Window class style of window 0000000000110690 is missing 'CS_OWNDC' flag.
-15:18:59:855 [04412] | INFO  | Redirecting wglChoosePixelFormatARB(hdc = FFFFFFFF90010D1F, piAttribIList = 000000EF9B99E0B0, pfAttribFList = 000000EF9B99E1C0, nMaxFormats = 1, piFormats = 000000EF9B99E060, nNumFormats = 000000EF9B99E078) ...
-15:18:59:855 [04412] | INFO  | > Dumping attributes:
-15:18:59:855 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:855 [04412] | INFO  |   | Attribute                               | Value                                   |
-15:18:59:855 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:855 [04412] | INFO  |   | WGL_DRAW_TO_WINDOW_ARB                  | TRUE                                    |
-15:18:59:856 [04412] | INFO  |   | WGL_RED_BITS_ARB                        | 8                                       |
-15:18:59:856 [04412] | INFO  |   | WGL_GREEN_BITS_ARB                      | 8                                       |
-15:18:59:856 [04412] | INFO  |   | WGL_BLUE_BITS_ARB                       | 8                                       |
-15:18:59:856 [04412] | INFO  |   | WGL_ALPHA_BITS_ARB                      | 8                                       |
-15:18:59:856 [04412] | INFO  |   | WGL_DOUBLE_BUFFER_ARB                   | TRUE                                    |
-15:18:59:856 [04412] | INFO  |   | WGL_DEPTH_BITS_ARB                      | 24                                      |
-15:18:59:856 [04412] | INFO  |   | WGL_ACCELERATION_ARB                    | 0x2027                                  |
-15:18:59:857 [04412] | INFO  |   +-----------------------------------------+-----------------------------------------+
-15:18:59:857 [04412] | INFO  | Returning pixel format(s): 5
-15:18:59:857 [04412] | INFO  | Redirecting wglDeleteContext(hglrc = 0000000000020000) ...
-15:18:59:887 [04412] | INFO  | Redirecting wglSetPixelFormat(hdc = 0000000028010DAF, iPixelFormat = 5, ppfd = 000000EF9B99E080) ...
-15:18:59:888 [04412] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
-15:18:59:910 [04412] | INFO  | Redirecting wglCreateContext(hdc = 0000000028010DAF) ...
-15:18:59:911 [04412] | INFO  | > Passing on to wglCreateLayerContext:
-15:18:59:911 [04412] | INFO  | Redirecting wglCreateLayerContext(hdc = 0000000028010DAF, iLayerPlane = 0) ...
-15:18:59:932 [04412] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
-15:18:59:933 [04412] | WARN  | Window class style of window 00000000001B01DC is missing 'CS_OWNDC' flag.
-15:19:01:535 [04412] | INFO  | Resizing device context 0000000028010DAF to 960x720 ...
-15:19:01:535 [04412] | INFO  | Running on Intel(R) HD Graphics 630.
-15:19:01:670 [04412] | INFO  | Recreated runtime environment on runtime 000002ABCA36BF30 ("C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\ReShade.ini").
-15:19:01:677 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\crt-nes-mini.fx" in 0.002 s.
-15:19:01:679 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\ASCII.fx" in 0.003 s.
-15:19:01:681 [06016] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\mdapt.fx" in 0.006 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\mdapt.fx(450, 1): error X3020: 'V__texMDAPTPassA': cannot sample from texture that is also used as render target in the same pass
+18:43:56:143 [29960] | INFO  | Initializing crosire's ReShade version '6.2.0.1878' (64-bit) loaded from "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\OPENGL32.DLL" into "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\Pleasework.exe" (0xeb273f5e) ...
+18:43:56:143 [29960] | INFO  | Registering hooks for "user32.dll" ...
+18:43:56:143 [29960] | INFO  | > Libraries loaded.
+18:43:56:144 [29960] | INFO  | > Found 14 match(es). Installing ...
+18:43:56:197 [29960] | INFO  | Registering hooks for "C:\WINDOWS\system32\dinput.dll" ...
+18:43:56:197 [29960] | INFO  | > Delayed.
+18:43:56:197 [29960] | INFO  | Registering hooks for "C:\WINDOWS\system32\opengl32.dll" ...
+18:43:56:197 [29960] | INFO  | > Delayed until first call to an exported function.
+18:43:56:197 [29960] | INFO  | Registering hooks for "vrclient_x64.dll" ...
+18:43:56:197 [29960] | INFO  | > Delayed.
+18:43:56:197 [29960] | INFO  | Initialized.
+18:43:56:201 [29960] | INFO  | Redirecting wglChoosePixelFormat(hdc = 00000000740117C8, ppfd = 0000005F29F7E5C0) ...
+18:43:56:201 [29960] | INFO  | > Dumping pixel format descriptor:
+18:43:56:202 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:202 [29960] | INFO  |   | Name                                    | Value                                   |
+18:43:56:202 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:202 [29960] | INFO  |   | Flags                                   | 0x25                                    |
+18:43:56:202 [29960] | INFO  |   | ColorBits                               | 24                                      |
+18:43:56:202 [29960] | INFO  |   | DepthBits                               | 24                                      |
+18:43:56:202 [29960] | INFO  |   | StencilBits                             | 0                                       |
+18:43:56:202 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:204 [29960] | INFO  | Installing export hooks for "C:\WINDOWS\system32\opengl32.dll" ...
+18:43:56:205 [29960] | INFO  | > Found 360 match(es). Installing ...
+18:43:56:290 [29960] | INFO  | Returning pixel format: 10
+18:43:56:290 [29960] | INFO  | Redirecting wglSetPixelFormat(hdc = 00000000740117C8, iPixelFormat = 10, ppfd = 0000005F29F7E5C0) ...
+18:43:56:291 [29960] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
+18:43:56:291 [29960] | INFO  | Redirecting wglCreateContext(hdc = 00000000740117C8) ...
+18:43:56:291 [29960] | INFO  | > Passing on to wglCreateLayerContext:
+18:43:56:291 [29960] | INFO  | Redirecting wglCreateLayerContext(hdc = 00000000740117C8, iLayerPlane = 0) ...
+18:43:56:409 [29960] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
+18:43:56:410 [29960] | WARN  | Window class style of window 000000000070093A is missing 'CS_OWNDC' flag.
+18:43:56:410 [29960] | INFO  | Redirecting wglDeleteContext(hglrc = 0000000000010000) ...
+18:43:56:423 [29960] | INFO  | Redirecting wglChoosePixelFormat(hdc = 000000006301177B, ppfd = 0000005F29F7E3E0) ...
+18:43:56:423 [29960] | INFO  | > Dumping pixel format descriptor:
+18:43:56:423 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:424 [29960] | INFO  |   | Name                                    | Value                                   |
+18:43:56:424 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:424 [29960] | INFO  |   | Flags                                   | 0x25                                    |
+18:43:56:424 [29960] | INFO  |   | ColorBits                               | 24                                      |
+18:43:56:424 [29960] | INFO  |   | DepthBits                               | 24                                      |
+18:43:56:424 [29960] | INFO  |   | StencilBits                             | 0                                       |
+18:43:56:424 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:430 [29960] | INFO  | Returning pixel format: 10
+18:43:56:430 [29960] | INFO  | Redirecting wglSetPixelFormat(hdc = 000000006301177B, iPixelFormat = 10, ppfd = 0000005F29F7E3E0) ...
+18:43:56:430 [29960] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
+18:43:56:430 [29960] | INFO  | Redirecting wglCreateContext(hdc = 000000006301177B) ...
+18:43:56:431 [29960] | INFO  | > Passing on to wglCreateLayerContext:
+18:43:56:431 [29960] | INFO  | Redirecting wglCreateLayerContext(hdc = 000000006301177B, iLayerPlane = 0) ...
+18:43:56:435 [29960] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
+18:43:56:436 [29960] | WARN  | Window class style of window 00000000004A0A76 is missing 'CS_OWNDC' flag.
+18:43:56:436 [29960] | INFO  | Redirecting wglChoosePixelFormatARB(hdc = 000000006301177B, piAttribIList = 0000005F29F7E490, pfAttribFList = 0000005F29F7E5A0, nMaxFormats = 1, piFormats = 0000005F29F7E440, nNumFormats = 0000005F29F7E458) ...
+18:43:56:437 [29960] | INFO  | > Dumping attributes:
+18:43:56:437 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:437 [29960] | INFO  |   | Attribute                               | Value                                   |
+18:43:56:437 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:437 [29960] | INFO  |   | WGL_DRAW_TO_WINDOW_ARB                  | TRUE                                    |
+18:43:56:437 [29960] | INFO  |   | WGL_RED_BITS_ARB                        | 8                                       |
+18:43:56:437 [29960] | INFO  |   | WGL_GREEN_BITS_ARB                      | 8                                       |
+18:43:56:438 [29960] | INFO  |   | WGL_BLUE_BITS_ARB                       | 8                                       |
+18:43:56:438 [29960] | INFO  |   | WGL_ALPHA_BITS_ARB                      | 8                                       |
+18:43:56:438 [29960] | INFO  |   | WGL_DOUBLE_BUFFER_ARB                   | TRUE                                    |
+18:43:56:438 [29960] | INFO  |   | WGL_DEPTH_BITS_ARB                      | 24                                      |
+18:43:56:438 [29960] | INFO  |   | WGL_ACCELERATION_ARB                    | 0x2027                                  |
+18:43:56:438 [29960] | INFO  |   +-----------------------------------------+-----------------------------------------+
+18:43:56:455 [29960] | INFO  | Returning pixel format(s): 10
+18:43:56:456 [29960] | INFO  | Redirecting wglDeleteContext(hglrc = 0000000000020000) ...
+18:43:56:462 [29960] | INFO  | Redirecting wglSetPixelFormat(hdc = FFFFFFFFEE010D84, iPixelFormat = 10, ppfd = 0000005F29F7E460) ...
+18:43:56:462 [29960] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
+18:43:56:478 [29960] | INFO  | Redirecting wglCreateContext(hdc = FFFFFFFFEE010D84) ...
+18:43:56:479 [29960] | INFO  | > Passing on to wglCreateLayerContext:
+18:43:56:479 [29960] | INFO  | Redirecting wglCreateLayerContext(hdc = FFFFFFFFEE010D84, iLayerPlane = 0) ...
+18:43:56:483 [29960] | INFO  | Searching for add-ons (*.addon, *.addon64) in "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0" ...
+18:43:56:484 [29960] | WARN  | Window class style of window 000000000071093A is missing 'CS_OWNDC' flag.
+18:43:56:914 [29960] | INFO  | Resizing device context FFFFFFFFEE010D84 to 960x720 ...
+18:43:56:915 [29960] | INFO  | Running on NVIDIA GeForce RTX 2060 SUPER/PCIe/SSE2.
+18:43:57:027 [29960] | INFO  | Recreated runtime environment on runtime 00000172AA2C6350 ("C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\ReShade.ini").
+18:43:57:034 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\LiftGammaGain.fx" in 0.003 s.
+18:43:57:034 [17320] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Defocus.fx" in 0.003 s.
+18:43:57:035 [24684] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRT-Yeetron.fx" in 0.004 s.
+18:43:57:036 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Daltonize.fx" in 0.005 s.
+18:43:57:036 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\ASCII.fx" in 0.005 s.
+18:43:57:036 [27296] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\scanlines-fract.fx" in 0.003 s.
+18:43:57:036 [35316] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MCGreen.fx" in 0.004 s.
+18:43:57:036 [11852] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\ChromaticitySimplified.fx" in 0.005 s.
+18:43:57:036 [18600] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTKurg.fx" in 0.005 s.
+18:43:57:038 [31840] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\NTSC_RetroArch.fx" in 0.006 s.
+18:43:57:039 [17320] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\DOSGame.fx" in 0.003 s.
+18:43:57:040 [27296] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\TVCRTPixels.fx" in 0.002 s.
+18:43:57:040 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Border.fx" in 0.003 s.
+18:43:57:040 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\LumaSharpen.fx" in 0.003 s.
+18:43:57:040 [35316] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MCOrange.fx" in 0.003 s.
+18:43:57:041 [11852] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\cmyk_halftone_dot.fx" in 0.004 s.
+18:43:57:041 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Deband.fx" in 0.004 s.
+18:43:57:042 [17320] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\EGAfilter.fx" in 0.002 s.
+18:43:57:042 [24684] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTAperture.fx" in 0.006 s.
+18:43:57:043 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Cartoon.fx" in 0.002 s.
+18:43:57:043 [18600] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTLottes.fx" in 0.005 s.
+18:43:57:044 [31840] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\NTSC_RetroArch_NoScanlines.fx" in 0.005 s.
+18:43:57:045 [17260] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\SMAA.fx" in 0.012 s.
+18:43:57:045 [24684] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTCaligari.fx" in 0.002 s.
+18:43:57:045 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\DisplayDepth.fx" in 0.003 s.
+18:43:57:046 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\CAS.fx" in 0.002 s.
+18:43:57:047 [17320] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\GTU.fx" in 0.005 s.
+18:43:57:047 [18600] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTLottes2.fx" in 0.004 s.
+18:43:57:048 [27296] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\VHS.fx" in 0.008 s.
+18:43:57:048 [17260] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Splitscreen.fx" in 0.003 s.
+18:43:57:048 [35316] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\mdapt.fx" in 0.008 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\mdapt.fx(450, 1): error X3020: 'V__texMDAPTPassA': cannot sample from texture that is also used as render target in the same pass
 
-15:19:01:682 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Border.fx" in 0.002 s.
-15:19:01:684 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRT-NewPixie.fx" in 0.005 s.
-15:19:01:684 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Cartoon.fx" in 0.002 s.
-15:19:01:685 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MetaCRT.fx" in 0.003 s.
-15:19:01:688 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRT-Yee64.fx" in 0.003 s.
-15:19:01:688 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\CAS.fx" in 0.002 s.
-15:19:01:689 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MMJCelShader.fx" in 0.003 s.
-15:19:01:692 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\ChromaticAberration.fx" in 0.003 s.
-15:19:01:692 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRT-Yeetron.fx" in 0.004 s.
-15:19:01:694 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\N64_3Point.fx" in 0.004 s.
-15:19:01:695 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\ColorMatrix.fx" in 0.002 s.
-15:19:01:697 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTAperture.fx" in 0.003 s.
-15:19:01:698 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\nGlide_3DFX.fx" in 0.002 s.
-15:19:01:700 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTCaligari.fx" in 0.002 s.
-15:19:01:701 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\ntsc.fx" in 0.002 s.
-15:19:01:703 [11308] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx" in 0.003 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx(108, 14): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx(109, 15): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx(129, 16): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx(129, 36): warning X3206: implicit truncation of vector type
+18:43:57:048 [31840] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\PAL.fx" in 0.004 s.
+18:43:57:049 [24684] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx" in 0.004 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx(108, 14): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx(109, 15): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx(129, 16): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTcgwg.fx(129, 36): warning X3206: implicit truncation of vector type
 
-15:19:01:707 [11308] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTCX.fx" in 0.003 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTCX.fx(157, 33): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTCX.fx(157, 19): warning X3206: implicit truncation of vector type
+18:43:57:049 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\ChromaticAberration.fx" in 0.003 s.
+18:43:57:049 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\DPX.fx" in 0.004 s.
+18:43:57:050 [11852] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\ColorMAME.fx" in 0.006 s.
+18:43:57:051 [17260] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Technicolor.fx" in 0.002 s.
+18:43:57:051 [18600] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTPi.fx" in 0.003 s.
+18:43:57:051 [31840] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Phosphor.fx" in 0.002 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Phosphor.fx(42, 41): warning X3206: implicit truncation of vector type
 
-15:19:01:707 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\NTSC_RetroArch.fx" in 0.004 s.
-15:19:01:712 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\NTSC_RetroArch_NoScanlines.fx" in 0.004 s.
-15:19:01:712 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTEasymode.fx" in 0.004 s.
-15:19:01:715 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTFakeLottes.fx" in 0.002 s.
-15:19:01:716 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\PAL.fx" in 0.003 s.
-15:19:01:717 [06016] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Phosphor.fx" in 0.001 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Phosphor.fx(42, 41): warning X3206: implicit truncation of vector type
+18:43:57:052 [17320] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\ImageAdjustment.fx" in 0.004 s.
+18:43:57:052 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\ColorMatrix.fx" in 0.002 s.
+18:43:57:052 [24684] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTCX.fx" in 0.003 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTCX.fx(157, 33): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTCX.fx(157, 19): warning X3206: implicit truncation of vector type
 
-15:19:01:719 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTGeom.fx" in 0.003 s.
-15:19:01:720 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\PowerVR2.fx" in 0.002 s.
-15:19:01:724 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\R57_PAL.fx" in 0.003 s.
-15:19:01:724 [11308] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx" in 0.004 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(240, 19): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(241, 19): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(242, 19): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(243, 19): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(244, 19): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(245, 19): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(246, 19): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(247, 19): warning X3206: implicit truncation of vector type
+18:43:57:054 [17260] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Technicolor2.fx" in 0.002 s.
+18:43:57:054 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\FakeHDR.fx" in 0.003 s.
+18:43:57:054 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\LUT.fx" in 0.003 s.
+18:43:57:055 [11852] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx" in 0.004 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx(167, 20): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx(168, 21): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx(174, 25): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx(194, 24): warning X3206: implicit truncation of vector type
 
-15:19:01:728 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\RetroCRT.fx" in 0.002 s.
-15:19:01:729 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTKurg.fx" in 0.003 s.
-15:19:01:730 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\RGBLCD.fx" in 0.002 s.
-15:19:01:732 [06016] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\scanlines-abs.fx" in 0.002 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\scanlines-abs.fx(73, 1): warning X4576: 'PS_ScanlinesAbs': input parameter 'angle' semantic does not match vertex shader one
+18:43:57:055 [18600] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTPotatoCool.fx" in 0.003 s.
+18:43:57:055 [35316] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MetaCRT.fx" in 0.004 s.
+18:43:57:057 [17260] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Tonemap.fx" in 0.002 s.
+18:43:57:057 [17320] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\JPEG.fx" in 0.004 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\JPEG.fx(79, 29): warning X3206: implicit truncation of vector type
 
-15:19:01:733 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTLottes.fx" in 0.003 s.
-15:19:01:735 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\scanlines-fract.fx" in 0.002 s.
-15:19:01:736 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTLottes2.fx" in 0.003 s.
-15:19:01:737 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\TVCRTPixels.fx" in 0.002 s.
-15:19:01:740 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTPi.fx" in 0.003 s.
-15:19:01:744 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTPotatoCool.fx" in 0.003 s.
-15:19:01:745 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\VHS.fx" in 0.008 s.
-15:19:01:746 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTPotatoWarm.fx" in 0.002 s.
-15:19:01:748 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTRefresh.fx" in 0.001 s.
-15:19:01:748 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\VHS_RA.fx" in 0.003 s.
-15:19:01:753 [06016] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220.fx" in 0.003 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220.fx(106, 16): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220.fx(107, 14): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220.fx(108, 8): warning X3206: implicit truncation of vector type
+18:43:57:057 [31840] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\PowerVR2.fx" in 0.005 s.
+18:43:57:057 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Monochrome.fx" in 0.002 s.
+18:43:57:058 [27296] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\VHS_RA.fx" in 0.009 s.
+18:43:57:058 [18600] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTPotatoWarm.fx" in 0.002 s.
+18:43:57:058 [11852] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRT-Frutbunn.fx" in 0.002 s.
+18:43:57:058 [24684] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTEasymode.fx" in 0.005 s.
+18:43:57:060 [31840] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\R57_PAL.fx" in 0.002 s.
+18:43:57:060 [35316] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MMJCelShader.fx" in 0.004 s.
+18:43:57:060 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\FilmGrain.fx" in 0.003 s.
+18:43:57:061 [18600] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTRefresh.fx" in 0.003 s.
+18:43:57:062 [11852] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\crt-nes-mini.fx" in 0.004 s.
+18:43:57:063 [17260] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\UIMask.fx" in 0.004 s.
+18:43:57:063 [17320] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\LeiFX_OA.fx" in 0.005 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\LeiFX_OA.fx(121, 14): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\LeiFX_OA.fx(272, 16): warning X3206: implicit truncation of vector type
 
-15:19:01:754 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTSim.fx" in 0.005 s.
-15:19:01:757 [11308] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx" in 0.002 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx(80, 17): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx(81, 17): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx(88, 17): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx(89, 17): warning X3206: implicit truncation of vector type
+18:43:57:063 [27296] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220.fx" in 0.004 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220.fx(106, 16): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220.fx(107, 14): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220.fx(108, 8): warning X3206: implicit truncation of vector type
 
-15:19:01:757 [06016] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_frame.fx" in 0.004 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_frame.fx(80, 16): warning X3206: implicit truncation of vector type
+18:43:57:064 [31840] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\RetroCRT.fx" in 0.003 s.
+18:43:57:064 [24684] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTFakeLottes.fx" in 0.004 s.
+18:43:57:064 [35316] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\N64_3Point.fx" in 0.003 s.
+18:43:57:065 [17260] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Vibrance.fx" in 0.002 s.
+18:43:57:067 [18600] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTSim.fx" in 0.005 s.
+18:43:57:068 [31840] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\RGBLCD.fx" in 0.003 s.
+18:43:57:068 [17320] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MattiasCRT.fx" in 0.004 s.
+18:43:57:068 [27296] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_frame.fx" in 0.004 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_frame.fx(80, 16): warning X3206: implicit truncation of vector type
 
-15:19:01:762 [06016] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_night.fx" in 0.004 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_night.fx(164, 16): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_night.fx(165, 14): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_night.fx(166, 8): warning X3206: implicit truncation of vector type
+18:43:57:068 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Nostalgia.fx" in 0.01 s.
+18:43:57:069 [35316] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\nGlide_3DFX.fx" in 0.003 s.
+18:43:57:069 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\FXAA.fx" in 0.007 s.
+18:43:57:070 [17260] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Vignette.fx" in 0.004 s.
+18:43:57:071 [17320] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MCAmber.fx" in 0.002 s.
+18:43:57:072 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Layer.fx" in 0.002 s.
+18:43:57:072 [11852] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRT-NewPixie.fx" in 0.008 s.
+18:43:57:072 [18600] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx" in 0.004 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx(80, 17): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx(81, 17): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx(88, 17): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Deconverge.fx(89, 17): warning X3206: implicit truncation of vector type
 
-15:19:01:765 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\zfast_crt.fx" in 0.002 s.
-15:19:01:767 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Sepia.fx" in 0.002 s.
-15:19:01:770 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Defocus.fx" in 0.002 s.
-15:19:01:775 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\DOSGame.fx" in 0.003 s.
-15:19:01:777 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\EGAfilter.fx" in 0.002 s.
-15:19:01:778 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\SMAA.fx" in 0.01 s.
-15:19:01:780 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Splitscreen.fx" in 0.002 s.
-15:19:01:782 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\GTU.fx" in 0.004 s.
-15:19:01:782 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Technicolor.fx" in 0.002 s.
-15:19:01:784 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Technicolor2.fx" in 0.001 s.
-15:19:01:785 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\ImageAdjustment.fx" in 0.003 s.
-15:19:01:787 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Tonemap.fx" in 0.002 s.
-15:19:01:788 [11308] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\JPEG.fx" in 0.003 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\JPEG.fx(79, 29): warning X3206: implicit truncation of vector type
+18:43:57:073 [24684] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTGeom.fx" in 0.006 s.
+18:43:57:073 [27296] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_night.fx" in 0.004 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_night.fx(164, 16): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_night.fx(165, 14): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\vt220_night.fx(166, 8): warning X3206: implicit truncation of vector type
 
-15:19:01:791 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\UIMask.fx" in 0.003 s.
-15:19:01:793 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Vibrance.fx" in 0.001 s.
-15:19:01:793 [11308] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\LeiFX_OA.fx" in 0.004 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\LeiFX_OA.fx(121, 14): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\LeiFX_OA.fx(272, 16): warning X3206: implicit truncation of vector type
+18:43:57:073 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\3DFX.fx" in 0.004 s.
+18:43:57:073 [35316] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\ntsc.fx" in 0.004 s.
+18:43:57:075 [31840] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\scanlines-abs.fx" in 0.002 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\scanlines-abs.fx(73, 1): warning X4576: 'PS_ScanlinesAbs': input parameter 'angle' semantic does not match vertex shader one
 
-15:19:01:796 [06016] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Vignette.fx" in 0.002 s.
-15:19:01:796 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MattiasCRT.fx" in 0.002 s.
-15:19:01:798 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MCAmber.fx" in 0.001 s.
-15:19:01:800 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MCGreen.fx" in 0.001 s.
-15:19:01:802 [11308] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\MCOrange.fx" in 0.001 s.
-15:19:01:836 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\CRT-Royale\crt-royale.fx" in 0.141 s.
-15:19:01:845 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\CRT.fx" in 0.008 s.
-15:19:01:848 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Curves.fx" in 0.002 s.
-15:19:01:850 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Daltonize.fx" in 0.001 s.
-15:19:01:853 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Deband.fx" in 0.002 s.
-15:19:01:857 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\DisplayDepth.fx" in 0.004 s.
-15:19:01:860 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\DPX.fx" in 0.002 s.
-15:19:01:862 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\FakeHDR.fx" in 0.002 s.
-15:19:01:864 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\FilmGrain.fx" in 0.001 s.
-15:19:01:869 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\FXAA.fx" in 0.004 s.
-15:19:01:871 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Layer.fx" in 0.002 s.
-15:19:01:875 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Levels.fx" in 0.002 s.
-15:19:01:877 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\LiftGammaGain.fx" in 0.002 s.
-15:19:01:880 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\LumaSharpen.fx" in 0.002 s.
-15:19:01:882 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\LUT.fx" in 0.002 s.
-15:19:01:885 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Monochrome.fx" in 0.001 s.
-15:19:01:892 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Nostalgia.fx" in 0.006 s.
-15:19:01:895 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\3DFX.fx" in 0.003 s.
-15:19:01:898 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\BasicCRT.fx" in 0.002 s.
-15:19:01:900 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Cathode.fx" in 0.002 s.
-15:19:01:903 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Chromaticity.fx" in 0.002 s.
-15:19:01:907 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\ChromaticitySimplified.fx" in 0.004 s.
-15:19:01:911 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\cmyk_halftone_dot.fx" in 0.002 s.
-15:19:01:913 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\ColorMAME.fx" in 0.002 s.
-15:19:01:916 [02548] | WARN  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx" in 0.003 s with warnings:
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx(167, 20): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx(168, 21): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx(174, 25): warning X3206: implicit truncation of vector type
-C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CoolRetroTerminal.fx(194, 24): warning X3206: implicit truncation of vector type
+18:43:57:075 [31592] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Levels.fx" in 0.003 s.
+18:43:57:076 [11852] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRT-Yee64.fx" in 0.003 s.
+18:43:57:076 [27296] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\zfast_crt.fx" in 0.003 s.
+18:43:57:076 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\BasicCRT.fx" in 0.002 s.
+18:43:57:077 [24684] | WARN  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx" in 0.004 s with warnings:
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(240, 19): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(241, 19): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(242, 19): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(243, 19): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(244, 19): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(245, 19): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(246, 19): warning X3206: implicit truncation of vector type
+C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRTHyllian.fx(247, 19): warning X3206: implicit truncation of vector type
 
-15:19:01:919 [02548] | INFO  | Successfully compiled "C:\Users\Leon\source\repos\Ullerman\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\CRT-Frutbunn.fx" in 0.002 s.
-15:24:01:447 [04412] | INFO  | Exiting ...
-15:24:01:447 [04412] | INFO  | Uninstalling 545 hook(s) ...
-15:24:02:474 [04412] | INFO  | Finished exiting.
+18:43:57:081 [27296] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Sepia.fx" in 0.002 s.
+18:43:57:081 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Cathode.fx" in 0.002 s.
+18:43:57:084 [12276] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\RSRetroArch\Chromaticity.fx" in 0.002 s.
+18:43:57:163 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\CRT-Royale\crt-royale.fx" in 0.11 s.
+18:43:57:167 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\CRT.fx" in 0.002 s.
+18:43:57:169 [25160] | INFO  | Successfully compiled "C:\Users\leonp\Documents\Gravity-Space-Invaders\Gravity-Space-Invaders\Pleasework\Pleasework\bin\Debug\net6.0\reshade-shaders\Shaders\Curves.fx" in 0.001 s.
