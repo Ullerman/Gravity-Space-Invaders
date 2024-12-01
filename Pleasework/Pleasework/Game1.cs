@@ -42,7 +42,6 @@ namespace Pleasework
         float previousScrollWheelValue;
         float rawZoom;
         float smoothZoom;
-        
 
         SpriteFont debugFont;
         TextBox debugText;
@@ -301,25 +300,22 @@ namespace Pleasework
                     gameTime
                 );
             }
-                   
+
             if (mouseState.ScrollWheelValue > previousScrollWheelValue)
             {
-                rawZoom += 0.1f; 
+                rawZoom += 0.1f;
             }
             else if (mouseState.ScrollWheelValue < previousScrollWheelValue)
             {
-                rawZoom -= 0.1f; 
+                rawZoom -= 0.1f;
             }
 
-            rawZoom = Math.Clamp(rawZoom, 0.1f, 3.0f); 
+            rawZoom = Math.Clamp(rawZoom, 0.1f, 3.0f);
 
             previousScrollWheelValue = mouseState.ScrollWheelValue;
 
-            smoothZoom = MathHelper.Lerp(smoothZoom,rawZoom,.5f);
+            smoothZoom = MathHelper.Lerp(smoothZoom, rawZoom, .5f);
 
-   
-
-        
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
             {
                 rocket.Position = new Vector2(
@@ -347,7 +343,7 @@ namespace Pleasework
             {
                 drawRect.Clear();
             }
-                     if (kstate.IsKeyDown(Keys.F11))
+            if (kstate.IsKeyDown(Keys.F11))
             {
                 _graphics.ToggleFullScreen();
             }
@@ -898,7 +894,7 @@ namespace Pleasework
 
         void DrawBackground(SpriteBatch _spriteBatch, Vector2 CameraOffset)
         {
-            Vector2 tileSize = new Vector2(BackroundTexture.Width, BackroundTexture.Height);
+            Vector2 tileSize = new Vector2(BackroundTexture.Width*smoothZoom, BackroundTexture.Height*smoothZoom);
 
             int tilesX = (int)Math.Ceiling(Window.ClientBounds.Width / tileSize.X) + 2;
             int tilesY = (int)Math.Ceiling(Window.ClientBounds.Height / tileSize.Y) + 2;
@@ -914,8 +910,8 @@ namespace Pleasework
                         (x * tileSize.X) - offsetX,
                         (y * tileSize.Y) - offsetY
                     );
-
-                    _spriteBatch.Draw(BackroundTexture, tilePosition, Color.White);
+        // new Vector2(BackroundTexture.Width/2,BackroundTexture.Height/2)
+                    _spriteBatch.Draw(BackroundTexture, tilePosition,null, Color.White,rnd.Next(25/30)/10,new Vector2(BackroundTexture.Width/2,BackroundTexture.Height/2),Vector2.One*smoothZoom,SpriteEffects.None,0);
                 }
             }
         }
@@ -950,12 +946,12 @@ namespace Pleasework
             if (arrowScale.X >= 0.02f)
                 _spriteBatch.Draw(
                     arrowTexture,
-                    (arrowPosition + cameraoffset)*smoothZoom,
+                    (arrowPosition + cameraoffset) * smoothZoom,
                     null,
                     color,
                     arrowAngle,
                     new Vector2(arrowTexture.Width / 2, arrowTexture.Height / 2),
-                    arrowScale*smoothZoom,
+                    arrowScale * smoothZoom,
                     SpriteEffects.None,
                     0
                 );
@@ -1071,23 +1067,23 @@ namespace Pleasework
             DrawSpeedometer(_spriteBatch);
         }
 
-        private void DrawDebugGraphics(SpriteBatch _spriteBatcht,Vector2 cameraoffset)
+        private void DrawDebugGraphics(SpriteBatch _spriteBatcht, Vector2 cameraoffset)
         {
             foreach (PrimitiveBatch.Line line in lines)
             {
-                line.Start = (line.Start+cameraoffset)*smoothZoom;
+                line.Start = (line.Start + cameraoffset) * smoothZoom;
                 line.Draw(_spriteBatch, _primitiveBatch);
             }
             lines.Clear();
             foreach (PrimitiveBatch.Circle circle in circles)
             {
-                circle.Position = (circle.Position + cameraoffset)*smoothZoom;
+                circle.Position = (circle.Position + cameraoffset) * smoothZoom;
                 circle.Draw(_spriteBatch, _primitiveBatch);
             }
             foreach (PrimitiveBatch.Rectangle rectangle in drawRect)
             {
-                rectangle.Position = (rectangle.Position + cameraoffset)*smoothZoom;
-                
+                rectangle.Position = (rectangle.Position + cameraoffset) * smoothZoom;
+
                 rectangle.Draw(_spriteBatch, _primitiveBatch);
             }
 
@@ -1111,12 +1107,12 @@ namespace Pleasework
 
                 _spriteBatch.Draw(
                     Invader1Texture,
-                    (invader.Position + cameraoffset)*smoothZoom,
+                    (invader.Position + cameraoffset) * smoothZoom,
                     null,
                     invader.Color,
                     invader.angle,
                     new Vector2(Invader1Texture.Width / 2, Invader1Texture.Height / 2),
-                    invader.Scale*smoothZoom,
+                    invader.Scale * smoothZoom,
                     SpriteEffects.None,
                     0
                 );
@@ -1131,12 +1127,12 @@ namespace Pleasework
                 {
                     _spriteBatch.Draw(
                         bullettexure,
-                        (bullet.position + cameraoffset)*smoothZoom,
+                        (bullet.position + cameraoffset) * smoothZoom,
                         null,
                         Color.White,
                         bullet.angle,
                         new Vector2(bullettexure.Width / 2, bullettexure.Height / 2),
-                        bulletscale*smoothZoom,
+                        bulletscale * smoothZoom,
                         SpriteEffects.None,
                         0
                     );
@@ -1148,23 +1144,23 @@ namespace Pleasework
         {
             _spriteBatch.Draw(
                 earthTexture,
-                (earthposition + cameraoffset)*smoothZoom,
+                (earthposition + cameraoffset) * smoothZoom,
                 null,
                 Color.White,
                 0,
                 new Vector2(earthTexture.Width / 2, earthTexture.Height / 2),
-                earthscale*smoothZoom,
+                earthscale * smoothZoom,
                 SpriteEffects.None,
                 0
             );
             _spriteBatch.Draw(
                 moontexture,
-                (moonposition + cameraoffset)*smoothZoom,
+                (moonposition + cameraoffset) * smoothZoom,
                 null,
                 Color.White,
                 0,
                 new Vector2(moontexture.Width / 2, moontexture.Height / 2),
-                moonscale*smoothZoom,
+                moonscale * smoothZoom,
                 SpriteEffects.None,
                 0
             );
@@ -1174,12 +1170,12 @@ namespace Pleasework
         {
             _spriteBatch.Draw(
                 thingtexture,
-                (thingposition + cameraoffset)*smoothZoom,
+                (thingposition + cameraoffset) * smoothZoom,
                 null,
                 Color.White,
                 0,
                 Vector2.Zero,
-                coinscale*smoothZoom,
+                coinscale * smoothZoom,
                 SpriteEffects.None,
                 0
             );
@@ -1212,12 +1208,12 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 rocket.Texture,
-                (rocket.Position + rocketcameraoffset)*smoothZoom,
+                (rocket.Position + rocketcameraoffset) * smoothZoom,
                 null,
                 Color.White,
                 rocket.Angle,
                 new Vector2(rocket.Texture.Width / 2, rocket.Texture.Height / 2),
-                rocket.Scale*smoothZoom,
+                rocket.Scale * smoothZoom,
                 SpriteEffects.None,
                 0
             );
