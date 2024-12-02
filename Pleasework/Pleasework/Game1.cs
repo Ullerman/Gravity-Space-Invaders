@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 public class Constants
 {
@@ -248,6 +248,7 @@ namespace Pleasework
             float rightTriggerValue = gamepadState.Triggers.Right;
 
             rocket.AngularVelocity += rocket.AngularAcceleration * leftThumbstick.X;
+            rawZoom += .1f * rightThumbstick.Y;
 
             float triangleAnglecontrol = (float)(rocket.Angle - Math.PI / 2);
             rocket.Velocity.X +=
@@ -873,7 +874,7 @@ namespace Pleasework
             Vector2 directionToCenter = targetScreenPosition - rocketScreenPosition;
             float distanceX = rocketScreenPosition.X - targetScreenPosition.X;
             float distanceY = rocketScreenPosition.Y - targetScreenPosition.X;
-            float distance = distanceX * distanceY;
+            float distance = distanceX * distanceX + distanceY * distanceY;
             float returnSpeed = 0.25f;
             if (distance > 400 * 400)
             {
@@ -889,12 +890,13 @@ namespace Pleasework
                     rocketcameraoffset + directionToCenter,
                     returnSpeed
                 );
-            cameraPosition = rocket.Position + rocketcameraoffset;
+            //cameraPosition = rocket.Position + rocketcameraoffset;
+            cameraPosition = rocketcameraoffset;
         }
 
         void DrawBackground(SpriteBatch _spriteBatch, Vector2 CameraOffset)
         {
-            Vector2 tileSize = new Vector2(BackroundTexture.Width*smoothZoom, BackroundTexture.Height*smoothZoom);
+            Vector2 tileSize = new Vector2(BackroundTexture.Width * smoothZoom, BackroundTexture.Height * smoothZoom);
 
             int tilesX = (int)Math.Ceiling(Window.ClientBounds.Width / tileSize.X) + 2;
             int tilesY = (int)Math.Ceiling(Window.ClientBounds.Height / tileSize.Y) + 2;
@@ -910,8 +912,8 @@ namespace Pleasework
                         (x * tileSize.X) - offsetX,
                         (y * tileSize.Y) - offsetY
                     );
-        // new Vector2(BackroundTexture.Width/2,BackroundTexture.Height/2)
-                    _spriteBatch.Draw(BackroundTexture, tilePosition,null, Color.White,rnd.Next(25/30)/10,new Vector2(BackroundTexture.Width/2,BackroundTexture.Height/2),Vector2.One*smoothZoom,SpriteEffects.None,0);
+                    // new Vector2(BackroundTexture.Width/2,BackroundTexture.Height/2)
+                    _spriteBatch.Draw(BackroundTexture, tilePosition, null, Color.White, rnd.Next(25 / 30) / 10, new Vector2(BackroundTexture.Width / 2, BackroundTexture.Height / 2), Vector2.One * smoothZoom, SpriteEffects.None, 0);
                 }
             }
         }
@@ -1029,7 +1031,7 @@ namespace Pleasework
                 500,
                 arrow,
                 arrowScale,
-                rocketcameraoffset,
+                cameraoffset,
                 Color.White,
                 _spriteBatch
             );
@@ -1184,10 +1186,11 @@ namespace Pleasework
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            Vector2 cameraoffset = (
-                -rocket.Position
-                + new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2)
-            );
+            //Vector2 cameraoffset = (
+            //    -rocket.Position
+            //    + new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2) / smoothZoom
+            //);
+            Vector2 cameraoffset = cameraPosition + new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2) / smoothZoom - new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2);
 
             _spriteBatch.Begin();
 
@@ -1208,7 +1211,7 @@ namespace Pleasework
             );
             _spriteBatch.Draw(
                 rocket.Texture,
-                (rocket.Position + rocketcameraoffset) * smoothZoom,
+                (rocket.Position + cameraoffset) * smoothZoom,
                 null,
                 Color.White,
                 rocket.Angle,
