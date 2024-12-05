@@ -6,15 +6,14 @@ namespace Pleasework
 {
     public class PrimitiveBatch
     {
-        Texture2D WhitePixel;
-        Texture2D WhiteCircle;
+        public Texture2D WhitePixel;
+        public Texture2D WhiteCircle;
 
         public void Primitive(Texture2D whitePixel, Texture2D whiteCircle)
         {
             this.WhitePixel = whitePixel;
             this.WhiteCircle = whiteCircle;
         }
-
         public class Line
         {
             public Vector2 Start;
@@ -118,6 +117,12 @@ namespace Pleasework
                 Size = size;
                 Color = color;
             }
+            public Rectangle(Microsoft.Xna.Framework.Rectangle rectangle,Color color)
+            {
+                Position = new Vector2(rectangle.X,rectangle.Y);
+                Size = new Vector2(rectangle.Width,rectangle.Height);
+                Color = color;
+            }
 
             public void Draw(
                 SpriteBatch spriteBatch,
@@ -127,14 +132,16 @@ namespace Pleasework
             {
                 spriteBatch.Draw(
                     primitiveBatch.WhitePixel,
-                    new Microsoft.Xna.Framework.Rectangle(
-                        (int)(Position.X),
-                        (int)(Position.Y ),
-                        (int)Size.X,
-                        (int)Size.Y
-                    ),
+                    
+                        new Microsoft.Xna.Framework.Rectangle(
+                            (int)(Position.X),
+                            (int)(Position.Y ),
+                            (int)Size.X,
+                            (int)Size.Y
+                        ),
                     Color
                 );
+                }
             }
         }
 
@@ -160,4 +167,4 @@ namespace Pleasework
         }
     }
     
-}
+

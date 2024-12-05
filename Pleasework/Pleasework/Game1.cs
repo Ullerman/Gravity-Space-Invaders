@@ -28,6 +28,7 @@ namespace Pleasework
         List<PrimitiveBatch.Line> lines = new List<PrimitiveBatch.Line>();
         List<PrimitiveBatch.Circle> circles = new List<PrimitiveBatch.Circle>();
         List<PrimitiveBatch.Rectangle> drawRect = new List<PrimitiveBatch.Rectangle>();
+        List<PrimitiveBatch.Rectangle> hitBoxes = new List<PrimitiveBatch.Rectangle>();
 
         // private Desktop _desktop;
 
@@ -311,11 +312,11 @@ namespace Pleasework
                 rawZoom -= 0.1f;
             }
 
-            rawZoom = Math.Clamp(rawZoom, 0.1f, 3.0f);
+            rawZoom = Math.Clamp(rawZoom, 0.1f, 3.0f);  
 
             previousScrollWheelValue = mouseState.ScrollWheelValue;
 
-            smoothZoom = MathHelper.Lerp(smoothZoom, rawZoom, .5f);
+            smoothZoom = MathHelper.Lerp(smoothZoom, rawZoom, .1f);
 
             if (kstate.IsKeyDown(Keys.R) || gamepadState.Buttons.Start == ButtonState.Pressed)
             {
@@ -438,12 +439,7 @@ namespace Pleasework
                     bullet.position += bullet.momentum;
                     bullet.angle = MathF.Atan2(bullet.momentum.Y, bullet.momentum.X);
 
-                    Rectangle bulletrect = new Rectangle(
-                        (int)bullet.position.X,
-                        (int)bullet.position.Y,
-                        (int)(bullettexure.Width * bulletscale),
-                        (int)(bullettexure.Height * bulletscale)
-                    );
+                    Rectangle bulletrect = bullet.BoundingBox;
 
                     if (
                         IsRectCollidingWithCircle(earthposition, earthradius, bulletrect)
@@ -664,7 +660,7 @@ namespace Pleasework
                 if (rocket.Velocity.X > 1 || rocket.Velocity.Y > 1)
                 {
                     rocket.Velocity = Vector2.Reflect(rocket.Velocity, collisionNormal) * 0.8f;
-                    // rocket.AngularVelocity = -rocket.AngularVelocity * 0.5f;
+                    rocket.AngularVelocity = -rocket.AngularVelocity * 0.5f;
                 }
                 if (rocket.Velocity.Length() < 0.1f)
                 {
@@ -821,6 +817,7 @@ namespace Pleasework
                 SpawnInvaders();
             }
         }
+
 
         protected override void Update(GameTime gameTime)
         {
@@ -1074,25 +1071,32 @@ namespace Pleasework
             foreach (PrimitiveBatch.Line line in lines)
             {
                 line.Start = (line.Start + cameraoffset) * smoothZoom;
+                line.Width *= smoothZoom;
+                
+
                 line.Draw(_spriteBatch, _primitiveBatch);
             }
             lines.Clear();
             foreach (PrimitiveBatch.Circle circle in circles)
             {
                 circle.Position = (circle.Position + cameraoffset) * smoothZoom;
+                circle.Radius *= smoothZoom;
+
                 circle.Draw(_spriteBatch, _primitiveBatch);
             }
             foreach (PrimitiveBatch.Rectangle rectangle in drawRect)
             {
                 rectangle.Position = (rectangle.Position + cameraoffset) * smoothZoom;
-
+                rectangle.Size *= smoothZoom;
                 rectangle.Draw(_spriteBatch, _primitiveBatch);
             }
-
-            if (!toggleDebug)
-            {
-                drawRect.Clear();
+            foreach (PrimitiveBatch.Rectangle rectangle in hitBoxes){
+                rectangle.Position = (rectangle.Position +cameraoffset)* smoothZoom;
+                rectangle.Size *= smoothZoom;
+                rectangle.Draw(_spriteBatch,_primitiveBatch);
             }
+            hitBoxes.Clear();
+            
             circles.Clear();
         }
 
@@ -1127,6 +1131,7 @@ namespace Pleasework
             {
                 foreach (Bullet bullet in Bulletlist)
                 {
+                    
                     _spriteBatch.Draw(
                         bullettexure,
                         (bullet.position + cameraoffset) * smoothZoom,
@@ -1203,12 +1208,8 @@ namespace Pleasework
                 DrawDebugGraphics(_spriteBatch, cameraoffset);
             DrawEnemies(_spriteBatch, cameraoffset);
 
-            rocket.Rectangle = new Rectangle(
-                (int)rocket.Position.X,
-                (int)rocket.Position.Y,
-                (int)(rocket.Texture.Width * rocket.Scale.X),
-                (int)(rocket.Texture.Height * rocket.Scale.Y)
-            );
+            rocket.Rectangle = rocket.BoundingBox;
+            hitBoxes.Add(new PrimitiveBatch.Rectangle(rocket.Rectangle,Color.HotPink));
             _spriteBatch.Draw(
                 rocket.Texture,
                 (rocket.Position + cameraoffset) * smoothZoom,
