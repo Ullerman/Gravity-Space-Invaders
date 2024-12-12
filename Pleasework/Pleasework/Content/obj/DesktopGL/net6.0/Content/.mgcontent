@@ -4,28 +4,28 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/AnnaRocket.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/arrow.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Backround.jpg</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/bullet.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Circle.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/coin.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Earth.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/fastinvader1.wav</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/fastinvader2.wav</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/fastinvader3.wav</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/fastinvader4.wav</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/File.spritefont</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/game_over.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/heart.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Invader1.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Invader2.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/moon.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/pin.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/pixel.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/rocket.png</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/shoot.wav</File>
-    <File>c:/Users/leonp/Documents/Gravity-Space-Invaders/Gravity-Space-Invaders/Pleasework/Pleasework/Content/speedometrenopin.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/AnnaRocket.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/arrow.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Backround.jpg</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/bullet.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Circle.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/coin.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Earth.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/fastinvader1.wav</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/fastinvader2.wav</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/fastinvader3.wav</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/fastinvader4.wav</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/File.spritefont</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/game_over.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/heart.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Invader1.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/Invader2.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/moon.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/pin.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/pixel.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/rocket.png</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/shoot.wav</File>
+    <File>C:/Users/Leon/Downloads/PortableGit/Gravity-Space-Invaders/Pleasework/Pleasework/Content/speedometrenopin.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

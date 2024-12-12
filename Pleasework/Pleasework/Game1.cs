@@ -44,6 +44,8 @@ namespace Pleasework
         float rawZoom;
         float smoothZoom;
 
+        byte points;
+
         SpriteFont debugFont;
         TextBox debugText;
 
@@ -138,6 +140,7 @@ namespace Pleasework
             togglerocket = true;
             toggleDebug = false;
 
+            points = 0;
             arrowScale = new Vector2(.25f);
 
             thingposition = new Vector2(600 - 52.5f, 0);
@@ -190,12 +193,12 @@ namespace Pleasework
             base.Initialize();
         }
 
-        private void LoadMenu() { }
+        //private void LoadMenu() { }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            LoadMenu();
+            //LoadMenu();
 
             Pixel = Content.Load<Texture2D>("Pixel");
             Circle = Content.Load<Texture2D>("Circle");
@@ -461,6 +464,7 @@ namespace Pleasework
                                 removebullets.Add(bullet);
                                 removeinvader.Add(enemy);
                                 bullet.hascollided = true;
+                                points += 10;
                             }
                         }
                     }
@@ -1004,8 +1008,15 @@ namespace Pleasework
             Vector2 heartscale = new Vector2(0.0625f, 0.0625f);
             float speed = rocket.Velocity.Length();
             string text =
-                $"X: {rocket.Position.X}\n Y: {rocket.Position.Y}\n speed : {MathF.Round(speed, 3)} ";
+                $"X: {rocket.Position.X}\n Y: {rocket.Position.Y}";//speed : {MathF.Round(speed, 3)} 
             debugText.Draw(_spriteBatch, text, debugFont, 400, new Vector2(10, 75), Color.White);
+            _spriteBatch.DrawString(debugFont,
+                    $"Points: {points}",
+                    new Vector2(10,Window.ClientBounds.Height*.92f),
+                    Color.OrangeRed,0,Vector2.Zero,new Vector2(2),
+                    SpriteEffects.None,
+                    0
+                );
 
             for (int i = 0; i < rocket.Health; i++)
             {
